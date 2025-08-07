@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Admin = () => {
+const Jursey = () => {
     return (
         <div>
-            THis Admin
+            This is Jursey
         </div>
     );
 };
 
-export default Admin;
+export default Jursey;
