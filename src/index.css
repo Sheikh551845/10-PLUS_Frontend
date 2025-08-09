@@ -1,2 +1,21 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@keyframes flicker {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  25% {
+    transform: translateY(-2px) scale(1.1);
+  }
+  50% {
+    transform: translateY(1px) scale(0.95);
+  }
+  75% {
+    transform: translateY(-1px) scale(1.05);
+  }
+}
+
+.animate-fire {
+  display: inline-block;
+  animation: flicker 0.5s infinite ease-in-out;
+}

@@ -1,85 +1,73 @@
 import React from 'react';
-import { FaEdit, FaFlag, FaHome, FaRegEdit, FaTshirt, FaUser, FaUsersCog } from 'react-icons/fa';
-import { FaBuildingColumns, FaBullhorn, FaList } from 'react-icons/fa6';
-import logo from "../../assets/Logo/logo.png"
-import { RiCoupon3Line } from "react-icons/ri";
-import { NavLink, useNavigate } from 'react-router-dom';
-import { SidebarItem } from './SidebarItem';
+import {
+  FaHome, FaTshirt, FaList
+} from 'react-icons/fa';
 import { PiTShirtFill } from "react-icons/pi";
 import { MdNoteAdd } from 'react-icons/md';
 import { BiSolidOffer } from "react-icons/bi";
+import { useNavigate, NavLink } from 'react-router-dom';
+import logo from "../../assets/Logo/logo.png";
 
 const Dash_nav = () => {
-    const navigate = useNavigate()
-    return (
+  const navigate = useNavigate();
 
-        <div className='fixed z-50 w-[20vw]'>
-            <div id="" className=" flex flex-col justify-between xl:rounded-r bg-black bg-opacity-80 h-screen">
-                {/* Header */}
-                <div>
-                    <div className="flex bg-red-500 justify-center items-center ">
-                        <NavLink to="/"> <img src={logo} alt="" className=" w-4 h-4 md:w-7 md:h-7 rounded-full" /></NavLink>
-                        <p className='text-[8px] md:text-base font-bold text-white'>10 PLUSH</p>
-                    </div>
+  return (
+    <div className='fixed z-50 w-[10vw] min-w-[80px]'>
+      <div className="flex flex-col justify-between h-screen bg-[rgba(185,28,28,0.7)] backdrop-blur-sm bg-opacity-30 shadow-xl">
+        
+        {/* Logo Header */}
+        <div>
+          <div className="flex justify-center items-center py-3 border-b border-white">
+            <NavLink to="/">
+              <img src={logo} alt="logo" className="w-5 h-5 md:w-7 md:h-7 rounded-full" />
+            </NavLink>
+          </div>
 
+          {/* Navigation Buttons */}
+          <div className='flex flex-col items-center mt-8 space-y-6'>
 
-                    <div className='px-1 py-1 md:px-4 md:py-4 mt-10'>
-                        <div className="flex flex-col items-start border-b border-white pb-2 md:pb-5 mb-6 md:mb-10 space-y-4">
-                            <button
-                                className="flex items-center  space-x-1 md:space-x-3 text-white hover:text-indigo-400"
-                                onClick={() => navigate("/")}
-                            >
-                                <FaHome className="text-[10px] md:text-base" />
-                                <p className="text-[10px] md:text-base">Home</p>
-                            </button>
-                        </div>
+            <button onClick={() => navigate("/")} className="flex flex-col items-center text-white hover:text-gray-300">
+              <FaHome className="text-xs md:text-base" />
+              <p className="text-[10px] md:text-xs mt-1">Home</p>
+            </button>
 
-                        {/* Navigation Links */}
-                        <div className="flex flex-col space-y-0.5 md:space-y-4">
-                            <button className="flex justify-start items-center w-full  space-x-1 md:space-x-3 focus:outline-none text-white focus:text-indigo-400   rounded " onClick={() => navigate("/admin/T-shirt")}>
-                                <FaTshirt className="text-[10px] md:text-lg lg:text-lg "></FaTshirt>
-                                <p className="leading-4 text-[8px] md:text-lg lg:text-lg">T-shiet</p>
-                            </button>
+            <button onClick={() => navigate("/admin/T-shirt")} className="flex flex-col items-center text-white hover:text-gray-300">
+              <FaTshirt className="text-xs md:text-base" />
+              <p className="text-[10px] md:text-xs mt-1">T-shirt</p>
+            </button>
 
-                            <button className="flex justify-start items-center w-full  space-x-1 md:space-x-3 focus:outline-none text-white focus:text-indigo-400   rounded " onClick={() => navigate("/admin/Jursey")}>
-                                <PiTShirtFill className="text-[10px] md:text-lg lg:text-lg "></PiTShirtFill>
-                                <p className="leading-4 text-[8px] md:text-lg lg:text-lg">Jursey</p>
-                            </button>
+            <button onClick={() => navigate("/admin/Jursey")} className="flex flex-col items-center text-white hover:text-gray-300">
+              <PiTShirtFill className="text-xs md:text-base" />
+              <p className="text-[10px] md:text-xs mt-1">Jursey</p>
+            </button>
 
+            <button onClick={() => navigate("/admin/Add Product")} className="flex flex-col items-center text-white hover:text-gray-300">
+              <MdNoteAdd className="text-xs md:text-base" />
+              <p className="text-[10px] md:text-xs mt-1">Add</p>
+            </button>
 
-                            <button className="flex justify-start items-center w-full  space-x-1 md:space-x-3 focus:outline-none text-white focus:text-indigo-400   rounded " onClick={() => navigate("/admin/Add Product")}>
-                                <MdNoteAdd className="text-[10px] md:text-lg lg:text-lg "></MdNoteAdd >
-                                <p className="leading-4 text-[8px] md:text-lg lg:text-lg">Add Product</p>
-                            </button>
+            <button onClick={() => navigate("/admin/Add Offer")} className="flex flex-col items-center text-white hover:text-gray-300">
+              <BiSolidOffer className="text-xs md:text-base" />
+              <p className="text-[10px] md:text-xs mt-1">Offer</p>
+            </button>
 
-                            
-                            <button className="flex justify-start items-center w-full  space-x-1 md:space-x-3 focus:outline-none text-white focus:text-indigo-400   rounded " onClick={() => navigate("/admin/Add Product")}>
-                                <BiSolidOffer  className="text-[10px] md:text-lg lg:text-lg "></BiSolidOffer  >
-                                <p className="leading-4 text-[8px] md:text-lg lg:text-lg">Add Offer</p>
-                            </button>
+            <button onClick={() => navigate("/admin/Offer List")} className="flex flex-col items-center text-white hover:text-gray-300">
+              <FaList className="text-xs md:text-base" />
+              <p className="text-[10px] md:text-xs mt-1">List</p>
+            </button>
 
-                            <button className="flex justify-start items-center w-full  space-x-1 md:space-x-3 focus:outline-none text-white focus:text-indigo-400   rounded " onClick={() => navigate("/admin/Add Offer")}>
-                                <FaList className="text-[8px] md:text-lg lg:text-lg "></FaList>
-                                <p className="leading-4 text-[8px] md:text-lg lg:text-lg">Offer List</p>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                {/* Footer Section */}
-                <div className="bg-red-500  w-full text-[8px] md:text-[12px] text-white text-center">
-                    <p className="">10 PLUS Admin</p>
-                    <p>All rights reserved</p>
-                </div>
-            </div>
-
+          </div>
         </div>
 
+        {/* Footer */}
+        <div className="bg-[rgba(185,28,28,0.7)] backdrop-blur-sm w-full py-2 text-center text-white text-[8px] md:text-[10px] border-t border-white">
+          <p>10 PLUS Admin</p>
+          <p>© All rights reserved</p>
+        </div>
 
-
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Dash_nav;

@@ -2,23 +2,34 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import { Toaster } from 'react-hot-toast';
+import AuthProvider from '../AuthPorvider';
 
 const Main = () => {
     return (
-        <div className='' >
+        <AuthProvider>
+            <div className='' >
             <div className='h-[64px]'>
-             <Navbar ></Navbar>
+                <Navbar ></Navbar>
+            </div>
+
+            <div className='min-h-[80vh] mb-10'>
+                <Outlet ></Outlet>
+                <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                />
             </div>
             
-            <div className='min-h-[80vh]'>
-                    <Outlet ></Outlet>
-            </div>
             <div>
-              <Footer></Footer>
+                <Footer></Footer>
             </div>
-            
-            
+
+
         </div>
+
+        </AuthProvider>
+        
     );
 };
 
