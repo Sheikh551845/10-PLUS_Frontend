@@ -8,7 +8,7 @@ import AuthProvider from '../AuthPorvider';
 const Main = () => {
     return (
         <AuthProvider>
-            <div className='' >
+
             <div className='h-[64px]'>
                 <Navbar ></Navbar>
             </div>
@@ -24,9 +24,6 @@ const Main = () => {
             <div>
                 <Footer></Footer>
             </div>
-
-
-        </div>
 
         </AuthProvider>
         

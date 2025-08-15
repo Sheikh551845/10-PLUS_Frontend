@@ -5,13 +5,7 @@ import Main from "../Main/Main";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Registration from "../pages/Registraion/Registration";
-import Drop_shoulder from "../pages/T-Shirt/Drop Shoulder/Drop_shoulder";
-import V_neck from "../pages/T-Shirt/V Neck/V_neck";
-import Turtle_neck from "../pages/T-Shirt/Turtle Neck/Turtle_neck";
 import Polo from "../pages/T-Shirt/Polo/Polo";
-import Pocket from "../pages/T-Shirt/Pocket/Pocket";
-import Club_Jursey from "../pages/Jursey/Club Jursey/Club_Jursey";
-import Basic_Jursey from "../pages/Jursey/Basic Jursey/Basic_Jursey";
 import About_us from "../pages/About Us/About_us";
 import Error_page from "../pages/Error Page/Error_page";
 import Dash_main from "../Dash Main/Dash_main";
@@ -29,9 +23,14 @@ import Offer_list from "../pages/Admin/Offer List/Offer_list";
 import Edit_product from "../pages/Admin/Edit Product/Edit_product";
 import Edit_offer from "../pages/Admin/Edit Offer/Edit_offer";
 import T_shirt from "../pages/Admin/Product_view/T-shirt/T-shirt";
-import Jursey from "../pages/Admin/Product_view/Jursey/Jursey";
 import Dashboard from "../pages/Admin/Dash Board/Dashboard";
 import Product_details from "../pages/Poduct_details/Product_details";
+import CartInfo from "../pages/CartInfo/CartInfo";
+import Panjabi from "../pages/Panjabi/Panjabi";
+import Trouser from "../pages/Trouser/Trouser";
+import Cuban_shirt from "../pages/Cuban Shirt/Cuban_shirt";
+import Combo from "../pages/Combo/Combo";
+import T_shirt_user from "../pages/T-Shirt/T_shirt";
 
 export const router = createBrowserRouter([
   {
@@ -41,16 +40,47 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "Login", element: <Login /> },
-      { path: "Registration", element: <Registration /> },
-      { path: "T-Shirt/Drop Shoulder", element: <Drop_shoulder /> },
-      { path: "T-Shirt/V Neck", element: <V_neck /> },
-      { path: "T-Shirt/Turtle Neck", element: <Turtle_neck /> },
-      { path: "T-Shirt/Polo", element: <Polo /> },
-      { path: "T-Shirt/Pocket", element: <Pocket /> },
-      { path: "Jursey/Club", element: <Club_Jursey /> },
-      { path: "Jursey/Basic Jursey", element: <Basic_Jursey /> },
+      {
+        path: "Registration", element: <Registration />
+      },
+      {
+        path: "T-Shirt", element: <T_shirt_user></T_shirt_user>, loader: async ({ params }) => {
+          return fetch(`https://one0-plus-server.onrender.com/Category/T-Shirt`);
+        }
+      },
+      {
+        path: "Polo", element: <Polo></Polo>, loader: async ({ params }) => {
+          return fetch(`https://one0-plus-server.onrender.com/Category/T-Shirt`);
+        }
+      },
+      {
+        path: "Panjabi", element: <Panjabi></Panjabi>, loader: async ({ params }) => {
+          return fetch(`https://one0-plus-server.onrender.com/Category/Panjabi`);
+        }
+      },
+      {
+        path: "Trouser", element: <Trouser></Trouser>, loader: async ({ params }) => {
+          return fetch(`https://one0-plus-server.onrender.com/Category/Trouser`);
+        }
+      },
+      {
+        path: "Cuban-Shirt", element: <Cuban_shirt></Cuban_shirt>, loader: async ({ params }) => {
+          return fetch(`https://one0-plus-server.onrender.com/Category/Shirt`);
+        }
+      },
+
+      {
+        path: "Combo", element: <Combo></Combo>, loader: async ({ params }) => {
+          return fetch(`https://one0-plus-server.onrender.com/Combo`);
+        }
+      },
       { path: "About Us", element: <About_us /> },
-      { path: "Product_details/:id", element: <Product_details></Product_details> },
+      {
+        path: "Product_details/:id", element: <Product_details></Product_details>, loader: async ({ params }) => {
+          return fetch(`https://one0-plus-server.onrender.com/Product/${params.id}`);
+        },
+      },
+      { path: "CartInfo", element: <CartInfo></CartInfo> }
     ],
   },
 
@@ -73,7 +103,8 @@ export const router = createBrowserRouter([
       { path: "Edit Product", element: <Edit_product /> },
       { path: "Edit Offer", element: <Edit_offer /> },
       { path: "T-shirt", element: <T_shirt /> },
-      { path: "Jursey", element: <Jursey /> },
+
+
 
     ],
   },

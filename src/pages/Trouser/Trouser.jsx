@@ -1,14 +1,14 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 
-const Polo = () => {
+const Trouser = () => {
         const data=useLoaderData()
     console.log(data)
     return (
         <div>
-            This is Polo page
+            This is trouser Page 
         </div>
     );
 };
 
-export default Polo;
+export default Trouser;

@@ -1,9 +1,10 @@
 import React from 'react';
+import AllProducts from '../../Allproducts.jsx/AllProducts';
 
 const Drop_shoulder = () => {
     return (
         <div>
-            This is Drop Shoulder Page
+           <AllProducts></AllProducts>
         </div>
     );
 };

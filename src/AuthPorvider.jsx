@@ -9,12 +9,6 @@ import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext(null);
 
-
-
-
-
-
-
 export default function AuthProvider({ children }) {
 
 
@@ -27,45 +21,30 @@ export default function AuthProvider({ children }) {
     const [allComment, setAllComments] = useState([])
     const [allFirst, setAllFirst] = useState([])
     const [allSecond, setAllSecond] = useState([])
+    const [cartCount, setCartCount]=useState(0)
 
     const navigate = useNavigate();
 
 
-    //   useEffect(()=>{
-    //    fetch(`https://bit-expresso-server.onrender.com/AllComment`)
-    //             .then(res => res.json())
-    //             .then(data => {
-    //                 setAllComments(data)
+ const updateCartCount = () => {
+    const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const count = cart.reduce(
+      (total, item) => total + Number(item.quantity || 1),
+      0
+    );
+    setCartCount(count);
+  };
 
-    //             })
+  useEffect(() => {
+    // Initial cart count load
+    updateCartCount();
 
+    // Listen to the "cartUpdated" event
+    window.addEventListener("cartUpdated", updateCartCount);
 
-    //   },
-    //   [])
-
-    //   useEffect(()=>{
-    //    fetch(`https://bit-expresso-server.onrender.com/AllFirst`)
-    //             .then(res => res.json())
-    //             .then(data => {
-    //                 setAllFirst(data)
-
-    //             })
-
-
-    //   },
-    //   [])
-
-    //     useEffect(()=>{
-    //    fetch(`https://bit-expresso-server.onrender.com/AllSecond`)
-    //             .then(res => res.json())
-    //             .then(data => {
-    //                 setAllSecond(data)
-
-    //             })
-
-
-    //   },
-    //   [])
+    // Cleanup listener on unmount
+    return () => window.removeEventListener("cartUpdated", updateCartCount);
+  }, []);
 
 
     const capitalize = (text) =>
@@ -157,7 +136,9 @@ export default function AuthProvider({ children }) {
         allFirst,
         allSecond,
         loading,
-        reg
+        reg,
+        cartCount,
+        setCartCount
 
     }
 

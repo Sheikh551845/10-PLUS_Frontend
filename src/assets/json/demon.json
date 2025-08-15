@@ -1,0 +1,565 @@
+[
+  {
+    "pid": "prod-101",
+    "Name": "Classic White Panjabi",
+    "Category": "Panjabi",
+    "Price": "1500",
+    "Upload_on": "2025-07-18",
+    "Update_on": "2025-07-26",
+    "Show_photo": "https://images.unsplash.com/photo-1602810318383-e7f4b94b4a06?auto=format&fit=crop&w=400&q=80",
+    "Offer": "true",
+    "New_arrival": "true",
+    "combo": "false",
+    "combo_quantity": "0",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "white",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "black",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://images.unsplash.com/photo-1602810318383-e7f4b94b4a06?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1593032457865-ae29c8c17811?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1520974735840-39de12cfc75a?auto=format&fit=crop&w=400&q=80"
+      ],
+      "Offer_price": "1275",
+      "Offer_percentage": "15%",
+      "description": {
+        "Material": "Cotton",
+        "GSM": "200gsm",
+        "Fit": "Regular",
+        "Care_instructions": "Hand wash cold"
+      }
+    }
+  },
+  {
+    "pid": "prod-102",
+    "Name": "Slim Fit Black Trouser",
+    "Category": "Trouser",
+    "Price": "1200",
+    "Upload_on": "2025-07-19",
+    "Update_on": "2025-07-26",
+    "Show_photo": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&q=80",
+    "Offer": "false",
+    "New_arrival": "true",
+    "combo": "true",
+    "combo_quantity": "2",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "black",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "grey",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1596755094514-f87e34085b2b?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80"
+      ],
+      "Offer_price": "0",
+      "Offer_percentage": "0%",
+      "description": {
+        "Material": "Polyester blend",
+        "GSM": "180gsm",
+        "Fit": "Slim",
+        "Care_instructions": "Machine wash warm"
+      }
+    }
+  },
+  {
+    "pid": "prod-103",
+    "Name": "Formal Blue Shirt",
+    "Category": "Shirt",
+    "Price": "1000",
+    "Upload_on": "2025-07-20",
+    "Update_on": "2025-07-26",
+    "Show_photo": "https://images.unsplash.com/photo-1520975564237-3480d3325c01?auto=format&fit=crop&w=400&q=80",
+    "Offer": "true",
+    "New_arrival": "false",
+    "combo": "false",
+    "combo_quantity": "0",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "blue",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "white",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://images.unsplash.com/photo-1520975564237-3480d3325c01?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=400&q=80"
+      ],
+      "Offer_price": "850",
+      "Offer_percentage": "15%",
+      "description": {
+        "Material": "Cotton",
+        "GSM": "160gsm",
+        "Fit": "Slim",
+        "Care_instructions": "Machine wash cold"
+      }
+    }
+  },
+  {
+    "pid": "prod-104",
+    "Name": "Casual Polo Shirt Green",
+    "Category": "Polo Shirt",
+    "Price": "900",
+    "Upload_on": "2025-07-21",
+    "Update_on": "2025-07-26",
+    "Show_photo": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80",
+    "Offer": "false",
+    "New_arrival": "true",
+    "combo": "true",
+    "combo_quantity": "3",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "green",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "black",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1516684669134-de6e898f62a7?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80"
+      ],
+      "Offer_price": "0",
+      "Offer_percentage": "0%",
+      "description": {
+        "Material": "Polyester blend",
+        "GSM": "170gsm",
+        "Fit": "Regular",
+        "Care_instructions": "Machine wash warm"
+      }
+    }
+  },
+  {
+    "pid": "prod-105",
+    "Name": "Basic Cotton T-Shirt Red",
+    "Category": "T-Shirt",
+    "Price": "600",
+    "Upload_on": "2025-07-15",
+    "Update_on": "2025-07-24",
+    "Show_photo": "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
+    "Offer": "true",
+    "New_arrival": "true",
+    "combo": "false",
+    "combo_quantity": "0",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "red",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        },
+        {
+          "color": "blue",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1520974735840-39de12cfc75a?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=400&q=80"
+      ],
+      "Offer_price": "510",
+      "Offer_percentage": "15%",
+      "description": {
+        "Material": "100% Cotton",
+        "GSM": "180gsm",
+        "Fit": "Regular",
+        "Care_instructions": "Machine wash cold"
+      }
+    }
+  },
+  {
+    "pid": "prod-106",
+    "Name": "Summer Casual T-Shirt Blue",
+    "Category": "T-Shirt",
+    "Price": "650",
+    "Upload_on": "2025-07-22",
+    "Update_on": "2025-07-28",
+    "Show_photo": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80",
+    "Offer": "false",
+    "New_arrival": "true",
+    "combo": "true",
+    "combo_quantity": "4",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "blue",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        },
+        {
+          "color": "green",
+          "size": [
+            "L",
+            "XL"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=400&q=80"
+      ],
+      "Offer_price": "0",
+      "Offer_percentage": "0%",
+      "description": {
+        "Material": "Cotton Blend",
+        "GSM": "170gsm",
+        "Fit": "Slim",
+        "Care_instructions": "Machine wash warm"
+      }
+    }
+  },
+  {
+    "pid": "prod-107",
+    "Name": "Formal Black Shirt",
+    "Category": "Shirt",
+    "Price": "1100",
+    "Upload_on": "2025-07-18",
+    "Update_on": "2025-07-25",
+    "Show_photo": "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=400&q=80",
+    "Offer": "true",
+    "New_arrival": "false",
+    "combo": "false",
+    "combo_quantity": "0",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "black",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "white",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1520975564237-3480d3325c01?auto=format&fit=crop&w=400&q=80"
+      ],
+      "Offer_price": "935",
+      "Offer_percentage": "15%",
+      "description": {
+        "Material": "Cotton",
+        "GSM": "190gsm",
+        "Fit": "Slim",
+        "Care_instructions": "Machine wash cold"
+      }
+    }
+  },
+  {
+    "pid": "prod-108",
+    "Name": "Polo Shirt Navy Blue",
+    "Category": "Polo Shirt",
+    "Price": "950",
+    "Upload_on": "2025-07-23",
+    "Update_on": "2025-07-27",
+    "Show_photo": "https://images.unsplash.com/photo-1516684669134-de6e898f62a7?auto=format&fit=crop&w=400&q=80",
+    "Offer": "false",
+    "New_arrival": "true",
+    "combo": "true",
+    "combo_quantity": "5",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "navy",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "white",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://images.unsplash.com/photo-1516684669134-de6e898f62a7?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+      ],
+      "Offer_price": "0",
+      "Offer_percentage": "0%",
+      "description": {
+        "Material": "Polyester",
+        "GSM": "160gsm",
+        "Fit": "Regular",
+        "Care_instructions": "Machine wash warm"
+      }
+    }
+  },
+  {
+    "pid": "prod-109",
+    "Name": "Relaxed Fit Grey Trouser",
+    "Category": "Trouser",
+    "Price": "1100",
+    "Upload_on": "2025-07-20",
+    "Update_on": "2025-07-26",
+    "Show_photo": "https://images.unsplash.com/photo-1596755094514-f87e34085b2b?auto=format&fit=crop&w=400&q=80",
+    "Offer": "true",
+    "New_arrival": "false",
+    "combo": "false",
+    "combo_quantity": "0",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "grey",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "black",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://images.unsplash.com/photo-1596755094514-f87e34085b2b?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?auto=format&fit=crop&w=400&q=80"
+      ],
+      "Offer_price": "935",
+      "Offer_percentage": "15%",
+      "description": {
+        "Material": "Cotton blend",
+        "GSM": "190gsm",
+        "Fit": "Relaxed",
+        "Care_instructions": "Machine wash cold"
+      }
+    }
+  },
+  {
+    "pid": "prod-110",
+    "Name": "Classic White T-Shirt",
+    "Category": "T-Shirt",
+    "Price": "550",
+    "Upload_on": "2025-07-22",
+    "Update_on": "2025-07-28",
+    "Show_photo": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80",
+    "Offer": "true",
+    "New_arrival": "true",
+    "combo": "false",
+    "combo_quantity": "0",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "white",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        },
+        {
+          "color": "grey",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=400&q=80"
+      ],
+      "Offer_price": "467",
+      "Offer_percentage": "15%",
+      "description": {
+        "Material": "100% Cotton",
+        "GSM": "170gsm",
+        "Fit": "Regular",
+        "Care_instructions": "Machine wash cold"
+      }
+    }
+  },
+  {
+    "pid": "prod-111",
+    "Name": "Elegant White Panjabi",
+    "Category": "Panjabi",
+    "Price": "1700",
+    "Upload_on": "2025-07-19",
+    "Update_on": "2025-07-28",
+    "Show_photo": "https://images.unsplash.com/photo-1602810318383-e7f4b94b4a06?auto=format&fit=crop&w=400&q=80",
+    "Offer": "true",
+    "New_arrival": "false",
+    "combo": "false",
+    "combo_quantity": "0",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "white",
+          "size": [
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ]
+        },
+        {
+          "color": "beige",
+          "size": [
+            "L",
+            "XL"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://images.unsplash.com/photo-1602810318383-e7f4b94b4a06?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1593032457865-ae29c8c17811?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1520974735840-39de12cfc75a?auto=format&fit=crop&w=400&q=80"
+      ],
+      "Offer_price": "1445",
+      "Offer_percentage": "15%",
+      "description": {
+        "Material": "Premium Cotton",
+        "GSM": "210gsm",
+        "Fit": "Regular",
+        "Care_instructions": "Hand wash cold"
+      }
+    }
+  },
+  {
+    "pid": "prod-112",
+    "Name": "Men’s Formal Trouser Grey",
+    "Category": "Trouser",
+    "Price": "1300",
+    "Upload_on": "2025-07-22",
+    "Update_on": "2025-07-29",
+    "Show_photo": "https://images.unsplash.com/photo-1596755094514-f87e34085b2b?auto=format&fit=crop&w=400&q=80",
+    "Offer": "false",
+    "New_arrival": "true",
+    "combo": "true",
+    "combo_quantity": "2",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "grey",
+          "size": [
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ]
+        },
+        {
+          "color": "black",
+          "size": [
+            "M",
+            "L"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://images.unsplash.com/photo-1596755094514-f87e34085b2b?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?auto=format&fit=crop&w=400&q=80"
+      ],
+      "Offer_price": "0",
+      "Offer_percentage": "0%",
+      "description": {
+        "Material": "Polyester blend",
+        "GSM": "200gsm",
+        "Fit": "Slim",
+        "Care_instructions": "Machine wash cold"
+      }
+    }
+  }
+]
