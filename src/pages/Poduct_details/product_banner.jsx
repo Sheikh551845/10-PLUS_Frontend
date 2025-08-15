@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs } from "swiper/modules";
+import { MdOutlineZoomOutMap } from "react-icons/md";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -19,13 +20,13 @@ const ProductBanner = ({ product }) => {
     })) || [];
 
   return (
-    <div className="product-gallery w-[99%]  mx-auto relative ">
+    <div className="product-gallery w-[99.99%]  mx-auto relative ">
       {/* Zoom Button */}
       <button
         onClick={() => setIsModalOpen(true)}
-        className="absolute top-2 right-2 z-5 bg-gray-800 text-white px-3 py-1 rounded hover:bg-gray-700"
+        className="absolute top-2 right-10 z-5 bg-[rgba(185,28,28,0.7)] text-white px-3 py-1 rounded hover:bg-gray-700 text-xl"
       >
-        🔍 Zoom
+      <MdOutlineZoomOutMap />
       </button>
 
       {/* Main Swiper */}
@@ -39,12 +40,12 @@ const ProductBanner = ({ product }) => {
         thumbs={{ swiper: thumbsSwiper }}
         modules={[Navigation, Thumbs]}
         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-        className="main-swiper rounded-md overflow-hidden relative"
+        className="main-swiper overflow-hidden relative h-[55vh] md:h-[60vh]"
       >
         {images.map((img, i) => (
           <SwiperSlide key={i}>
             <div
-              className="zoom-container h-[70vh]"
+              className="zoom-container h-[55vh] md:h-[60vh]"
               style={{
                 overflow: "hidden",
                 position: "relative",
@@ -54,7 +55,7 @@ const ProductBanner = ({ product }) => {
               <img
                 src={img.large}
                 alt={`product-${i}`}
-                className="w-full object-cover transition-transform duration-300 ease-in-out"
+                className="w-full object-fill transition-transform duration-300 ease-in-out h-[55vh] md:h-[60vh]"
                 style={{ maxHeight: "600px" }}
               // Removed onMouseMove and onMouseLeave handlers to disable zoom on hover
               />

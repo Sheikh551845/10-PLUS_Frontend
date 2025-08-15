@@ -1,14 +1,20 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useLoaderData } from 'react-router-dom';
+import Section_Title from '../../Components/Section_Title';
+import AllProducts from '../Allproducts.jsx/AllProducts';
 
 const Cuban_shirt = () => {
-        const data=useLoaderData()
-    console.log(data)
-    return (
-        <div>
-            This is Cuban shirt
-        </div>
-    );
+      const data = useLoaderData()
+      
+          return (
+              <div>
+                  <Helmet>
+                      <title>10 PLUS|Cuban Shirt</title>
+                  </Helmet>
+                  <AllProducts data={data}></AllProducts>
+              </div>
+          );
 };
 
 export default Cuban_shirt;

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Section_Title from '../../Components/Section_Title';
 import Narrival_card from '../../Components/Narrival_card';
-import axios from 'axios';
 import UseAxiosSecure from '../../Hooks/UseAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import CardSweper from '../../Components/CardSweper';
 
 
 const New_arrival = () => {
 
-    const axiosSecure=UseAxiosSecure()
+    const axiosSecure = UseAxiosSecure()
 
 
 
@@ -24,14 +24,12 @@ const New_arrival = () => {
     //    const new_arrivals=data.filter(value=> value.New_arrivals=true)
 
     return (
-        <div className='w-[95%] md:w-[80%] mx-auto  min-h-fit'>
-            {New_arrivals.length > 0 ? <div><Section_Title Title={"New Arrival"} />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md;gap-6 place-items-center">
-                    {New_arrivals.map((product) => (
-                        <Narrival_card key={product.id} product={product} />
-                    ))}
-                </div></div> : <></>}
 
+        <div className='w-[95%] mx-auto  min-h-fit'>
+            {New_arrivals.length > 0 ? <div><Section_Title Title={"New Arrival"} />
+            <CardSweper products={New_arrivals}></CardSweper>
+            </div> : <></>}
+        
 
         </div>
     );

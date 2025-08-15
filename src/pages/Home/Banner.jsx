@@ -11,27 +11,29 @@ import 'swiper/css/navigation';
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import { data } from 'react-router-dom';
 
-const Banner = ({ product }) => {
-    let Banner_data = [];
-    let Banner_photo = []
+import UseAxiosSecure from '../../Hooks/UseAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
+
+const Banner = () => {
+
+    const axiosSecure = UseAxiosSecure()
+
+    const { data: BannerImg = [] } = useQuery({
+        queryKey: ['BannerImg'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/Banner');
+            return res.data.slice(0, 6);
+        }
+    })
 
 
-
-    if (product.length > 0) {
-        Banner_data = product
-    }
-    else {
-        Banner_photo = product.Details_photo
-    }
-
-  
     return (
         <div className="">
 
-            {Banner_data?.length > 0 ? <Swiper
+            {BannerImg?.length > 0 ? <Swiper
                 spaceBetween={30}
+                loop={true}
                 centeredSlides={true}
                 autoplay={{
                     delay: 1500,
@@ -42,14 +44,14 @@ const Banner = ({ product }) => {
                 }}
 
                 modules={[Autoplay, Pagination]}
-                className="mySwipe h-[60vh] "
+                className="mySwipe h-[60vh] md:h-[65vh] "
             >
 
 
-                {Banner_data.map((data) => (
-                    <SwiperSlide className="flex items-center justify-center  w-full  ">
-                        <div className="flex items-center justify-center h-full w-full ">
-                            <img src={`${data.Show_photo}`} alt="" className="h-[100%] w-[100%] object-fill " />
+                {BannerImg.map((data) => (
+                    <SwiperSlide className="flex items-center justify-center w-screen  ">
+                        <div className="flex items-center justify-center h-[60vh] md:h-[65vh] w-screen ">
+                            <img src={`${data.img}`} alt="" className="h-[60vh] md:h-[65vh] w-screen object-fill " />
                         </div>
                     </SwiperSlide>
 
@@ -73,10 +75,10 @@ const Banner = ({ product }) => {
                     className="mySwipe h-[50vh] "
                 >
 
-                    <div>{Banner_photo.map((data) => (
+                    <div>{BannerImg.map((imgdata) => (
                         <SwiperSlide className="flex items-center justify-center  w-full  ">
                             <div className="flex items-center justify-center h-full w-full ">
-                                <img src={`${data}`} alt="" className="h-[100%] w-[100%] object-fill " />
+                                <img src={`${imgdata.img}`} alt="" className="h-[100%] w-[100%] object-fill " />
                             </div>
                         </SwiperSlide>
 

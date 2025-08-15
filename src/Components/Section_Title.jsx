@@ -2,7 +2,7 @@ import React from 'react';
 
 const Section_Title = (Title) => {
     return (
-        <div className="my-10 md:my-15 max-w-fit mx-auto">
+        <div className="my-8 md:my-10 max-w-fit mx-auto">
 
 
             <div>
