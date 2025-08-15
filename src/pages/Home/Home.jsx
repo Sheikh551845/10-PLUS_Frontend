@@ -4,6 +4,10 @@ import New_arrival from './New_arrival';
 import demonData from '../../assets/json/demon.json';
 import { Helmet } from 'react-helmet-async';
 import Populer from './Populer';
+import Offers from './Offers';
+import Combo from './Combo';
+import Why from './Why';
+import StoreSection from './StoreSection';
 
 
 const Home = () => {
@@ -28,6 +32,10 @@ const Home = () => {
             </div>
             <Populer></Populer>
             <New_arrival></New_arrival>
+            <Offers></Offers>
+            <Combo></Combo>
+            <Why></Why>
+            <StoreSection></StoreSection>
         </div>
     );
 };

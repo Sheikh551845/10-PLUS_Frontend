@@ -4,10 +4,14 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
 import SlideCard from './slidecard';
+import Narrival_card from "../Components/Narrival_card"
 
 const CardSweper = ({ products }) => {
+
+
     return (
-        <Swiper
+        [
+            products?.length==1 ? <Narrival_card product={products[0]} />:<Swiper
             spaceBetween={20}
             loop={true}
             breakpoints={{
@@ -32,6 +36,8 @@ const CardSweper = ({ products }) => {
                 </SwiperSlide>
             ))}
         </Swiper>
+        ]
+        
     );
 };
 

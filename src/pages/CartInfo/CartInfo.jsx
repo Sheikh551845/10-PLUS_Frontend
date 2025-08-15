@@ -3,6 +3,9 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import broken from "../../assets/Demo images/icons8-image-96.png";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure"; // make sure this hook exists
+import { triggerCartUpdate } from "../../Utils/cartHelper";
+import { Helmet } from "react-helmet-async";
+
 
 const CartInfo = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -66,7 +69,7 @@ const CartInfo = () => {
         },
       ],
     };
-     
+
 
     try {
       setLoading(true);
@@ -77,6 +80,7 @@ const CartInfo = () => {
         setCartItems((prevCartItems) => {
           const filtered = prevCartItems.filter((item) => item.id !== id);
           localStorage.setItem("cartItems", JSON.stringify(filtered));
+          triggerCartUpdate();
           return filtered;
         });
         setOrderModalOpen(false);
@@ -114,6 +118,7 @@ const CartInfo = () => {
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
     setModalOpen(false);
     toast.success("Cart item updated!");
+    triggerCartUpdate();
   };
 
   // Delete confirmation with SweetAlert2
@@ -133,6 +138,7 @@ const CartInfo = () => {
           const filtered = prevCartItems.filter((item) => item.id !== id);
           localStorage.setItem("cartItems", JSON.stringify(filtered));
           toast.success("Item deleted from cart.");
+          triggerCartUpdate();
           return filtered;
         });
       }
@@ -141,6 +147,9 @@ const CartInfo = () => {
 
   return (
     <div className="w-[95%] mx-auto">
+      <Helmet>
+        <title>10 PLUS|Cart</title>
+      </Helmet>
       <h2 className="text-xl font-bold mb-4">Your Cart</h2>
 
       {cartItems.length === 0 ? (
@@ -186,7 +195,7 @@ const CartInfo = () => {
                     <td className="text-xs md:text-base">{item.color}</td>
                     <td className="text-xs md:text-base">{item.size}</td>
                     <td className="text-xs md:text-base">{item.quantity}</td>
-                    <td className="text-xs md:text-base">{item.price}৳</td>
+                    <td className="text-xs md:text-base">{item.price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></td>
                     <td className="flex gap-2 w-fit mx-auto" align="middle">
                       <button
                         className="btn btn-sm btn-info"
@@ -242,7 +251,7 @@ const CartInfo = () => {
                     </p>
                     <p>
                       <span className="font-bold">Price: </span>
-                      {item.price}৳
+                      {item.price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span>
                     </p>
                   </div>
                   <div className="flex gap-1 w-full flex-wrap mx-auto">
@@ -420,7 +429,7 @@ const CartInfo = () => {
             </p>
             <p>
               <strong>Price:</strong> {editItem.price}
-              <span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span>
+              <span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}><span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></span>
             </p>
 
             {/* User Info */}

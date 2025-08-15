@@ -5,6 +5,9 @@ import ProductBanner from "./product_banner";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import Section_Title from "../../Components/Section_Title";
+import CardSweper from "../../Components/CardSweper";
 
 const Product_details = () => {
   const single = useLoaderData();
@@ -19,6 +22,36 @@ const Product_details = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null); // 'cart' or 'buy'
   const [loading, setLoading] = useState(false); // spinner state
+
+
+
+  //similier product
+  const { data: similier = [] } = useQuery({
+    queryKey: ['similier'],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/Category/${single.Category}`);
+      const same = res.data;
+
+      // Filter items with Price greater than single.Price
+      const filtered = same?.filter(item => {
+        const itemPrice = parseInt(item.Price);
+        const singlePrice = parseInt(single.Price);
+        return !isNaN(itemPrice) && !isNaN(singlePrice) && itemPrice > singlePrice;
+      }) || [];
+
+      // Return top 10 or fallback to original data
+      if (filtered.length > 10) {
+        return filtered.slice(0, 10);
+      } else if (filtered.length === 0) {
+        return same.slice(0, 10);
+      } else {
+        return filtered;
+      }
+
+    }
+  });
+
+console.log(similier)
 
   const [userInfo, setUserInfo] = useState({
     name: "",
@@ -98,7 +131,7 @@ const Product_details = () => {
       ],
     };
 
-    
+
   };
 
   return (
@@ -118,13 +151,13 @@ const Product_details = () => {
             <p>
               {single.Offer === "true" ? (
                 <>
-                  <span className="line-through">{single.Price}৳</span>{" "}
+                  <span className="line-through ">{single.Price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></span>{" "}
                   <span className="ml-2 text-green-400 text-lg md:text-2xl">
-                    {details.Offer_price}৳
+                    {details.Offer_price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span>
                   </span>
                 </>
               ) : (
-                <span>{single.Price}৳</span>
+                <span>{single.Price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></span>
               )}
             </p>
           </div>
@@ -143,9 +176,8 @@ const Product_details = () => {
                 {sizes.map((s) => (
                   <button
                     key={s}
-                    className={`btn w-10 h-8 md:w-12 md:h-10 text-sm md:text-base mr-2 mb-2 ${
-                      color === c && size === s ? "bg-red-600 text-white" : ""
-                    }`}
+                    className={`btn w-10 h-8 md:w-12 md:h-10 text-sm md:text-base mr-2 mb-2 ${color === c && size === s ? "bg-red-600 text-white" : ""
+                      }`}
                     onClick={() => {
                       handleColorSelect(c);
                       handleSizeSelect(s);
@@ -198,29 +230,69 @@ const Product_details = () => {
           </div>
 
           {/* Right */}
-          <div className="order-1 md:order-2">
-            <img src={img} alt="" className="w-full h-auto" />
-          </div>
+
+          {
+            single?.Category == "Trouser" ? <div className="order-1 md:order-2">
+              <img src="https://sunnahsquarebd.com/wp-content/uploads/2024/09/trouser-2_1.avif" alt="" className="w-full h-auto" />
+            </div> :
+
+              single?.Category == "Polo Shirt" ? <div className="order-1 md:order-2">
+                <img src="https://sunnahsquarebd.com/wp-content/uploads/2025/02/polo_1.jpg" alt="" className="w-full h-auto" />
+              </div> :
+
+                single?.Category == "Shirt" ? <div className="order-1 md:order-2">
+                  <img src="https://sunnahsquarebd.com/wp-content/uploads/2025/05/cuban-shirt-size-guide.jpg" alt="" className="w-full h-auto" />
+                </div> :
+
+                  single?.Category == "T-Shirt" ? <div className="order-1 md:order-2">
+                    <img src="https://sunnahsquarebd.com/wp-content/uploads/2025/04/T-shirt-Size-Chart-1.jpg" alt="" className="w-full h-auto" />
+                  </div> :
+
+                    single?.Category == "Panjabi" ? <div className="order-1 md:order-2">
+                      <img src="https://sunnahsquarebd.com/wp-content/uploads/2025/04/T-shirt-Size-Chart-1.jpg" alt="" className="w-full h-auto" />
+                    </div> : <div className="order-1 md:order-2">
+                      <img src="https://sunnahsquarebd.com/wp-content/uploads/2025/04/T-shirt-Size-Chart-1.jpg" alt="" className="w-full h-auto" />
+                    </div>
+
+                                   
+          }
+
         </div>
 
         {/* Description */}
         <div className="mt-6">
           <p className="text-lg font-bold mb-2">Description:</p>
-          <div className="grid grid-cols-2 gap-2 w-60">
-            <div className="font-bold text-sm md:text-base">
-              <p>Material:</p>
-              <p>GSM:</p>
-              <p>Fit:</p>
-              <p>Instruction:</p>
-            </div>
-            <div className="text-sm md:text-base">
-              <p>{details?.description.Material}</p>
-              <p>{details?.description.GSM}</p>
-              <p>{details?.description.Fit}</p>
-              <p>{details?.description.Care_instructions}</p>
-            </div>
-          </div>
+          <table className="table-auto border-collapse border border-gray-300 w-[60vw] text-sm md:text-base ">
+            <tbody>
+              <tr>
+                <th className="border px-2 py-1 text-left font-bold">Material:</th>
+                <td className="border px-2 py-1">{details?.description.Material}</td>
+              </tr>
+              <tr>
+                <th className="border px-2 py-1 text-left font-bold">GSM:</th>
+                <td className="border px-2 py-1">{details?.description.GSM}</td>
+              </tr>
+              <tr>
+                <th className="border px-2 py-1 text-left font-bold">Fit:</th>
+                <td className="border px-2 py-1">{details?.description.Fit}</td>
+              </tr>
+              <tr>
+                <th className="border px-2 py-1 text-left font-bold">Instruction:</th>
+                <td className="border px-2 py-1">{details?.description.Care_instructions}</td>
+              </tr>
+            </tbody>
+          </table>
+
         </div>
+      </div>
+
+      {/* similer Products */}
+      <div className='w-[95%] mx-auto  min-h-fit'>
+        {similier.length > 0 ? <div><Section_Title Title={"Similer Products"} />
+          <CardSweper products={similier}></CardSweper>
+        </div> : <></>}
+
+
       </div>
 
       {/* Modal */}

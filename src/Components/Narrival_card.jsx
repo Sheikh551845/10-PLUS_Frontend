@@ -12,9 +12,26 @@ const Narrival_card = ({ product }) => {
 
 
             <div className="h-50 relative ">
-                {product?.New_arrival == "true" ? <div className=" absolute top-3 right-3  bg-[rgba(185,28,28,0.7)]   text-white bg-opacity-30 backdrop-blur-sm rounded-tl-sm rounded-br-sm text-sm px-2 shadow-lg border-red-700 border-rb-2 z-3">New<span className="animate-fire text-base">✨</span></div> : <></>}
-                {product?.Offer == "true" ? <div className=" absolute top-53 right-40 bg-[rgba(6,240,6,0.7)]   text-white bg-opacity-30 backdrop-blur-sm rounded-tl-sm rounded-br-sm px-2 shadow-lg border-green-300 border-rb-2 z-3"><span className="animate-fire text-sm ">-{product?.details?.Offer_percentage}</span></div> : <></>}
-                {product?.combo == "true" ? <div className=" absolute top-53 right-20 bg-[rgb(245,220,0)]   text-white bg-opacity-30 backdrop-blur-sm rounded-tl-sm rounded-br-sm px-2 shadow-lg border-yellow-300 border-rb-2 z-3"><span className="animate-fire text-sm">COMBO</span></div> : <></>}
+                <div className="absolute top-3 right-3 flex gap-2 z-30">
+  {product?.New_arrival === "true" && (
+    <div className="bg-[rgba(185,28,28,0.7)] text-white bg-opacity-30 backdrop-blur-sm rounded-tl-sm rounded-br-sm text-sm px-2 shadow-lg border-red-700 border-rb-2">
+      New <span className="animate-fire text-base">✨</span>
+    </div>
+  )}
+
+  {product?.Offer === "true" && (
+    <div className="bg-[rgba(6,240,6,0.7)] text-white bg-opacity-30 backdrop-blur-sm rounded-tl-sm rounded-br-sm px-2 shadow-lg border-green-300 border-rb-2">
+      <span className="animate-fire text-sm">-{product?.details?.Offer_percentage}</span>
+    </div>
+  )}
+
+  {product?.combo === "true" && (
+    <div className="bg-[rgb(245,220,0)] text-white bg-opacity-30 backdrop-blur-sm rounded-tl-sm rounded-br-sm px-2 shadow-lg border-yellow-300 border-rb-2">
+      <span className="animate-fire text-sm">COMBO</span>
+    </div>
+  )}
+</div>
+
                 <img
                     src={`${product?.Show_photo}`}
                     alt={`${product?.Name} photo`}
@@ -34,19 +51,21 @@ const Narrival_card = ({ product }) => {
                     <p className=''>
                         <span className="font-bold">Category: </span>{`${product?.Category}`}
                     </p>
+
                     <p>
                         <span className="font-bold">Price: </span>
                         {product?.Offer === "true" ? (
                             <>
-                                <span className="line-through">{product?.Price}৳</span>{" "}
-                                <span className="ml-2 text-green-400 text-lg md:text-2xl">
-                                    {product?.details?.Offer_price}৳
+                                <span className="line-through">{product?.Price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></span>{" "}
+                                <span className="ml-2 text-green-400 text-lg md:text-xl">
+                                    {product?.details?.Offer_price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span>
                                 </span>
                             </>
                         ) : (
-                            <span>{product?.Price}৳</span>
+                            <span>{product?.Price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></span>
                         )}
                     </p>
+                   
 
                 </div>
 

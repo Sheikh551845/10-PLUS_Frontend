@@ -4,6 +4,7 @@ import logo from "../assets/Logo/logo.png";
 import { FaFacebook, FaGithub, FaPhone } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 import { MdMail } from "react-icons/md";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -17,15 +18,16 @@ const Footer = () => {
       <div className="w-full max-w-[1200px] mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 text-sm sm:text-base">
 
         {/* Logo & Name */}
-        <div className="flex items-center gap-3">
+
+
+        <NavLink to="/"><div className="flex items-center gap-3">
           <img
             src={logo}
             alt="Logo"
             className="w-9 h-9 rounded-full bg-white p-1"
           />
           <h2 className="font-semibold text-lg tracking-wider">10 PLUSH</h2>
-        </div>
-
+        </div></NavLink>
         {/* Slogan */}
         <p className="text-center text-xs sm:text-sm font-light opacity-90 max-w-sm leading-tight">
           Best Quality With Best Price — Here For You

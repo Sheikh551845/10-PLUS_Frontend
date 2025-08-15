@@ -11,21 +11,24 @@ const SlideCard = ({ product }) => {
         >
             {/* Image Container */}
             <div className="relative h-1/2 w-full">
-                {product?.New_arrival === "true" && (
-                    <div className="absolute top-3 right-3 bg-[rgba(185,28,28,0.7)] text-white rounded-tl-sm rounded-br-sm text-sm px-2 shadow-lg z-10">
-                        New<span className="animate-fire text-base">✨</span>
-                    </div>
-                )}
-                {product?.Offer === "true" && (
-                    <div className="absolute top-3 left-3 bg-[rgba(6,240,6,0.7)] text-white rounded-tl-sm rounded-br-sm px-2 shadow-lg z-10">
-                        -{product?.details?.Offer_percentage}
-                    </div>
-                )}
-                {product?.combo === "true" && (
-                    <div className="absolute bottom-3 left-3 bg-[rgb(245,220,0)] text-white rounded-tl-sm rounded-br-sm px-2 shadow-lg z-10">
-                        COMBO
-                    </div>
-                )}
+                <div className="absolute top-3 right-3 flex gap-2 z-10">
+                    {product?.New_arrival === "true" && (
+                        <div className="bg-[rgba(185,28,28,0.7)] text-white rounded-tl-sm rounded-br-sm text-sm px-2 shadow-lg">
+                            New<span className="animate-fire text-base">✨</span>
+                        </div>
+                    )}
+                    {product?.Offer === "true" && (
+                        <div className="bg-[rgba(6,240,6,0.7)] text-white rounded-tl-sm rounded-br-sm px-2 shadow-lg">
+                            -{product?.details?.Offer_percentage}
+                        </div>
+                    )}
+                    {product?.combo === "true" && (
+                        <div className="bg-[rgb(245,220,0)] text-white rounded-tl-sm rounded-br-sm px-2 shadow-lg">
+                            COMBO
+                        </div>
+                    )}
+                </div>
+
                 <img
                     src={product?.Show_photo}
                     alt={product?.Name}
@@ -43,13 +46,13 @@ const SlideCard = ({ product }) => {
                         <span className="font-bold">Price: </span>
                         {product?.Offer === "true" ? (
                             <>
-                                <span className="line-through">{product?.Price}৳</span>{" "}
+                                <span className="line-through">{product?.Price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></span>{" "}
                                 <span className="ml-2 text-green-400 text-lg md:text-xl">
-                                    {product?.details?.Offer_price}৳
+                                    {product?.details?.Offer_price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span>
                                 </span>
                             </>
                         ) : (
-                            <span>{product?.Price}৳</span>
+                            <span>{product?.Price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></span>
                         )}
                     </p>
                 </div>

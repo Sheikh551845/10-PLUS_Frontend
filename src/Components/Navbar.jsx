@@ -42,12 +42,15 @@ const Navbar = () => {
     <div className="navbar bg-[rgba(185,28,28,0.7)] backdrop-blur-sm bg-opacity-30 fixed z-10 mt-0 text-white shadow-xl ">
       <div className="navbar-start">
         <div className="hidden md:block">
-          <div className="flex justify-center items-center gap-2">
-            <NavLink to="/">
+          <NavLink to="/">
+            <div className="flex justify-center items-center gap-2">
+
               <img src={logo} alt="" className="w-7 h-7 rounded-full" />
-            </NavLink>
-            <p className="text-sm md:text-base font-bold">10 PLUSH</p>
-          </div>
+
+              <p className="text-sm md:text-base font-bold">10 PLUSH</p>
+
+            </div>
+          </NavLink>
         </div>
 
         <div className="block md:hidden">
@@ -57,12 +60,15 @@ const Navbar = () => {
 
       <div className="navbar-center ">
         <div className="block md:hidden">
-          <div className="flex justify-center items-center gap-2">
-            <NavLink to="/">
+          <NavLink to="/">
+            <div className="flex justify-center items-center gap-2">
+
               <img src={logo} alt="" className="w-7 h-7 rounded-full" />
-            </NavLink>
-            <p className="text-sm md:text-base font-bold">10 PLUSH</p>
-          </div>
+
+              <p className="text-sm md:text-base font-bold">10 PLUSH</p>
+
+            </div>
+          </NavLink>
         </div>
 
         <div className="hidden md:flex">
