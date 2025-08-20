@@ -1,6 +1,6 @@
-import {
-  createBrowserRouter,
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
+import { safeFetch } from "../Utils/safeFetch";
+
 import Main from "../Main/Main";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
@@ -10,19 +10,9 @@ import About_us from "../pages/About Us/About_us";
 import Error_page from "../pages/Error Page/Error_page";
 import Dash_main from "../Dash Main/Dash_main";
 import Admin_error_page from "../pages/Admin ErrorPage/Admin_error_page";
-import Admin_Drop_shoulder from "../pages/Admin/Product_view/T-shirt/Drop Shoulder/Drop_shoulder";
-import Admin_V_neck from "../pages/Admin/Product_view/T-shirt/V Neck/V_neck";
-import Admin_Turtle_neck from "../pages/Admin/Product_view/T-shirt/Turtle Neck/Turtle_neck";
-import Admin_Polo from "../pages/Admin/Product_view/T-shirt/Polo/Polo";
-import Admin_Pocket from "../pages/Admin/Product_view/T-shirt/Pocket/Pocket";
-import Admin_Club_Jursey from "../pages/Admin/Product_view/Jursey/Club Jursey/Club_Jursey";
-import Admin_Basic_Jursey from "../pages/Admin/Product_view/Jursey/Basic Jursey/Basic_Jursey";
 import Add_product from "../pages/Admin/Add product/Add_product";
-import Add_offer from "../pages/Admin/Add Offer/Add_offer";
-import Offer_list from "../pages/Admin/Offer List/Offer_list";
 import Edit_product from "../pages/Admin/Edit Product/Edit_product";
 import Edit_offer from "../pages/Admin/Edit Offer/Edit_offer";
-import T_shirt from "../pages/Admin/Product_view/T-shirt/T-shirt";
 import Dashboard from "../pages/Admin/Dash Board/Dashboard";
 import Product_details from "../pages/Poduct_details/Product_details";
 import CartInfo from "../pages/CartInfo/CartInfo";
@@ -31,6 +21,16 @@ import Trouser from "../pages/Trouser/Trouser";
 import Cuban_shirt from "../pages/Cuban Shirt/Cuban_shirt";
 import Combo from "../pages/Combo/Combo";
 import T_shirt_user from "../pages/T-Shirt/T_shirt";
+import AdminT_shirt from "../pages/Admin/Product_view/T-shirt/AdminT-shirt";
+import AdminPolo from "../pages/Admin/Product_view/Polo/AdminPolo";
+import AdminTrouser from "../pages/Admin/Product_view/Trouser/AdminTrouser";
+import AdminShirt from "../pages/Admin/Product_view/shirt/AdminShirt";
+import AdminPanjabi from "../pages/Admin/Product_view/Panjabi/AdminPanjabi";
+import EditNew from "../pages/Admin/EditNew/EditNew";
+import Edit_combo from "../pages/Admin/Edit_Combo/Edit_combo";
+import AllProduct from "../pages/Admin/All Product/AllProduct";
+import BannerManage from "../pages/Admin/BannerManage/BannerManage";
+import CartPage from "../pages/User/CartfPage/CartPage";
 
 export const router = createBrowserRouter([
   {
@@ -40,47 +40,46 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "Login", element: <Login /> },
-      {
-        path: "Registration", element: <Registration />
-      },
-      {
-        path: "T-Shirt", element: <T_shirt_user></T_shirt_user>, loader: async ({ params }) => {
-          return fetch(`https://one0-plus-server.onrender.com/Category/T-Shirt`);
-        }
-      },
-      {
-        path: "Polo", element: <Polo></Polo>, loader: async ({ params }) => {
-          return fetch(`https://one0-plus-server.onrender.com/Category/T-Shirt`);
-        }
-      },
-      {
-        path: "Panjabi", element: <Panjabi></Panjabi>, loader: async ({ params }) => {
-          return fetch(`https://one0-plus-server.onrender.com/Category/Panjabi`);
-        }
-      },
-      {
-        path: "Trouser", element: <Trouser></Trouser>, loader: async ({ params }) => {
-          return fetch(`https://one0-plus-server.onrender.com/Category/Trouser`);
-        }
-      },
-      {
-        path: "Cuban-Shirt", element: <Cuban_shirt></Cuban_shirt>, loader: async ({ params }) => {
-          return fetch(`https://one0-plus-server.onrender.com/Category/Shirt`);
-        }
-      },
+      { path: "Registration", element: <Registration /> },
 
       {
-        path: "Combo", element: <Combo></Combo>, loader: async ({ params }) => {
-          return fetch(`https://one0-plus-server.onrender.com/Combo`);
-        }
+        path: "T-Shirt",
+        element: <T_shirt_user />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/T-Shirt"),
+      },
+      {
+        path: "Polo",
+        element: <Polo />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Polo"),
+      },
+      {
+        path: "Panjabi",
+        element: <Panjabi />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Panjabi"),
+      },
+      {
+        path: "Trouser",
+        element: <Trouser />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Trouser"),
+      },
+      {
+        path: "Cuban-Shirt",
+        element: <Cuban_shirt />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Shirt"),
+      },
+      {
+        path: "Combo",
+        element: <Combo />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Combo"),
       },
       { path: "About Us", element: <About_us /> },
       {
-        path: "Product_details/:id", element: <Product_details></Product_details>, loader: async ({ params }) => {
-          return fetch(`https://one0-plus-server.onrender.com/Product/${params.id}`);
-        },
+        path: "Product_details/:id",
+        element: <Product_details />,
+        loader: async ({ params }) =>
+          safeFetch(`https://one0-plus-server.onrender.com/Product/${params.id}`),
       },
-      { path: "CartInfo", element: <CartInfo></CartInfo> }
+      { path: "CartInfo", element: <CartInfo /> },
     ],
   },
 
@@ -89,22 +88,65 @@ export const router = createBrowserRouter([
     element: <Dash_main />,
     errorElement: <Admin_error_page />,
     children: [
-      { path: "admin", element: <Dashboard></Dashboard> },
-      { path: "T-Shirt/Drop Shoulder", element: <Admin_Drop_shoulder /> },
-      { path: "T-Shirt/V Neck", element: <Admin_V_neck /> },
-      { path: "T-Shirt/Turtle Neck", element: <Admin_Turtle_neck /> },
-      { path: "T-Shirt/Polo", element: <Admin_Polo /> },
-      { path: "T-Shirt/Pocket", element: <Admin_Pocket /> },
-      { path: "Jursey/Club", element: <Admin_Club_Jursey /> },
-      { path: "Jursey/Basic Jursey", element: <Admin_Basic_Jursey /> },
-      { path: "Add Product", element: <Add_product /> },
-      { path: "Add Offer", element: <Add_offer /> },
-      { path: "Offer List", element: <Offer_list /> },
-      { path: "Edit Product", element: <Edit_product /> },
-      { path: "Edit Offer", element: <Edit_offer /> },
-      { path: "T-shirt", element: <T_shirt /> },
+      { path: "/admin", element: <Dashboard /> },
 
+      {
+        path: "T-Shirt",
+        element: <AdminT_shirt></AdminT_shirt>,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/T-Shirt"),
+      },
+      {
+        path: "Polo",
+        element: <AdminPolo></AdminPolo>,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Polo"),
+      },
+      {
+        path: "Panjabi",
+        element: <AdminPanjabi />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Panjabi"),
+      },
+      {
+        path: "Trouser",
+        element: <AdminTrouser />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Trouser"),
+      },
+      {
+        path: "Shirt",
+        element: <AdminShirt />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Shirt"),
+      },
+      {
+        path: "Edit_Combo",
+        element: <Edit_combo />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Combo"),
+      },
 
+      {
+        path: "Edit_New",
+        element: <EditNew />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/NewArrival"),
+      },
+
+      {
+        path: "Edit_Offer",
+        element: <Edit_offer />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/OfferProduct"),
+      },
+     {
+        path: "BannerManage",
+        element: <BannerManage />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/banner"),
+      },
+      { path: "Add_Product", element: <Add_product /> },
+      {
+        path: "Edit_Product/:id", element: <Edit_product />, loader: async ({ params }) =>
+          safeFetch(`https://one0-plus-server.onrender.com/Product/${params.id}`),
+      },
+      { path: "All_Product", element: <AllProduct /> },
+
+      {
+        path: "Cart", element: <CartPage />
+      },
 
     ],
   },

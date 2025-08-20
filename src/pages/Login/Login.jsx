@@ -40,7 +40,7 @@ const Login = () => {
                 <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-r from-red-700 via-red-800 to-red-900 text-white shadow-lg shadow-red-200">
                     <h3 className="text-3xl font-semibold">Sign In</h3>
                 </div>
-                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-gray-50">
                     <form onSubmit={handleSubmit} className="card-body">
                         <div className="form-control">
                             <label className="label">

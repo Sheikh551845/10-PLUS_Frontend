@@ -30,11 +30,11 @@ const Populer = () => {
             key={cat.name}
             onClick={() => navigate(cat.path)}
             style={{ backgroundImage:`url('https://i.ibb.co.com/bRJw1SPy/footer-bg.jpg')`}}
-            className="flex flex-row justify-between items-center w-42 md:w-46 h-18 md:h-28 text-center hover:cursor-pointer z-4 card shadow-md transform hover:scale-105 transition-transform duration-300"
+            className="flex flex-row justify-between items-center w-42 md:w-46 h-28 md:h-28 text-center hover:cursor-pointer z-4 card shadow-md transform hover:scale-105 transition-transform duration-300 bg-gray-50"
           >
             <div className="w-[40%] h-full">
               <img
-                className="object-fill h-[80%] w-full mt-2"
+                className="object-fill h-[85%] w-full mt-2"
                 src={cat.img}
                 alt={cat.name}
               />

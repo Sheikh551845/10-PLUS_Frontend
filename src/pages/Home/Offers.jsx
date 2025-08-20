@@ -4,6 +4,7 @@ import Narrival_card from '../../Components/Narrival_card';
 import UseAxiosSecure from '../../Hooks/UseAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import CardSweper from '../../Components/CardSweper';
+import CardSweperR from '../../Components/CardSweperR';
 
 const Offers = () => {
       const axiosSecure = UseAxiosSecure()
@@ -23,9 +24,9 @@ const Offers = () => {
 
     return (
 
-        <div className='w-[95%] mx-auto  min-h-fit'>
+        <div className='w-[94%] mx-auto  min-h-fit'>
             {Offers.length > 0 ? <div><Section_Title Title={"Offers"} />
-            <CardSweper products={Offers}></CardSweper>
+            <CardSweperR products={Offers}></CardSweperR>
             </div> : <></>}
         
 

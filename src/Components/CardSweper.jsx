@@ -3,42 +3,44 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
-import SlideCard from './slidecard';
+
 import Narrival_card from "../Components/Narrival_card"
+import SlideCard from './SlideCard';
 
 const CardSweper = ({ products }) => {
+    if (!products || products.length === 0) return null;
 
+    if (products.length === 1) {
+        return <Narrival_card key={products[0].id} product={products[0]} />;
+    }
 
     return (
-        [
-            products?.length==1 ? <Narrival_card product={products[0]} />:<Swiper
+        <Swiper
             spaceBetween={20}
             loop={true}
             breakpoints={{
-                0: { slidesPerView: 2 },     // Mobile (2 cards)
-                1024: { slidesPerView: 3 }, // Desktop (3 cards)
+                0: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
                 reverseDirection: true,
             }}
             autoplay={{
                 delay: 2000,
                 disableOnInteraction: false,
             }}
-
             modules={[Autoplay, Pagination]}
-            className="mySwipe h-[50vh] md:h-[60vh] w-full bg-white"
+            className="mySwipe  w-full bg-transparent"
         >
             {products.map((data) => (
                 <SwiperSlide
                     key={data.id}
-                    className="flex items-center  justify-center h-[50vh] md:h-[60vh] "
+                    className="flex items-center justify-center h-[45vh] md:h-[45vh]"
                 >
                     <SlideCard product={data} />
                 </SwiperSlide>
             ))}
         </Swiper>
-        ]
-        
     );
 };
+
 
 export default CardSweper;

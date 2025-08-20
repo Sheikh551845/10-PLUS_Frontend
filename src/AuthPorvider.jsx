@@ -4,6 +4,8 @@ import React, { createContext, useEffect, useState } from 'react'
 import { auth } from './Firebase.config';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import UseAxiosSecure from './Hooks/UseAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
 
 
 
@@ -17,34 +19,61 @@ export default function AuthProvider({ children }) {
     const [data, setData] = useState([])
     const [CartData, setCartData] = useState([])
     const [reg, setReg] = useState("")
-
     const [allComment, setAllComments] = useState([])
     const [allFirst, setAllFirst] = useState([])
     const [allSecond, setAllSecond] = useState([])
-    const [cartCount, setCartCount]=useState(0)
+    const [cartCount, setCartCount] = useState(0)
 
     const navigate = useNavigate();
 
 
- const updateCartCount = () => {
-    const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
-    const count = cart.reduce(
-      (total, item) => total + Number(item.quantity || 1),
-      0
-    );
-    setCartCount(count);
-  };
+    const axiosSecure = UseAxiosSecure()
 
-  useEffect(() => {
-    // Initial cart count load
-    updateCartCount();
 
-    // Listen to the "cartUpdated" event
-    window.addEventListener("cartUpdated", updateCartCount);
 
-    // Cleanup listener on unmount
-    return () => window.removeEventListener("cartUpdated", updateCartCount);
-  }, []);
+    const { data: AllProducts = [] } = useQuery({
+        queryKey: ['AllProducts'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/AllProduct');
+            if (res.data) {
+                return res.data
+            }
+            else{
+                return []
+            }
+
+        }
+    })
+
+    useEffect(() => {
+        if (AllProducts?.length === 0) {
+            setLoading(true);
+        } else {
+            setLoading(false);
+        }
+    }, [AllProducts]);
+
+
+
+    const updateCartCount = () => {
+        const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+        const count = cart.reduce(
+            (total, item) => total + Number(item.quantity || 1),
+            0
+        );
+        setCartCount(count);
+    };
+
+    useEffect(() => {
+        // Initial cart count load
+        updateCartCount();
+
+        // Listen to the "cartUpdated" event
+        window.addEventListener("cartUpdated", updateCartCount);
+
+        // Cleanup listener on unmount
+        return () => window.removeEventListener("cartUpdated", updateCartCount);
+    }, []);
 
 
     const capitalize = (text) =>

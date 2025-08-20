@@ -6,14 +6,14 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDIyYrVrAdeJUUNlV2vO1Wl8AAiVl1-qRI",
-  authDomain: "sheikh-ecommerce.firebaseapp.com",
-  projectId: "sheikh-ecommerce",
-  storageBucket: "sheikh-ecommerce.firebasestorage.app",
-  messagingSenderId: "148862038833",
-  appId: "1:148862038833:web:c40e909b3369a45a5a7610"
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth= getAuth(app)
+export const auth = getAuth(app)

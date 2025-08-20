@@ -9,13 +9,13 @@ const Why = () => {
     return (
         <div>
             
-            <div className="max-w-7xl mx-auto px-4 py-12 bg-white">
+            <div className="max-w-7xl mx-auto px-4 py-12 bg-transparent">
                 {/* Heading */}
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold mb-4" style={{ color: primaryColor }}>
                         10 PLUS?
                     </h2>
-                    <p className="text-gray-700">
+                    <p style={{ color: primaryColor }}>
                         We provide the best in class service to our nationwide customers.
                     </p>
                 </div>
@@ -28,7 +28,7 @@ const Why = () => {
                             <div style={{ color: primaryColor }} className="text-4xl">
                                 <FaStarOfLife />
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-800">
+                            <h3 className="text-xl font-semibold " style={{ color: primaryColor }}>
                                 100% Quality Assurance
                             </h3>
                         </div>
@@ -37,7 +37,7 @@ const Why = () => {
                             <div style={{ color: primaryColor }} className="text-4xl">
                                 <FaHandshake />
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-800">
+                            <h3 className="text-xl font-semibold" style={{ color: primaryColor }}>
                                 Easy Exchange Policy
                             </h3>
                         </div>
@@ -49,7 +49,7 @@ const Why = () => {
                             <div style={{ color: primaryColor }} className="text-4xl">
                                 <FaShippingFast />
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-800">
+                            <h3 className="text-xl font-semibold" style={{ color: primaryColor }}>
                                 2-3 Days Delivery
                             </h3>
                         </div>
@@ -58,7 +58,7 @@ const Why = () => {
                             <div style={{ color: primaryColor }} className="text-4xl">
                                 <FaThumbsUp />
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-800">
+                            <h3 className="text-xl font-semibold " style={{ color: primaryColor }}>
                                 Satisfaction Guaranteed
                             </h3>
                         </div>

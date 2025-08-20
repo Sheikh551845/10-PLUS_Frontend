@@ -7,12 +7,12 @@ import AuthProvider from '../AuthPorvider';
 const Dash_main = () => {
     return (
         <AuthProvider>
-            <div className="flex">
-                <div className="w-[20vw]">
+            <div className="flex w-full ">
+                <div className="w-[16vw] md:w-[11vw]">
                     <Dash_nav />
                 </div>
-                <div className="w-[80vw]">
-                    <Outlet></Outlet>
+                <div className=" w-[84vw] md:w-[89vw] ">
+                    <Outlet className="w-full"></Outlet>
                     <Toaster
                         position="top-center"
                         reverseOrder={false}

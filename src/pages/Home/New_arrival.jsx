@@ -25,9 +25,9 @@ const New_arrival = () => {
 
     return (
 
-        <div className='w-[95%] mx-auto  min-h-fit'>
+        <div className='w-[94%] mx-auto  min-h-fit'>
             {New_arrivals.length > 0 ? <div><Section_Title Title={"New Arrival"} />
-            <CardSweper products={New_arrivals}></CardSweper>
+            <CardSweper key={New_arrivals[0]._id} products={New_arrivals}></CardSweper>
             </div> : <></>}
         
 

@@ -22,7 +22,7 @@ const Combo = () => {
 
     return (
 
-        <div className='w-[95%] mx-auto  min-h-fit'>
+        <div className='w-[94%] mx-auto  min-h-fit'>
             {ComboProducts.length > 0 ? <div><Section_Title Title={"Combo"} />
             <CardSweper products={ComboProducts}></CardSweper>
             </div> : <></>}

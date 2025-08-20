@@ -16,7 +16,12 @@ const Registration = () => {
 
 
 
-
+        const userInfo={
+        'name': event.target.name.value,
+        'email':  event.target.email.value,
+        'role': "user"
+       }
+         
         const name = event.target.name.value;
         const email = event.target.email.value;
 
@@ -51,7 +56,7 @@ const Registration = () => {
                         Registration
                     </h3>
                 </div>
-                <div className="card flex-shrink-0  md:w-full max-w-xs md:max-w-sm shadow-2xl bg-base-100">
+                <div className="card flex-shrink-0  md:w-full max-w-xs md:max-w-sm shadow-2xl bg-gray-50">
                     <form onSubmit={handleSubmit} className="card-body">
                         <div className="form-control">
                             <label className="label">

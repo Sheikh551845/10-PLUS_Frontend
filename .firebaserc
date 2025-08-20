@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "sheikh-ecommerce"
-  }
+    "default": "plus-fashion-5cb4c",
+    "10-Plus-Fashion": "plus-fashion-5cb4c"
+  },
+  "targets": {},
+  "etags": {}
 }

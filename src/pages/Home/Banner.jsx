@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { FadeLoader } from "react-spinners";
 
 
 
@@ -75,14 +76,15 @@ const Banner = () => {
                     className="mySwipe h-[50vh] "
                 >
 
-                    <div>{BannerImg.map((imgdata) => (
+                    
                         <SwiperSlide className="flex items-center justify-center  w-full  ">
                             <div className="flex items-center justify-center h-full w-full ">
-                                <img src={`${imgdata.img}`} alt="" className="h-[100%] w-[100%] object-fill " />
+                                <FadeLoader color="rgba(185,28,28,0.7)"  size={15} />
+                               
                             </div>
                         </SwiperSlide>
 
-                    ))}</div>
+               
 
 
 

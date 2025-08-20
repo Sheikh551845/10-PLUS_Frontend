@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import img from "../../assets/Demo images/Size suggestion.jpg";
 import ProductBanner from "./product_banner";
@@ -8,6 +8,8 @@ import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Section_Title from "../../Components/Section_Title";
 import CardSweper from "../../Components/CardSweper";
+import { AuthContext } from "../../AuthPorvider";
+import { FadeLoader } from "react-spinners";
 
 const Product_details = () => {
   const single = useLoaderData();
@@ -22,8 +24,23 @@ const Product_details = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null); // 'cart' or 'buy'
   const [loading, setLoading] = useState(false); // spinner state
+  const [orderLoading, setOderLoading] = useState(false); // spinner state
+
+  const { loading: load } = useContext(AuthContext);
+  const [data, setData] = useState(null);
+  const [isFetching, setIsFetching] = useState(true);
 
 
+  useEffect(() => {
+    if (single) {
+      setData(single);
+      setIsFetching(false);
+    } else {
+      // Server down or safeFetch returned null
+      setData([]);
+      setIsFetching(false);
+    }
+  }, [single]);
 
   //similier product
   const { data: similier = [] } = useQuery({
@@ -51,7 +68,7 @@ const Product_details = () => {
     }
   });
 
-console.log(similier)
+
 
   const [userInfo, setUserInfo] = useState({
     name: "",
@@ -88,6 +105,7 @@ console.log(similier)
       cart[existingIndex].quantity += newQuantity;
     } else {
       cart.push({
+        id:single._id,
         pid: single.pid,
         name: single.Name,
         color,
@@ -130,9 +148,32 @@ console.log(similier)
         },
       ],
     };
-
-
+    console.log(orderData)
+    try {
+      setOderLoading(true);
+      const response = await axiosSecure.post("/send-order-email", orderData);
+      console.log(response)
+      if (response.data.success) {
+        toast.success("Order has been Placed");
+        
+      } else {
+        toast.error("Failed to Place the order!");
+        console.error(response.data.error);
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+      console.error(error);
+    } finally {
+      setOderLoading(false);
+      setIsModalOpen(false)
+    }
   };
+
+  if (loading || isFetching) {
+    return <div className="flex justify-center items-center h-[80vh]">
+      <FadeLoader color="rgba(185,28,28,0.7)" size={15} />
+    </div>
+  }
 
   return (
     <div>
@@ -140,7 +181,7 @@ console.log(similier)
         <title>10 PLUS | Product Details</title>
       </Helmet>
 
-      <ProductBanner product={details} />
+      <ProductBanner product={single} />
 
       <div className="w-[90%] mx-auto mt-5">
         {/* Product Info */}
@@ -254,7 +295,7 @@ console.log(similier)
                       <img src="https://sunnahsquarebd.com/wp-content/uploads/2025/04/T-shirt-Size-Chart-1.jpg" alt="" className="w-full h-auto" />
                     </div>
 
-                                   
+
           }
 
         </div>
@@ -429,9 +470,9 @@ console.log(similier)
                 type="button"
                 className={`btn btn-primary ${loading ? "btn-disabled" : ""}`}
                 onClick={modalType === "cart" ? addToCart : buyNowConfirm}
-                disabled={loading}
+                disabled={orderLoading}
               >
-                {loading && (
+                {orderLoading && (
                   <span className="loading loading-spinner loading-sm mr-2"></span>
                 )}
                 Confirm

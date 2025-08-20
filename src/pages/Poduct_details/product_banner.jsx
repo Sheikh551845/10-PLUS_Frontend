@@ -13,11 +13,26 @@ const ProductBanner = ({ product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Images from props
-  const images =
-    product?.Details_photo?.map((url) => ({
-      large: url,
-      thumb: url,
-    })) || [];
+  let images = [];
+
+  // Add Show_photo first if it exists
+  if (product && product.Show_photo) {
+    images.push({
+      large: product.Show_photo,
+      thumb: product.Show_photo,
+    });
+  }
+
+  // Add Details_photo from details if available
+  if (product && product.details && Array.isArray(product.details.Details_photo)) {
+    product.details.Details_photo.forEach((url) => {
+      images.push({
+        large: url,
+        thumb: url,
+      });
+    });
+  }
+
 
   return (
     <div className="product-gallery w-[99.99%]  mx-auto relative ">
@@ -26,7 +41,7 @@ const ProductBanner = ({ product }) => {
         onClick={() => setIsModalOpen(true)}
         className="absolute top-2 right-10 z-5 bg-[rgba(185,28,28,0.7)] text-white px-3 py-1 rounded hover:bg-gray-700 text-xl"
       >
-      <MdOutlineZoomOutMap />
+        <MdOutlineZoomOutMap />
       </button>
 
       {/* Main Swiper */}
@@ -40,12 +55,12 @@ const ProductBanner = ({ product }) => {
         thumbs={{ swiper: thumbsSwiper }}
         modules={[Navigation, Thumbs]}
         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-        className="main-swiper overflow-hidden relative h-[55vh] md:h-[60vh]"
+        className="main-swiper overflow-hidden relative h-[65vh] w-[99.99%]"
       >
         {images.map((img, i) => (
           <SwiperSlide key={i}>
             <div
-              className="zoom-container h-[55vh] md:h-[60vh]"
+              className="zoom-container h-[65vh] w-[99.99%]"
               style={{
                 overflow: "hidden",
                 position: "relative",
@@ -55,8 +70,8 @@ const ProductBanner = ({ product }) => {
               <img
                 src={img.large}
                 alt={`product-${i}`}
-                className="w-full object-fill transition-transform duration-300 ease-in-out h-[55vh] md:h-[60vh]"
-                style={{ maxHeight: "600px" }}
+                className="h-[65vh] w-[99.99%] object-fill transition-transform duration-300 ease-in-out  "
+                
               // Removed onMouseMove and onMouseLeave handlers to disable zoom on hover
               />
             </div>
@@ -65,11 +80,11 @@ const ProductBanner = ({ product }) => {
       </Swiper>
 
       {/* Thumbnails Swiper */}
-      <div className="max-w-[40vw] mx-auto  mt-4">
+      <div className="max-w-[70vw] md:max-w-[50vw] mx-auto  mt-4">
         <Swiper
           onSwiper={setThumbsSwiper}
           spaceBetween={4}
-          slidesPerView={4}
+          slidesPerView={5}
           freeMode={true}
           watchSlidesProgress
           modules={[Navigation, Thumbs]}
@@ -84,7 +99,7 @@ const ProductBanner = ({ product }) => {
               <img
                 src={img.thumb}
                 alt={`thumb-${i}`}
-                className="object-cover w-full h-full"
+                className="object-fill w-full h-full"
                 style={{ height: "80px", width: "80px" }}
               />
             </SwiperSlide>
@@ -97,9 +112,9 @@ const ProductBanner = ({ product }) => {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
           <div
-            className="bg-white rounded-lg w-screen relative"
+            className="bg-[rgba(247,156,156,0.7)] backdrop-blur-sm bg-opacity-30 rounded-lg w-screen relative"
             style={{
-              height: "40vh", // Adjusted height
+              height: "90vh", // Adjusted height
             }}
           >
             {/* Close Button */}
@@ -117,7 +132,7 @@ const ProductBanner = ({ product }) => {
                   <img
                     src={img.large}
                     alt={`modal-${i}`}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-fill"
                   />
                 </SwiperSlide>
               ))}
