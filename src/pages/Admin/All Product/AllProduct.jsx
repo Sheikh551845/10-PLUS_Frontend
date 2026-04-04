@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import AdminT_shirt from '../Product_view/T-shirt/AdminT-shirt';
-import AdminPolo from '../Product_view/Polo/AdminPolo';
-import AdminPanjabi from '../Product_view/Panjabi/AdminPanjabi';
-import AdminTrouser from '../Product_view/Trouser/AdminTrouser';
-import AdminShirt from '../Product_view/shirt/AdminShirt';
+import AdminT_shirt from '../Product_view/T-shirt/adminT-shirt';
+import AdminPolo from '../Product_view/Polo/adminPolo';
+import AdminPanjabi from '../Product_view/Panjabi/adminPanjabi';
+import AdminTrouser from '../Product_view/Trouser/adminTrouser';
+import AdminShirt from '../Product_view/shirt/adminShirt';
 
 const AllProduct = () => {
   const [activeTab, setActiveTab] = useState('T-shirt');

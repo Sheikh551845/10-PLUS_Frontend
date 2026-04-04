@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs } from "swiper/modules";
 import { MdOutlineZoomOutMap } from "react-icons/md";
@@ -11,6 +11,15 @@ const ProductBanner = ({ product }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    setIsLargeScreen(mediaQuery.matches);
+    const handler = (e) => setIsLargeScreen(e.matches);
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
 
   // Images from props
   let images = [];
@@ -35,7 +44,7 @@ const ProductBanner = ({ product }) => {
 
 
   return (
-    <div className="product-gallery w-[99.99%]  mx-auto relative ">
+    <div className="product-gallery w-[100%]  mx-auto relative ">
       {/* Zoom Button */}
       <button
         onClick={() => setIsModalOpen(true)}
@@ -55,32 +64,39 @@ const ProductBanner = ({ product }) => {
         thumbs={{ swiper: thumbsSwiper }}
         modules={[Navigation, Thumbs]}
         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-        className="main-swiper overflow-hidden relative h-[65vh] w-[99.99%]"
+        className="main-swiper overflow-hidden relative h-[55vh] md:h-[70vh] w-[100%]"
       >
         {images.map((img, i) => (
           <SwiperSlide key={i}>
             <div
-              className="zoom-container h-[65vh] w-[99.99%]"
-              style={{
-                overflow: "hidden",
-                position: "relative",
-                cursor: "default", // changed from zoom-in to default
+              className="zoom-container h-[55vh] md:h-[70vh] w-[100%] overflow-hidden relative"
+              onMouseMove={(e) => {
+                if (!isLargeScreen) return;
+                const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+                const x = ((e.clientX - left) / width) * 100;
+                const y = ((e.clientY - top) / height) * 100;
+                e.currentTarget.querySelector("img").style.transformOrigin = `${x}% ${y}%`;
+                e.currentTarget.querySelector("img").style.transform = "scale(2)";
+              }}
+              onMouseLeave={(e) => {
+                if (!isLargeScreen) return;
+                e.currentTarget.querySelector("img").style.transform = "scale(1)";
+                e.currentTarget.querySelector("img").style.transformOrigin = "center center";
               }}
             >
               <img
                 src={img.large}
                 alt={`product-${i}`}
-                className="h-[65vh] w-[99.99%] object-fill transition-transform duration-300 ease-in-out  "
-                
-              // Removed onMouseMove and onMouseLeave handlers to disable zoom on hover
+                className="h-[55vh] md:h-[70vh] w-[100%] object-contain transition-transform duration-300 ease-in-out"
               />
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
 
+
       {/* Thumbnails Swiper */}
-      <div className="max-w-[70vw] md:max-w-[50vw] mx-auto  mt-4">
+      <div className="w-[98%] mx-auto  mt-4">
         <Swiper
           onSwiper={setThumbsSwiper}
           spaceBetween={4}
@@ -93,14 +109,14 @@ const ProductBanner = ({ product }) => {
           {images.map((img, i) => (
             <SwiperSlide
               key={i}
-              className={` mx-auto cursor-pointer rounded-md overflow-hidden max-w-fit max-h-[10vh] ${activeIndex === i ? "border-2 border-blue-500" : ""
+              className={` mx-auto cursor-pointer rounded-md overflow-hidden max-w-[140px] max-h-[150px] ${activeIndex === i ? "border-2 border-blue-500" : ""
                 }`}
             >
               <img
                 src={img.thumb}
                 alt={`thumb-${i}`}
-                className="object-fill w-full h-full"
-                style={{ height: "80px", width: "80px" }}
+                className="object-fill h-[120px] w-[110px] md:w-[140px] md:h-[150px]"
+
               />
             </SwiperSlide>
           ))}
@@ -132,7 +148,7 @@ const ProductBanner = ({ product }) => {
                   <img
                     src={img.large}
                     alt={`modal-${i}`}
-                    className="w-full h-full object-fill"
+                    className="w-full h-full object-contain"
                   />
                 </SwiperSlide>
               ))}

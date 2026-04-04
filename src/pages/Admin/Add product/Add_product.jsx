@@ -13,9 +13,6 @@ const Add_product = () => {
     const colorOptions = ["BLACK", "WHITE", "RED", "BLUE", "NAVY", "GREEN", "YELLOW", "ORANGE", "PURPLE", "GRAY", "BROWN", "PINK", "MAROON", "BEIGE", "CYAN"];
     const sizeOptions = ["XS", "SM", "M", "L", "XL", "XXL", "XXXL"];
     const categoryOptions = ["Shirt", "Panjabi", "Trouser", "T-Shirt", "Polo"];
-    const materialOptions = ["Cotton", "Polyester", "Linen", "Silk", "Wool"];
-    const gsmOptions = ["120gsm", "140gsm", "160gsm", "180gsm", "200gsm"];
-    const fitOptions = ["Regular", "Slim", "Loose"];
 
     const initialForm = {
         pid: "",
@@ -33,7 +30,7 @@ const Add_product = () => {
             Details_photo: [],
             Offer_price: "",
             Offer_percentage: "",
-            description: { Material: materialOptions[0], GSM: gsmOptions[0], Fit: fitOptions[0], Care_instructions: "" },
+            description: "",   // 🔥 changed from object to string
             combo_product: ""
         }
     };
@@ -44,12 +41,29 @@ const Add_product = () => {
     const [mainUploading, setMainUploading] = useState(false);
     const [detailUploading, setDetailUploading] = useState(false);
 
+    // Inside your component
+    const [customColor, setCustomColor] = useState("");
+
+    // Add custom color
+    const handleAddCustomColor = () => {
+        if (!customColor.trim()) {
+            toast.error("Color name cannot be empty!");
+            return;
+        }
+        const newColor = customColor.trim().toUpperCase();
+        if (colorOptions.includes(newColor)) {
+            toast.error("This color already exists!");
+            return;
+        }
+        colorOptions.push(newColor);
+        toast.success(`${newColor} added!`);
+        setCustomColor("");
+    };
+
     // Upload image helper
-
-
     const uploadImageToCloudinary = async (file) => {
-        const cloudName = "djbjwoyza"; // your cloud name
-        const unsignedPreset = "10_plus_fashion"; // your unsigned preset name
+        const cloudName = "djbjwoyza";
+        const unsignedPreset = "10_plus_fashion";
 
         const formData = new FormData();
         formData.append("file", file);
@@ -58,10 +72,7 @@ const Add_product = () => {
         try {
             const res = await fetch(
                 `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-                {
-                    method: "POST",
-                    body: formData,
-                }
+                { method: "POST", body: formData }
             );
 
             const data = await res.json();
@@ -76,7 +87,6 @@ const Add_product = () => {
         }
     };
 
-
     // Handlers
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -84,11 +94,11 @@ const Add_product = () => {
         else setForm({ ...form, [name]: value });
     };
 
-    const handleDetailsChange = (e) => {
-        const { name, value } = e.target;
+    // ✅ description handler
+    const handleDescriptionChange = (e) => {
         setForm({
             ...form,
-            details: { ...form.details, description: { ...form.details.description, [name]: value } }
+            details: { ...form.details, description: e.target.value }
         });
     };
 
@@ -96,7 +106,11 @@ const Add_product = () => {
         const value = e.target.value;
         setForm({
             ...form,
-            details: { ...form.details, Offer_percentage: value + "%", Offer_price: Math.round((parseFloat(form.Price) * value) / 100) }
+            details: {
+                ...form.details,
+                Offer_percentage: value + "%",
+                Offer_price: Math.round((parseFloat(form.Price) * value) / 100)
+            }
         });
     };
 
@@ -109,7 +123,10 @@ const Add_product = () => {
     const handleAddColorSize = () => {
         setForm({
             ...form,
-            details: { ...form.details, available_color_size: [...form.details.available_color_size, { color: "", size: [] }] }
+            details: {
+                ...form.details,
+                available_color_size: [...form.details.available_color_size, { color: "", size: [] }]
+            }
         });
     };
 
@@ -118,7 +135,6 @@ const Add_product = () => {
         const files = Array.from(e.target.files);
         if (!files.length) return;
 
-        // Don't allow more than 4 photos
         if (form.details.Details_photo.length + files.length > 4) {
             toast.error("Maximum 4 details photos allowed!");
             return;
@@ -129,15 +145,11 @@ const Add_product = () => {
         try {
             const uploadPromises = files.map(file => uploadImageToCloudinary(file));
             const urls = await Promise.all(uploadPromises);
-
             const validUrls = urls.filter(url => url !== null);
 
             setForm(prev => ({
                 ...prev,
-                details: {
-                    ...prev.details,
-                    Details_photo: [...prev.details.Details_photo, ...validUrls]
-                }
+                details: { ...prev.details, Details_photo: [...prev.details.Details_photo, ...validUrls] }
             }));
         } catch (err) {
             console.error(err);
@@ -146,7 +158,6 @@ const Add_product = () => {
             setDetailUploading(false);
         }
     };
-
 
     const handleRemoveDetailPhoto = (index) => {
         const updated = [...form.details.Details_photo];
@@ -203,7 +214,7 @@ const Add_product = () => {
                 Details_photo: form.details.Details_photo,
                 Offer_price: offerEnabled ? (parseInt(form.Price) - parseInt(form.details.Offer_price)).toString() : "",
                 Offer_percentage: offerEnabled ? form.details.Offer_percentage : "",
-                description: form.details.description,
+                description: form.details.description,   // ✅ now string
                 combo_product: comboEnabled ? form.details.combo_product : ""
             }
         };
@@ -294,19 +305,59 @@ const Add_product = () => {
                     <label className="font-semibold">Available Colors & Sizes:</label>
                     {form.details.available_color_size.map((item, index) => (
                         <div key={index} className="flex flex-col md:flex-row gap-2 mt-2 items-start md:items-center">
+                            {/* Color Buttons */}
                             <div className="flex gap-1 flex-wrap">
-                                {colorOptions.map(c => (
-                                    <button key={c} type="button" className={`px-2 py-1 border rounded ${item.color === c ? "bg-blue-500 text-white" : ""}`} onClick={() => handleColorSizeChange(index, "color", c)}>{c}</button>
+                                {colorOptions.map((c) => (
+                                    <button
+                                        key={c}
+                                        type="button"
+                                        className={`px-2 py-1 border rounded ${item.color === c ? "bg-blue-500 text-white" : ""}`}
+                                        onClick={() => handleColorSizeChange(index, "color", c)}
+                                    >
+                                        {c}
+                                    </button>
                                 ))}
                             </div>
+
+                            {/* Size Buttons */}
                             <div className="flex gap-1 flex-wrap mt-2 md:mt-0">
-                                {sizeOptions.map(s => (
-                                    <button key={s} type="button" className={`px-2 py-1 border rounded ${item.size.includes(s) ? "bg-green-500 text-white" : ""}`} onClick={() => handleColorSizeChange(index, "size", item.size.includes(s) ? item.size.filter(sz => sz !== s) : [...item.size, s])}>{s}</button>
+                                {sizeOptions.map((s) => (
+                                    <button
+                                        key={s}
+                                        type="button"
+                                        className={`px-2 py-1 border rounded ${item.size.includes(s) ? "bg-green-500 text-white" : ""}`}
+                                        onClick={() => {
+                                            const newSizes = item.size.includes(s)
+                                                ? item.size.filter((sz) => sz !== s)
+                                                : [...item.size, s];
+                                            handleColorSizeChange(index, "size", newSizes);
+                                        }}
+                                    >
+                                        {s}
+                                    </button>
                                 ))}
                             </div>
                         </div>
                     ))}
-                    <button onClick={handleAddColorSize} className="btn btn-sm mt-2">Add Color/Size</button>
+
+                    {/* Add color-size row */}
+                    <button onClick={handleAddColorSize} className="btn btn-sm mt-2">
+                        + Add Color/Size
+                    </button>
+
+                    {/* Custom Color Input */}
+                    <div className="flex gap-2 items-center mt-4">
+                        <input
+                            type="text"
+                            value={customColor}
+                            onChange={(e) => setCustomColor(e.target.value)}
+                            placeholder="Enter new color"
+                            className="input input-bordered w-full"
+                        />
+                        <button onClick={handleAddCustomColor} className="btn btn-outline">
+                            Add Color
+                        </button>
+                    </div>
                 </div>
 
                 {/* Details Photos */}
@@ -321,35 +372,21 @@ const Add_product = () => {
                         ))}
                         {form.details.Details_photo.length < 4 && (
                             detailUploading ? <div className="w-20 h-20 flex justify-center items-center border"><FadeLoader color="#B91C1C" height={10} width={2} radius={2} margin={1} /></div> :
-                                <input
-                                    type="file"
-                                    multiple
-                                    onChange={handleDetailPhotoUpload}
-                                    className="file-input file-input-bordered"
-                                />
-
+                                <input type="file" multiple onChange={handleDetailPhotoUpload} className="file-input file-input-bordered" />
                         )}
                     </div>
                 </div>
 
-                {/* Description */}
-                <div className="grid md:grid-cols-3 gap-4 mt-4">
-                    <div>
-                        <label className="font-semibold">Material:</label>
-                        <select name="Material" value={form.details.description.Material} onChange={handleDetailsChange} className="select select-bordered w-full">{materialOptions.map(m => <option key={m} value={m}>{m}</option>)}</select>
-                    </div>
-                    <div>
-                        <label className="font-semibold">GSM:</label>
-                        <select name="GSM" value={form.details.description.GSM} onChange={handleDetailsChange} className="select select-bordered w-full">{gsmOptions.map(g => <option key={g} value={g}>{g}</option>)}</select>
-                    </div>
-                    <div>
-                        <label className="font-semibold">Fit:</label>
-                        <select name="Fit" value={form.details.description.Fit} onChange={handleDetailsChange} className="select select-bordered w-full">{fitOptions.map(f => <option key={f} value={f}>{f}</option>)}</select>
-                    </div>
-                    <div className="md:col-span-3">
-                        <label className="font-semibold">Care Instructions:</label>
-                        <textarea name="Care_instructions" value={form.details.description.Care_instructions} onChange={handleDetailsChange} className="textarea textarea-bordered w-full" />
-                    </div>
+                {/* ✅ New Description */}
+                <div>
+                    <label className="font-semibold">Description:</label>
+                    <textarea
+                        name="description"
+                        value={form.details.description}
+                        onChange={handleDescriptionChange}
+                        className="textarea textarea-bordered w-full"
+                        placeholder="Enter product description..."
+                    />
                 </div>
 
                 {/* Submit Button */}
@@ -367,8 +404,6 @@ const Add_product = () => {
                         "Add Product"
                     )}
                 </button>
-
-
             </div>
         </div>
     );

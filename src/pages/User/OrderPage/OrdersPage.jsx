@@ -2,51 +2,54 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 
 const OrdersPage = () => {
-  // Example loader structure
-  // Each order: { id, email, phone, product_img, product_name, quantity, size, price, status }
-  const orders = useLoaderData();
+  const orders = useLoaderData(); // array of orders
+ 
 
   return (
     <div className="p-6 md:p-12">
       <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center">My Orders</h1>
 
-      {orders.length === 0 ? (
-        <p className="text-center text-gray-500">You have not placed any orders yet.</p>
+      {orders?.length === 0 ? (
+        <p className="text-center text-gray-500">You have not placed any orders yet after login.</p>
       ) : (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-6">
           {orders.map((order) => (
             <div
-              key={order.id}
-              className="p-4 border rounded-md shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+              key={order._id}
+              className="p-4 border rounded-md shadow-sm"
             >
-              <div className="flex items-center gap-4">
-                <img
-                  src={order.product_img}
-                  alt={order.product_name}
-                  className="w-20 h-20 rounded-md object-cover"
-                />
-                <div>
-                  <p className="font-semibold">{order.product_name}</p>
-                  <p className="text-gray-500 text-sm">Quantity: {order.quantity}</p>
-                  <p className="text-gray-500 text-sm">Size: {order.size}</p>
-                  <p className="text-gray-500 text-sm">Price: {order.price}৳</p>
-                </div>
-              </div>
+              <p
+                className={`font-bold mb-4 ${
+                  order.status.toLowerCase() === "delivered"
+                    ? "text-green-600"
+                    : order.status.toLowerCase() === "pending"
+                    ? "text-yellow-500"
+                    : "text-red-500"
+                }`}
+              >
+                Status: {order.status}
+              </p>
 
-              <div className="text-right">
-                <p className="text-gray-500 text-sm">Email: {order.email}</p>
-                <p className="text-gray-500 text-sm">Phone: {order.phone}</p>
-                <p
-                  className={`mt-2 font-bold ${
-                    order.status === "Delivered"
-                      ? "text-green-600"
-                      : order.status === "Pending"
-                      ? "text-yellow-500"
-                      : "text-red-500"
-                  }`}
-                >
-                  {order.status}
-                </p>
+              <div className="flex flex-col gap-4">
+                {order.products.map((product) => (
+                  <div
+                    key={product.orderId}
+                    className="flex items-center gap-4 p-2 border rounded-md"
+                  >
+                    <img
+                      src={product.img}
+                      alt={product.product_name}
+                      className="w-20 h-20 object-cover rounded-md"
+                    />
+                    <div>
+                      <p className="font-semibold">{product.product_name}</p>
+                      <p className="text-gray-500 text-sm">Color: {product.product_color}</p>
+                      <p className="text-gray-500 text-sm">Size: {product.product_size}</p>
+                      <p className="text-gray-500 text-sm">Quantity: {product.quantity}</p>
+                      <p className="text-gray-500 text-sm">Order ID: {product.orderId}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           ))}

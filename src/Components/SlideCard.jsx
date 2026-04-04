@@ -6,11 +6,11 @@ const SlideCard = ({ product }) => {
 
     return (
         <div
-            className=" bg-transparent h-[43vh] w-full  shadow-md transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+            className=" bg-transparent h-[43vh] md:h-[50vh]  w-full  shadow-md transform hover:scale-105 transition-transform duration-300 cursor-pointer"
             onClick={() => navigate(`/Product_details/${product?._id}`)}
         >
             {/* Image Container */}
-            <div className="h-[25vh] relative">
+            <div className="h-[28vh] md:h-[35vh] relative">
 
                 <div className="absolute top-3 right-3 flex gap-2 z-5">
                     {product?.New_arrival === "true" && (
@@ -36,26 +36,26 @@ const SlideCard = ({ product }) => {
                 <img
                     src={`${product?.Show_photo}`}
                     alt={`${product?.Name} photo`}
-                    className="object-fill h-[25vh] w-full"
+                    className="object-fill h-[28vh] md:h-[35vh] w-full  md:pt-2  md:pr-3  md:pl-3"
                 />
             </div>
 
             {/* Content */}
-            <div className="card-body flex flex-col justify-between pt-5 border-1  h-[41%]">
-                <div className="text-center rounded-lg text-sm md:text-base mt-2 border-t-1 border-b-1 border-[rgba(185,28,28,0.7)] ">
+            <div className="card-body flex flex-col justify-between  border-r-1 border-l-1 h-[15vh] md:h-[15vh] ">
+                <div className="text-center rounded-lg text-sm md:text-base  border-t-1 border-b-1 border-[rgba(185,28,28,0.7)] ">
                     <p className="pb-2 truncate whitespace-nowrap overflow-hidden text-ellipsis text-base font-semibold">
                         {`${product?.Name}`}
                     </p>
                     <p>
                         {product?.Offer === "true" ? (
                             <>
-                                <span className="line-through">
+                                <span className="line-through text-xs">
                                     {product?.Price}
                                     <span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>
                                         ৳
                                     </span>
                                 </span>{" "}
-                                <span className="ml-2 text-green-400 text-lg md:text-xl">
+                                <span className="ml-2 text-green-400 text-base font-bold">
                                     {product?.details?.Offer_price}
                                     <span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>
                                         ৳
@@ -63,7 +63,7 @@ const SlideCard = ({ product }) => {
                                 </span>
                             </>
                         ) : (
-                            <span className="font-bold">
+                            <span className="font-bold text-base">
                                 {product?.Price}
                                 <span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>
                                     ৳

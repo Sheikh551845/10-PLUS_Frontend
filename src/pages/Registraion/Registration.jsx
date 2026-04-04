@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthPorvider';
 import toast from 'react-hot-toast';
+import { axiosSecure } from '../../Hooks/UseAxiosSecure';
 
 const Registration = () => {
     const navigate = useNavigate()
@@ -16,12 +17,12 @@ const Registration = () => {
 
 
 
-        const userInfo={
-        'name': event.target.name.value,
-        'email':  event.target.email.value,
-        'role': "user"
-       }
-         
+        const userInfo = {
+            'name': event.target.name.value,
+            'email': event.target.email.value,
+            'role': "user"
+        }
+
         const name = event.target.name.value;
         const email = event.target.email.value;
 
@@ -36,12 +37,25 @@ const Registration = () => {
             return;
         }
 
-        console.log(reg)
-
         crateEmailUser(email, password)
-        if (reg == "success") {
-            navigate("/")
-        }
+            .then(res => {
+                update(name)
+                    .then(async () => {
+                        const res = await axiosSecure.post('/AllUsers', userInfo)
+                            .then(data => {
+
+                                if (data.data.insertedId) {
+                                    toast.success('User created successfully');
+                                    navigate('/')
+                                }
+                            })
+
+                    })
+
+            })
+            .catch(error => {
+                toast.error(error.message)
+            })
 
 
 

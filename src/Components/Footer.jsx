@@ -26,7 +26,7 @@ const Footer = () => {
             alt="Logo"
             className="w-9 h-9 rounded-full bg-white p-1"
           />
-          <h2 className="font-semibold text-lg tracking-wider">10 PLUSH</h2>
+          <h2 className="font-semibold text-lg tracking-wider">10 Plus Fashion</h2>
         </div></NavLink>
         {/* Slogan */}
         <p className="text-center text-xs sm:text-sm font-light opacity-90 max-w-sm leading-tight">
@@ -38,17 +38,9 @@ const Footer = () => {
 
           {/* Social */}
           <div className="flex gap-5 text-xl">
+           
             <a
-              href="https://github.com/Sheikh551845"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-white hover:scale-110 transition duration-200"
-              aria-label="GitHub"
-            >
-              <FaGithub />
-            </a>
-            <a
-              href="https://www.facebook.com/sheikhmohammod.asif.90"
+              href="https://www.facebook.com/10PlusFashion"
               target="_blank"
               rel="noreferrer"
               className="hover:text-white hover:scale-110 transition duration-200"
@@ -56,32 +48,24 @@ const Footer = () => {
             >
               <FaFacebook />
             </a>
-            <a
-              href="https://www.linkedin.com/in/sheikh-mohammad-zia-uddin-09860123b"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-white hover:scale-110 transition duration-200"
-              aria-label="LinkedIn"
-            >
-              <FaLinkedin />
-            </a>
+           
           </div>
 
           {/* Contact */}
           <div className="flex flex-col gap-1 text-[13px]">
             <div className="flex items-center gap-2">
               <FaPhone className="w-4 h-4" />
-              <a href="tel:+8801851308413" className="hover:underline">
-                +8801851308413
+              <a href="tel:+8801745015844" className="hover:underline">
+                +8801745015844
               </a>
             </div>
             <div className="flex items-center gap-2">
               <MdMail className="w-4 h-4" />
               <a
-                href="mailto:sheikh551845@gmail.com"
+                href="mailto:10.plus.fashion.clothing@gmail.com"
                 className="hover:underline"
               >
-                sheikh551845@gmail.com
+                10.plus.fashion.clothing@gmail.com
               </a>
             </div>
           </div>

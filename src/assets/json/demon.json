@@ -5,7 +5,7 @@
     "Category": "Panjabi",
     "Price": "1500",
     "Upload_on": "2025-07-18",
-    "Update_on": "2025-07-26",
+    "Update_on": "2025-08-28",
     "Show_photo": "https://images.unsplash.com/photo-1602810318383-e7f4b94b4a06?auto=format&fit=crop&w=400&q=80",
     "Offer": "true",
     "New_arrival": "true",
@@ -13,8 +13,22 @@
     "combo_quantity": "0",
     "details": {
       "available_color_size": [
-        { "color": "white", "size": ["M","L","XL"] },
-        { "color": "black", "size": ["SM","M","L"] }
+        {
+          "color": "white",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "black",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
       ],
       "Details_photo": [
         "https://images.unsplash.com/photo-1602810318383-e7f4b94b4a06?auto=format&fit=crop&w=400&q=80",
@@ -22,14 +36,9 @@
         "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
         "https://images.unsplash.com/photo-1520974735840-39de12cfc75a?auto=format&fit=crop&w=400&q=80"
       ],
-      "Offer_price": "1275",
-      "Offer_percentage": "15%",
-      "description": {
-        "Material": "Cotton",
-        "GSM": "200gsm",
-        "Fit": "Regular",
-        "Care_instructions": "Hand wash cold"
-      },
+      "Offer_price": "1350",
+      "Offer_percentage": "10%",
+      "description": "✨ Product Description\n\nExperience elegance and comfort with our Classic White Panjabi, designed to make every occasion special.\n\n🧵 Material & Quality\n\n100% Premium Cotton 🌿\n\nLightweight & breathable (140 GSM)\n\nSkin-friendly, soft touch 🤍\n\n👔 Fit & Style\n\nModern Slim Fit ✨\n\nSide Pockets for convenience 🎉\n\nPerfect for festive & casual wear 🎊\n\n🧼 Care Instructions\n\nHand wash in cold water 💧\n\nAvoid bleach 🚫\n\nDry in shade 🌤️\n\n⭐ Why You’ll Love It\n\n✔️ Elegant look for any event\n✔️ Durable stitching with attention to detail 🪡\n✔️ Made for comfort in every season 🌸☀️🍂❄️",
       "combo_product": ""
     }
   },
@@ -47,8 +56,22 @@
     "combo_quantity": "2",
     "details": {
       "available_color_size": [
-        { "color": "black", "size": ["M","L","XL"] },
-        { "color": "grey", "size": ["SM","M","L"] }
+        {
+          "color": "black",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "grey",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
       ],
       "Details_photo": [
         "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&q=80",
@@ -58,12 +81,7 @@
       ],
       "Offer_price": "0",
       "Offer_percentage": "0%",
-      "description": {
-        "Material": "Polyester blend",
-        "GSM": "180gsm",
-        "Fit": "Slim",
-        "Care_instructions": "Machine wash warm"
-      },
+      "description": "✨ Product Description\n\nExperience elegance and comfort with our Classic White Panjabi, designed to make every occasion special.\n\n🧵 Material & Quality\n\n100% Premium Cotton 🌿\n\nLightweight & breathable (140 GSM)\n\nSkin-friendly, soft touch 🤍\n\n👔 Fit & Style\n\nModern Slim Fit ✨\n\nSide Pockets for convenience 🎉\n\nPerfect for festive & casual wear 🎊\n\n🧼 Care Instructions\n\nHand wash in cold water 💧\n\nAvoid bleach 🚫\n\nDry in shade 🌤️\n\n⭐ Why You’ll Love It\n\n✔️ Elegant look for any event\n✔️ Durable stitching with attention to detail 🪡\n✔️ Made for comfort in every season 🌸☀️🍂❄️",
       "combo_product": ""
     }
   },
@@ -81,8 +99,22 @@
     "combo_quantity": "0",
     "details": {
       "available_color_size": [
-        { "color": "blue", "size": ["M","L","XL"] },
-        { "color": "white", "size": ["SM","M","L"] }
+        {
+          "color": "blue",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "white",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
       ],
       "Details_photo": [
         "https://images.unsplash.com/photo-1520975564237-3480d3325c01?auto=format&fit=crop&w=400&q=80",
@@ -92,12 +124,7 @@
       ],
       "Offer_price": "850",
       "Offer_percentage": "15%",
-      "description": {
-        "Material": "Cotton",
-        "GSM": "160gsm",
-        "Fit": "Slim",
-        "Care_instructions": "Machine wash cold"
-      },
+      "description": "✨ Product Description\n\nExperience elegance and comfort with our Classic White Panjabi, designed to make every occasion special.\n\n🧵 Material & Quality\n\n100% Premium Cotton 🌿\n\nLightweight & breathable (140 GSM)\n\nSkin-friendly, soft touch 🤍\n\n👔 Fit & Style\n\nModern Slim Fit ✨\n\nSide Pockets for convenience 🎉\n\nPerfect for festive & casual wear 🎊\n\n🧼 Care Instructions\n\nHand wash in cold water 💧\n\nAvoid bleach 🚫\n\nDry in shade 🌤️\n\n⭐ Why You’ll Love It\n\n✔️ Elegant look for any event\n✔️ Durable stitching with attention to detail 🪡\n✔️ Made for comfort in every season 🌸☀️🍂❄️",
       "combo_product": ""
     }
   },
@@ -115,8 +142,22 @@
     "combo_quantity": "3",
     "details": {
       "available_color_size": [
-        { "color": "green", "size": ["M","L","XL"] },
-        { "color": "black", "size": ["SM","M","L"] }
+        {
+          "color": "green",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "black",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
       ],
       "Details_photo": [
         "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80",
@@ -126,80 +167,7 @@
       ],
       "Offer_price": "0",
       "Offer_percentage": "0%",
-      "description": {
-        "Material": "Polyester blend",
-        "GSM": "170gsm",
-        "Fit": "Regular",
-        "Care_instructions": "Machine wash warm"
-      },
-      "combo_product": ""
-    }
-  },
-  {
-    "pid": "prod-105",
-    "Name": "Basic Cotton T-Shirt Red",
-    "Category": "T-Shirt",
-    "Price": "600",
-    "Upload_on": "2025-07-15",
-    "Update_on": "2025-07-24",
-    "Show_photo": "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
-    "Offer": "true",
-    "New_arrival": "true",
-    "combo": "false",
-    "combo_quantity": "0",
-    "details": {
-      "available_color_size": [
-        { "color": "red", "size": ["SM","M","L"] },
-        { "color": "blue", "size": ["M","L","XL"] }
-      ],
-      "Details_photo": [
-        "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
-        "https://images.unsplash.com/photo-1520974735840-39de12cfc75a?auto=format&fit=crop&w=400&q=80",
-        "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=400&q=80"
-      ],
-      "Offer_price": "510",
-      "Offer_percentage": "15%",
-      "description": {
-        "Material": "100% Cotton",
-        "GSM": "180gsm",
-        "Fit": "Regular",
-        "Care_instructions": "Machine wash cold"
-      },
-      "combo_product": ""
-    }
-  },
-  {
-    "pid": "prod-106",
-    "Name": "Summer Casual T-Shirt Blue",
-    "Category": "T-Shirt",
-    "Price": "650",
-    "Upload_on": "2025-07-22",
-    "Update_on": "2025-07-28",
-    "Show_photo": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80",
-    "Offer": "false",
-    "New_arrival": "true",
-    "combo": "true",
-    "combo_quantity": "4",
-    "details": {
-      "available_color_size": [
-        { "color": "blue", "size": ["SM","M","L"] },
-        { "color": "green", "size": ["L","XL"] }
-      ],
-      "Details_photo": [
-        "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80",
-        "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?auto=format&fit=crop&w=400&q=80",
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
-        "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=400&q=80"
-      ],
-      "Offer_price": "0",
-      "Offer_percentage": "0%",
-      "description": {
-        "Material": "Cotton Blend",
-        "GSM": "170gsm",
-        "Fit": "Slim",
-        "Care_instructions": "Machine wash warm"
-      },
+     "description": "✨ Product Description\n\nExperience elegance and comfort with our Classic White Panjabi, designed to make every occasion special.\n\n🧵 Material & Quality\n\n100% Premium Cotton 🌿\n\nLightweight & breathable (140 GSM)\n\nSkin-friendly, soft touch 🤍\n\n👔 Fit & Style\n\nModern Slim Fit ✨\n\nSide Pockets for convenience 🎉\n\nPerfect for festive & casual wear 🎊\n\n🧼 Care Instructions\n\nHand wash in cold water 💧\n\nAvoid bleach 🚫\n\nDry in shade 🌤️\n\n⭐ Why You’ll Love It\n\n✔️ Elegant look for any event\n✔️ Durable stitching with attention to detail 🪡\n✔️ Made for comfort in every season 🌸☀️🍂❄️",
       "combo_product": ""
     }
   },
@@ -217,8 +185,22 @@
     "combo_quantity": "0",
     "details": {
       "available_color_size": [
-        { "color": "black", "size": ["M","L","XL"] },
-        { "color": "white", "size": ["SM","M","L"] }
+        {
+          "color": "black",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "white",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
       ],
       "Details_photo": [
         "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=400&q=80",
@@ -228,12 +210,7 @@
       ],
       "Offer_price": "935",
       "Offer_percentage": "15%",
-      "description": {
-        "Material": "Cotton",
-        "GSM": "160gsm",
-        "Fit": "Regular",
-        "Care_instructions": "Hand wash cold"
-      },
+    "description": "✨ Product Description\n\nExperience elegance and comfort with our Classic White Panjabi, designed to make every occasion special.\n\n🧵 Material & Quality\n\n100% Premium Cotton 🌿\n\nLightweight & breathable (140 GSM)\n\nSkin-friendly, soft touch 🤍\n\n👔 Fit & Style\n\nModern Slim Fit ✨\n\nSide Pockets for convenience 🎉\n\nPerfect for festive & casual wear 🎊\n\n🧼 Care Instructions\n\nHand wash in cold water 💧\n\nAvoid bleach 🚫\n\nDry in shade 🌤️\n\n⭐ Why You’ll Love It\n\n✔️ Elegant look for any event\n✔️ Durable stitching with attention to detail 🪡\n✔️ Made for comfort in every season 🌸☀️🍂❄️",
       "combo_product": ""
     }
   },
@@ -246,13 +223,27 @@
     "Update_on": "2025-07-26",
     "Show_photo": "https://images.unsplash.com/photo-1516684669134-de6e898f62a7?auto=format&fit=crop&w=400&q=80",
     "Offer": "false",
-    "New_arrival": "true",
+    "New_arrival": "false",
     "combo": "true",
     "combo_quantity": "2",
     "details": {
       "available_color_size": [
-        { "color": "blue", "size": ["M","L","XL"] },
-        { "color": "black", "size": ["SM","M","L"] }
+        {
+          "color": "blue",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "black",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
       ],
       "Details_photo": [
         "https://images.unsplash.com/photo-1516684669134-de6e898f62a7?auto=format&fit=crop&w=400&q=80",
@@ -262,12 +253,7 @@
       ],
       "Offer_price": "0",
       "Offer_percentage": "0%",
-      "description": {
-        "Material": "Denim",
-        "GSM": "200gsm",
-        "Fit": "Slim",
-        "Care_instructions": "Machine wash cold"
-      },
+      "description": "✨ Product Description\n\nExperience elegance and comfort with our Classic White Panjabi, designed to make every occasion special.\n\n🧵 Material & Quality\n\n100% Premium Cotton 🌿\n\nLightweight & breathable (140 GSM)\n\nSkin-friendly, soft touch 🤍\n\n👔 Fit & Style\n\nModern Slim Fit ✨\n\nSide Pockets for convenience 🎉\n\nPerfect for festive & casual wear 🎊\n\n🧼 Care Instructions\n\nHand wash in cold water 💧\n\nAvoid bleach 🚫\n\nDry in shade 🌤️\n\n⭐ Why You’ll Love It\n\n✔️ Elegant look for any event\n✔️ Durable stitching with attention to detail 🪡\n✔️ Made for comfort in every season 🌸☀️🍂❄️",
       "combo_product": ""
     }
   },
@@ -280,13 +266,27 @@
     "Update_on": "2025-07-27",
     "Show_photo": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
     "Offer": "true",
-    "New_arrival": "true",
+    "New_arrival": "false",
     "combo": "false",
     "combo_quantity": "0",
     "details": {
       "available_color_size": [
-        { "color": "grey", "size": ["M","L","XL"] },
-        { "color": "black", "size": ["SM","M","L"] }
+        {
+          "color": "grey",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "black",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
       ],
       "Details_photo": [
         "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
@@ -296,12 +296,7 @@
       ],
       "Offer_price": "1530",
       "Offer_percentage": "15%",
-      "description": {
-        "Material": "Cotton Blend",
-        "GSM": "210gsm",
-        "Fit": "Regular",
-        "Care_instructions": "Hand wash cold"
-      },
+     "description": "✨ Product Description\n\nExperience elegance and comfort with our Classic White Panjabi, designed to make every occasion special.\n\n🧵 Material & Quality\n\n100% Premium Cotton 🌿\n\nLightweight & breathable (140 GSM)\n\nSkin-friendly, soft touch 🤍\n\n👔 Fit & Style\n\nModern Slim Fit ✨\n\nSide Pockets for convenience 🎉\n\nPerfect for festive & casual wear 🎊\n\n🧼 Care Instructions\n\nHand wash in cold water 💧\n\nAvoid bleach 🚫\n\nDry in shade 🌤️\n\n⭐ Why You’ll Love It\n\n✔️ Elegant look for any event\n✔️ Durable stitching with attention to detail 🪡\n✔️ Made for comfort in every season 🌸☀️🍂❄️",
       "combo_product": ""
     }
   },
@@ -319,7 +314,14 @@
     "combo_quantity": "1",
     "details": {
       "available_color_size": [
-        { "color": "black", "size": ["M","L","XL"] }
+        {
+          "color": "black",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        }
       ],
       "Details_photo": [
         "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80",
@@ -329,12 +331,7 @@
       ],
       "Offer_price": "0",
       "Offer_percentage": "0%",
-      "description": {
-        "Material": "Genuine Leather",
-        "GSM": "250gsm",
-        "Fit": "Slim",
-        "Care_instructions": "Dry clean only"
-      },
+     "description": "✨ Product Description\n\nExperience elegance and comfort with our Classic White Panjabi, designed to make every occasion special.\n\n🧵 Material & Quality\n\n100% Premium Cotton 🌿\n\nLightweight & breathable (140 GSM)\n\nSkin-friendly, soft touch 🤍\n\n👔 Fit & Style\n\nModern Slim Fit ✨\n\nSide Pockets for convenience 🎉\n\nPerfect for festive & casual wear 🎊\n\n🧼 Care Instructions\n\nHand wash in cold water 💧\n\nAvoid bleach 🚫\n\nDry in shade 🌤️\n\n⭐ Why You’ll Love It\n\n✔️ Elegant look for any event\n✔️ Durable stitching with attention to detail 🪡\n✔️ Made for comfort in every season 🌸☀️🍂❄️",
       "combo_product": ""
     }
   },
@@ -347,13 +344,27 @@
     "Update_on": "2025-07-29",
     "Show_photo": "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?auto=format&fit=crop&w=400&q=80",
     "Offer": "true",
-    "New_arrival": "true",
+    "New_arrival": "false",
     "combo": "false",
     "combo_quantity": "0",
     "details": {
       "available_color_size": [
-        { "color": "blue", "size": ["M","L","XL"] },
-        { "color": "grey", "size": ["SM","M","L"] }
+        {
+          "color": "blue",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "color": "grey",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        }
       ],
       "Details_photo": [
         "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?auto=format&fit=crop&w=400&q=80",
@@ -363,12 +374,7 @@
       ],
       "Offer_price": "1870",
       "Offer_percentage": "15%",
-      "description": {
-        "Material": "Wool Blend",
-        "GSM": "220gsm",
-        "Fit": "Regular",
-        "Care_instructions": "Hand wash cold"
-      },
+      "description": "✨ Product Description\n\nExperience elegance and comfort with our Classic White Panjabi, designed to make every occasion special.\n\n🧵 Material & Quality\n\n100% Premium Cotton 🌿\n\nLightweight & breathable (140 GSM)\n\nSkin-friendly, soft touch 🤍\n\n👔 Fit & Style\n\nModern Slim Fit ✨\n\nSide Pockets for convenience 🎉\n\nPerfect for festive & casual wear 🎊\n\n🧼 Care Instructions\n\nHand wash in cold water 💧\n\nAvoid bleach 🚫\n\nDry in shade 🌤️\n\n⭐ Why You’ll Love It\n\n✔️ Elegant look for any event\n✔️ Durable stitching with attention to detail 🪡\n✔️ Made for comfort in every season 🌸☀️🍂❄️",
       "combo_product": ""
     }
   },
@@ -381,13 +387,27 @@
     "Update_on": "2025-07-30",
     "Show_photo": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80",
     "Offer": "false",
-    "New_arrival": "true",
+    "New_arrival": "false",
     "combo": "true",
     "combo_quantity": "5",
     "details": {
       "available_color_size": [
-        { "color": "beige", "size": ["SM","M","L"] },
-        { "color": "navy", "size": ["M","L","XL"] }
+        {
+          "color": "beige",
+          "size": [
+            "SM",
+            "M",
+            "L"
+          ]
+        },
+        {
+          "color": "navy",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        }
       ],
       "Details_photo": [
         "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80",
@@ -397,12 +417,113 @@
       ],
       "Offer_price": "0",
       "Offer_percentage": "0%",
-      "description": {
-        "Material": "Cotton Blend",
-        "GSM": "160gsm",
-        "Fit": "Regular",
-        "Care_instructions": "Machine wash cold"
-      },
+     "description": "✨ Product Description\n\nExperience elegance and comfort with our Classic White Panjabi, designed to make every occasion special.\n\n🧵 Material & Quality\n\n100% Premium Cotton 🌿\n\nLightweight & breathable (140 GSM)\n\nSkin-friendly, soft touch 🤍\n\n👔 Fit & Style\n\nModern Slim Fit ✨\n\nSide Pockets for convenience 🎉\n\nPerfect for festive & casual wear 🎊\n\n🧼 Care Instructions\n\nHand wash in cold water 💧\n\nAvoid bleach 🚫\n\nDry in shade 🌤️\n\n⭐ Why You’ll Love It\n\n✔️ Elegant look for any event\n✔️ Durable stitching with attention to detail 🪡\n✔️ Made for comfort in every season 🌸☀️🍂❄️",
+      "combo_product": ""
+    }
+  },
+  {
+    "pid": "P-1972",
+    "Name": "Summer Casual T-Shirt Blue",
+    "Category": "Polo",
+    "Price": "999",
+    "Upload_on": "2025-08-19",
+    "Update_on": "",
+    "Show_photo": "https://res.cloudinary.com/djbjwoyza/image/upload/v1755611918/jhcpzz1hhvibg0j1jyuz.png",
+    "New_arrival": "true",
+    "Offer": "true",
+    "combo": "false",
+    "combo_quantity": "0",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "BLACK",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://res.cloudinary.com/djbjwoyza/image/upload/v1755611967/zycjlvrtoxidfhhwyor0.png",
+        "https://res.cloudinary.com/djbjwoyza/image/upload/v1755611969/t8rjrnoslixvksw5egxn.png",
+        "https://res.cloudinary.com/djbjwoyza/image/upload/v1755611969/i35nnfs7a1xucjf2zupe.png",
+        "https://res.cloudinary.com/djbjwoyza/image/upload/v1755611987/na7x5l7x6edgbvgjdq3i.png"
+      ],
+      "Offer_price": "899",
+      "Offer_percentage": "10%",
+      "description": "✨ Product Description\n\nExperience elegance and comfort with our Classic White Panjabi, designed to make every occasion special.\n\n🧵 Material & Quality\n\n100% Premium Cotton 🌿\n\nLightweight & breathable (140 GSM)\n\nSkin-friendly, soft touch 🤍\n\n👔 Fit & Style\n\nModern Slim Fit ✨\n\nSide Pockets for convenience 🎉\n\nPerfect for festive & casual wear 🎊\n\n🧼 Care Instructions\n\nHand wash in cold water 💧\n\nAvoid bleach 🚫\n\nDry in shade 🌤️\n\n⭐ Why You’ll Love It\n\n✔️ Elegant look for any event\n✔️ Durable stitching with attention to detail 🪡\n✔️ Made for comfort in every season 🌸☀️🍂❄️",
+      "combo_product": ""
+    }
+  },
+  {
+    "pid": "JR T01",
+    "Name": "T-Shirt Red",
+    "Category": "T-Shirt",
+    "Price": "450",
+    "Upload_on": "2025-08-30",
+    "Update_on": "2025-09-01",
+    "Show_photo": "https://res.cloudinary.com/djbjwoyza/image/upload/v1756549098/vevhmjmkbznk85p8ghv3.jpg",
+    "New_arrival": "true",
+    "Offer": "false",
+    "combo": "false",
+    "combo_quantity": "0",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "",
+          "size": [
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://res.cloudinary.com/djbjwoyza/image/upload/v1756549125/wygglus4qs9iudcvo51g.jpg",
+        "https://res.cloudinary.com/djbjwoyza/image/upload/v1756549128/enh9qsah8zl6nmxckp8s.jpg",
+        "https://res.cloudinary.com/djbjwoyza/image/upload/v1756549129/illxaf87ibt4nqljepo6.jpg",
+        "https://res.cloudinary.com/djbjwoyza/image/upload/v1756549128/qftn22bs1anin7xc2vhm.jpg"
+      ],
+      "Offer_price": "",
+      "Offer_percentage": "",
+      "description": "✨ Product Description\n\nExperience elegance and comfort with our Classic White Panjabi, designed to make every occasion special.\n\n🧵 Material & Quality\n\n100% Premium Cotton 🌿\n\nLightweight & breathable (140 GSM)\n\nSkin-friendly, soft touch 🤍\n\n👔 Fit & Style\n\nModern Slim Fit ✨\n\nSide Pockets for convenience 🎉\n\nPerfect for festive & casual wear 🎊\n\n🧼 Care Instructions\n\nHand wash in cold water 💧\n\nAvoid bleach 🚫\n\nDry in shade 🌤️\n\n⭐ Why You’ll Love It\n\n✔️ Elegant look for any event\n✔️ Durable stitching with attention to detail 🪡\n✔️ Made for comfort in every season 🌸☀️🍂❄️",
+      "combo_product": ""
+    }
+  },
+  {
+    "pid": "test-101",
+    "Name": "Test Product",
+    "Category": "Polo",
+    "Price": "1000",
+    "Upload_on": "2025-09-02",
+    "Update_on": "2025-09-02",
+    "Show_photo": "https://res.cloudinary.com/djbjwoyza/image/upload/v1756822564/nyhhbwjwlzliiagxicwg.png",
+    "New_arrival": "true",
+    "Offer": "false",
+    "combo": "false",
+    "combo_quantity": "0",
+    "details": {
+      "available_color_size": [
+        {
+          "color": "WHITE",
+          "size": [
+            "M",
+            "L",
+            "XL"
+          ]
+        }
+      ],
+      "Details_photo": [
+        "https://res.cloudinary.com/djbjwoyza/image/upload/v1756822824/fvewzjr65gt9i1lhxddr.jpg",
+        "https://res.cloudinary.com/djbjwoyza/image/upload/v1756822643/ommx5stw2vvknsr1raku.jpg",
+        "https://res.cloudinary.com/djbjwoyza/image/upload/v1756822859/ifke106etqmvi0vkdv9w.jpg",
+        "https://res.cloudinary.com/djbjwoyza/image/upload/v1756825099/tenw7hj58cibag3qenyw.jpg"
+      ],
+      "Offer_price": "",
+      "Offer_percentage": "",
+      "description": "✨ Product Description\n\nExperience elegance and comfort with our Classic White Panjabi, designed to make every occasion special.\n\n🧵 Material & Quality\n\n100% Premium Cotton 🌿\n\nLightweight & breathable (140 GSM)\n\nSkin-friendly, soft touch 🤍\n\n👔 Fit & Style\n\nModern Slim Fit ✨\n\nSide Pockets for convenience 🎉\n\nPerfect for festive & casual wear 🎊\n\n🧼 Care Instructions\n\nHand wash in cold water 💧\n\nAvoid bleach 🚫\n\nDry in shade 🌤️\n\n⭐ Why You’ll Love It\n\n✔️ Elegant look for any event\n✔️ Durable stitching with attention to detail 🪡\n✔️ Made for comfort in every season 🌸☀️🍂❄️",
       "combo_product": ""
     }
   }

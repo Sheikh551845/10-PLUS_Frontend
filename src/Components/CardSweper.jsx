@@ -11,7 +11,7 @@ const CardSweper = ({ products }) => {
     if (!products || products.length === 0) return null;
 
     if (products.length === 1) {
-        return <Narrival_card key={products[0].id} product={products[0]} />;
+        return <div className='w-[40vw] md:w-[25vw] lg:w-[20vw]'><SlideCard key={products[0].id} product={products[0]} /></div>;
     }
 
     return (
@@ -20,7 +20,8 @@ const CardSweper = ({ products }) => {
             loop={true}
             breakpoints={{
                 0: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 5 },
                 reverseDirection: true,
             }}
             autoplay={{
@@ -33,7 +34,7 @@ const CardSweper = ({ products }) => {
             {products.map((data) => (
                 <SwiperSlide
                     key={data.id}
-                    className="flex items-center justify-center h-[45vh] md:h-[45vh]"
+                    className="flex items-center justify-center h-[45vh] md:h-[50vh]"
                 >
                     <SlideCard product={data} />
                 </SwiperSlide>

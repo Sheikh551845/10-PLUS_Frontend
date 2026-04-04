@@ -50,7 +50,8 @@ const AllProducts = ({ data }) => {
 
     return (
         <div className="w-[98%] md:w-[95%] mx-auto py-8">
-            <h1 className="text-2xl font-bold mb-6">All {products[0]?.Category}</h1>
+            {products[0]?.combo=='true'? <h1 className="text-2xl font-bold mb-6">All Combo</h1>:<h1 className="text-2xl font-bold mb-6">All {products[0]?.Category}</h1>}
+           
 
             {/* Sorting & Items per page */}
             <div className="flex flex-row-reverse justify-between items-center mb-6 gap-4">
@@ -84,7 +85,7 @@ const AllProducts = ({ data }) => {
 
             {/* Products Grid */}
             <motion.div
-                className="grid grid-cols-2 lg:grid-cols-4 gap-3 w-[98%] md:w-[95%] mx-auto justify-items-center"
+                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5 lg:gap-6 w-[98%] md:w-[95%] mx-auto justify-items-center"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
@@ -93,7 +94,7 @@ const AllProducts = ({ data }) => {
                     <motion.div
                         key={item._id}
                         variants={cardVariants}
-                        className="w-full max-w-[320px] h-[50vh] " // Make sure it matches your card size
+                        className="w-full max-w-[320px] h-[60vh] " // Make sure it matches your card size
                     >
                         <Narrival_card product={item} />
                     </motion.div>

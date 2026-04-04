@@ -14,9 +14,9 @@ const StoreSection = () => {
         <h2 className="text-2xl font-bold" style={{ color: primaryColor }}>
           Locate Our Store
         </h2>
-        <p className="" style={{ color: primaryColor }}>Mozumdar villa, Signboard, Siddhirganj, Narayanganj 1430</p>
+        <p className="" style={{ color: primaryColor }}>House No 2629 , Faidabad Chapra Mosjid,  Joynal Market , Uttara Dhaka.</p>
         <a
-          href="https://www.facebook.com/10plus.live"
+          href="https://maps.app.goo.gl/2g877wkYGcgbuGLL8?g_st=ipc"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-2 inline-flex items-center gap-2 px-4 py-2 bg-white text-red-700 border border-red-700 rounded hover:bg-red-700 hover:text-white transition"
@@ -35,7 +35,7 @@ const StoreSection = () => {
         </h2>
         <p className="" style={{ color: primaryColor }}>Find your perfect fashion outfits.</p>
         <a
-          href="https://www.facebook.com/10plus.live"
+          href="https://www.facebook.com/10PlusFashion"
           className="mt-2 inline-flex items-center gap-2 px-4 py-2 bg-white text-red-700 border border-red-700 rounded hover:bg-red-700 hover:text-white transition"
         >
           <FaShoppingBag /> Visit Shop

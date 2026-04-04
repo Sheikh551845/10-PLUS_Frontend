@@ -23,7 +23,7 @@ export default function MobileMenu() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <div className="relative block md:hidden">
+    <div className="relative block lg:hidden">
       {/* Hamburger Button */}
       <button
         onClick={toggleMenu}
@@ -59,7 +59,7 @@ export default function MobileMenu() {
           { name: "T-Shirt", path: "/T-Shirt" },
           { name: "Panjabi", path: "/Panjabi" },
           { name: "Trouser", path: "/Trouser" },
-          { name: "Cuban Shirt", path: "/Cuban-Shirt" },
+          { name: "Shirt", path: "/Cuban-Shirt" },
           { name: "Polo", path: "/Polo" },
           { name: "Combo", path: "/Combo" },
           { name: "About Us", path: "/About Us" },

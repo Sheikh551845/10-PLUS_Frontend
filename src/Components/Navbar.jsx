@@ -59,37 +59,37 @@ const Navbar = () => {
   return (
     <div className="navbar bg-[rgba(185,28,28,0.7)] backdrop-blur-sm bg-opacity-30 fixed z-10 mt-0 text-white shadow-xl ">
       <div className="navbar-start">
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <NavLink to="/">
             <div className="flex justify-center items-center gap-2">
 
               <img src={logo} alt="" className="w-7 h-7 rounded-full" />
 
-              <p className="text-sm md:text-base font-bold">10 PLUSH</p>
+              <p className="text-sm md:text-base font-bold">10 Plus Fashion</p>
 
             </div>
           </NavLink>
         </div>
 
-        <div className="block md:hidden">
+        <div className="block  lg:hidden">
           <MobileMenu />
         </div>
       </div>
 
       <div className="navbar-center ">
-        <div className="block md:hidden">
+        <div className="block  lg:hidden">
           <NavLink to="/">
             <div className="flex justify-center items-center gap-2">
 
               <img src={logo} alt="" className="w-7 h-7 rounded-full" />
 
-              <p className="text-sm md:text-base font-bold">10 PLUSH</p>
+              <p className="text-sm md:text-base font-bold">10 Plus Fashion</p>
 
             </div>
           </NavLink>
         </div>
 
-        <div className="hidden md:flex">
+        <div className="hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
               <NavLink to="/">Home</NavLink>
@@ -99,7 +99,7 @@ const Navbar = () => {
             <li><NavLink to="/T-Shirt">T-Shirt</NavLink></li>
             <li><NavLink to="/Panjabi">Panjabi</NavLink></li>
             <li><NavLink to="/Trouser">Trouser</NavLink></li>
-            <li><NavLink to="/Cuban-Shirt">Cuban Shirt</NavLink></li>
+            <li><NavLink to="/Cuban-Shirt">Shirt</NavLink></li>
             <li><NavLink to="/Polo">Polo</NavLink></li>
             <li><NavLink to="/Combo">Combo</NavLink></li>
 
@@ -134,7 +134,7 @@ const Navbar = () => {
                   }`}
               >
                 <p className="text-white mb-4 max-w-fit md:text-sm mx-auto">
-                  {user.displayName}
+                 
                 </p>
 
                 <button
@@ -154,30 +154,20 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <div className="flex justify-center items-center gap-4 mr-1 md:mr-4 ">
-            <NavLink to="/Login" className="hidden">
-              <button className="text-black w-[40px] h-6 md:h-6 bg-white border-white rounded text-[10px] md:text-xs hover:cursor-pointer">
+          <div className="flex justify-center items-center gap-4 mr-1 md:mr-2 ">
+            <NavLink to="/Login" className="">
+              <button className="text-black w-[30px] md:w-[40px] h-6  bg-white border-white rounded text-[8px] md:text-xs hover:cursor-pointer">
                 Log In
               </button>
             </NavLink>
           </div>
         )}
-
-        <button
-          onClick={toggleTheme}
-          className="btn btn-circle btn-ghost text-xl btn-sm md:btn-md"
-        >
-          {theme === "light" && <HiSun />}
-          {theme === "dark" && <HiMoon />}
-          {theme === "cupcake" && <FaBirthdayCake />}
-        </button>
-
         <button
           className="relative cursor-pointer"
           onClick={() => navigate("/CartInfo")}
           aria-label="Go to Cart"
         >
-          <FaCartShopping className="w-7 h-7 rounded-full" />
+          <FaCartShopping className="w-6 h-6 md:w-7 md:h-7 rounded-full" />
           {cartCount > 0 && (
             <span
               className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] md:text-xs font-bold rounded-full px-1.5 md:px-2"
@@ -192,6 +182,16 @@ const Navbar = () => {
             </span>
           )}
         </button>
+
+{/*                 
+        <button
+              onClick={toggleTheme}
+              className="btn btn-circle btn-ghost text-xl btn-xs md:btn-md"
+            >
+              {theme === "light" && <HiSun />}
+              {theme === "dark" && <HiMoon />}
+              {theme === "cupcake" && <FaBirthdayCake />}
+            </button> */}
       </div>
 
     </div>

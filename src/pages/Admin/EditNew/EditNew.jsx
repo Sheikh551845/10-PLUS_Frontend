@@ -3,6 +3,7 @@ import { useLoaderData } from 'react-router-dom';
 import NewOfferCombo from '../../../Components/Dash Componets/NewOfferCombo';
 import { AuthContext } from '../../../AuthPorvider';
 import { FadeLoader } from 'react-spinners';
+import NewArrivalList from '../../../Components/Dash Componets/NewArrivalList ';
 
 
 const EditNew = () => {
@@ -34,7 +35,7 @@ const EditNew = () => {
 
     return (
         <div>
-            <NewOfferCombo products={NewProducts}></NewOfferCombo>
+            <NewArrivalList products={NewProducts}></NewArrivalList>
         </div>
     );
 };

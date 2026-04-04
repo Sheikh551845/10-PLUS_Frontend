@@ -17,17 +17,21 @@ export default function AuthProvider({ children }) {
     const [user, setUser] = useState({})
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([])
-    const [CartData, setCartData] = useState([])
     const [reg, setReg] = useState("")
-    const [allComment, setAllComments] = useState([])
-    const [allFirst, setAllFirst] = useState([])
-    const [allSecond, setAllSecond] = useState([])
     const [cartCount, setCartCount] = useState(0)
 
     const navigate = useNavigate();
 
 
     const axiosSecure = UseAxiosSecure()
+
+    const { data: AllUser = [], refetch: AllUserRefetch } = useQuery({
+        queryKey: ['AllUser'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/AllUser');
+            return res.data;
+        },
+    });
 
 
 
@@ -38,7 +42,7 @@ export default function AuthProvider({ children }) {
             if (res.data) {
                 return res.data
             }
-            else{
+            else {
                 return []
             }
 
@@ -89,10 +93,11 @@ export default function AuthProvider({ children }) {
 
             // ✅ Send verification email
             await sendEmailVerification(user);
-            toast.success('Signup successfullY, Verification email sent.', {
+            toast.success('Verification email sent.check spam also', {
                 icon: '📧',
             });
-            navigate("/")
+            logout()
+            navigate("/Login")
 
 
         } catch (error) {
@@ -113,7 +118,8 @@ export default function AuthProvider({ children }) {
             const user = userCredential.user;
 
             if (!user.emailVerified) {
-                toast.error("Please verify your email first.");
+                toast.error("Please verify your email first.Check spam also");
+                logout()
                 return;
             }
 
@@ -161,14 +167,12 @@ export default function AuthProvider({ children }) {
         user,
         logout,
         update,
-        allComment,
-        allFirst,
-        allSecond,
         loading,
         reg,
         cartCount,
-        setCartCount
-
+        setCartCount,
+        AllUser,
+        AllUserRefetch
     }
 
 

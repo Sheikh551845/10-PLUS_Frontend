@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import img from "../../assets/Demo images/Size suggestion.jpg";
 import ProductBanner from "./product_banner";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
@@ -18,6 +17,7 @@ const Product_details = () => {
 
   const axiosSecure = UseAxiosSecure();
 
+
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
@@ -26,7 +26,7 @@ const Product_details = () => {
   const [loading, setLoading] = useState(false); // spinner state
   const [orderLoading, setOderLoading] = useState(false); // spinner state
 
-  const { loading: load } = useContext(AuthContext);
+  const { loading: load, user } = useContext(AuthContext);
   const [data, setData] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
 
@@ -105,7 +105,7 @@ const Product_details = () => {
       cart[existingIndex].quantity += newQuantity;
     } else {
       cart.push({
-        id:single._id,
+        id: single._id,
         pid: single.pid,
         name: single.Name,
         color,
@@ -127,6 +127,12 @@ const Product_details = () => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
 
+  const generateOrderId = () => {
+    const timestamp = Date.now(); // current time in milliseconds
+    const randomNum = Math.floor(Math.random() * 1000); // random number 0-999
+    return `ORD-${timestamp}-${randomNum}`;
+  }
+
   const buyNowConfirm = async () => {
     if (!userInfo.name || !userInfo.mobile || !userInfo.address) {
       toast.error("Please fill all your information.");
@@ -134,9 +140,13 @@ const Product_details = () => {
     }
 
     const orderData = {
+      orderId: generateOrderId(),
       username: userInfo.name,
+      usermail: user?.email || '',
+      status: "pending",
       user_contact_number: userInfo.mobile,
       user_address: userInfo.address,
+      order_on: new Date().toISOString().split("T")[0],
       products: [
         {
           product_name: single.Name,
@@ -148,14 +158,16 @@ const Product_details = () => {
         },
       ],
     };
-    console.log(orderData)
+
     try {
       setOderLoading(true);
       const response = await axiosSecure.post("/send-order-email", orderData);
       console.log(response)
       if (response.data.success) {
+
+        const saveResponse = await axiosSecure.post("/SubmittedOrder", orderData);
         toast.success("Order has been Placed");
-        
+
       } else {
         toast.error("Failed to Place the order!");
         console.error(response.data.error);
@@ -181,160 +193,158 @@ const Product_details = () => {
         <title>10 PLUS | Product Details</title>
       </Helmet>
 
-      <ProductBanner product={single} />
-
-      <div className="w-[90%] mx-auto mt-5">
-        {/* Product Info */}
-        <div className="bg-[rgba(185,28,28,0.7)] backdrop-blur-sm text-white p-3 md:p-5 rounded-xl md:rounded-2xl">
-          <p className="text-base md:text-xl font-bold">{single.Name}</p>
-          <div className="flex gap-2 mt-1 md:mt-5">
-            <p className="text-base md:text-xl font-bold">Price:</p>
-            <p>
-              {single.Offer === "true" ? (
-                <>
-                  <span className="line-through ">{single.Price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></span>{" "}
-                  <span className="ml-2 text-green-400 text-lg md:text-2xl">
-                    {details.Offer_price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span>
-                  </span>
-                </>
-              ) : (
-                <span>{single.Price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></span>
-              )}
-            </p>
-          </div>
+      <div className=" grid grid-cols-1 md:grid-cols-2 min-h-[95vh] md:ml-5">
+        <div>
+          <ProductBanner product={single} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">
-          {/* Left */}
-          <div className="order-2 md:order-1">
-            <p className="text-base md:text-xl font-bold mb-2">
-              Available color & size:
-            </p>
-
-            {color_size.map(({ color: c, size: sizes }) => (
-              <div key={c} className="mt-2">
-                <p className="text-sm md:text-base font-bold">{c}:</p>
-                {sizes.map((s) => (
-                  <button
-                    key={s}
-                    className={`btn w-10 h-8 md:w-12 md:h-10 text-sm md:text-base mr-2 mb-2 ${color === c && size === s ? "bg-red-600 text-white" : ""
-                      }`}
-                    onClick={() => {
-                      handleColorSelect(c);
-                      handleSizeSelect(s);
-                    }}
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            ))}
-
-            {/* Quantity */}
-            <div className="mt-4 flex items-center gap-2">
-              <p className="font-bold mr-2">Quantity:</p>
-              <button
-                className="btn btn-xs"
-                onClick={() => handleQuantity("minus")}
-              >
-                -
-              </button>
-              <input
-                type="number"
-                className="border-1 rounded-lg w-10 text-center"
-                value={quantity}
-                readOnly
-              />
-              <button
-                className="btn btn-xs"
-                onClick={() => handleQuantity("plus")}
-              >
-                +
-              </button>
-            </div>
-
-            {/* Buttons */}
-            <div className="mt-4 flex gap-3">
-              <button
-                className="btn btn-neutral"
-                onClick={() => openModal("cart")}
-              >
-                Add To Cart
-              </button>
-              <button
-                className="btn btn-success"
-                onClick={() => openModal("buy")}
-              >
-                Buy Now
-              </button>
+        <div className="w-[90%] mx-auto mt-5">
+          {/* Product Info */}
+          <div className="bg-[rgba(185,28,28,0.7)] backdrop-blur-sm text-white p-3 md:p-5 rounded-xl md:rounded-2xl">
+            <p className="text-base md:text-xl font-bold">{single.Name}</p>
+            <div className="flex gap-2 mt-1 md:mt-5">
+              <p className="text-base md:text-xl font-bold">Price:</p>
+              <p>
+                {single.Offer === "true" ? (
+                  <>
+                    <span className="line-through ">{single.Price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></span>{" "}
+                    <span className="ml-2 text-green-400 text-lg md:text-2xl">
+                      {details.Offer_price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span>
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-base md:text-xl">{single.Price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></span>
+                )}
+              </p>
             </div>
           </div>
 
-          {/* Right */}
+          <div className="flex flex-col md:flex-col-reverse gap-3 mt-5">
+            {/* Left */}
+            <div className="order-2 md:order-1">
+              <p className="text-base md:text-xl font-bold mb-2">
+                Available color & size:
+              </p>
 
-          {
-            single?.Category == "Trouser" ? <div className="order-1 md:order-2">
-              <img src="https://sunnahsquarebd.com/wp-content/uploads/2024/09/trouser-2_1.avif" alt="" className="w-full h-auto" />
-            </div> :
+              {color_size.map(({ color: c, size: sizes }) => (
+                <div key={c} className="mt-2">
+                  <p className="text-sm md:text-base font-bold">{c}</p>
+                  {sizes.map((s) => (
+                    <button
+                      key={s}
+                      className={`btn w-10 h-8 md:w-12 md:h-10 text-sm md:text-base mr-2 mb-2 ${color === c && size === s ? "bg-red-600 text-white" : ""
+                        }`}
+                      onClick={() => {
+                        handleColorSelect(c);
+                        handleSizeSelect(s);
+                      }}
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              ))}
 
-              single?.Category == "Polo Shirt" ? <div className="order-1 md:order-2">
-                <img src="https://sunnahsquarebd.com/wp-content/uploads/2025/02/polo_1.jpg" alt="" className="w-full h-auto" />
+              {/* Quantity */}
+              <div className="mt-4 flex items-center gap-2">
+                <p className="font-bold mr-2">Quantity:</p>
+                <button
+                  className="btn btn-xs  md:btn-md"
+                  onClick={() => handleQuantity("minus")}
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  className="border-1 rounded-lg w-10 md:w-16 md:h-9 text-center"
+                  value={quantity}
+                  readOnly
+                />
+                <button
+                  className="btn btn-xs md:btn-md"
+                  onClick={() => handleQuantity("plus")}
+                >
+                  +
+                </button>
+              </div>
+
+              {/* Buttons */}
+              <div className="mt-4 flex gap-3">
+                <button
+                  className="btn btn-neutral btn-md md:btn-xl"
+                  onClick={() => openModal("cart")}
+                >
+                  Add To Cart
+                </button>
+                <button
+                  className="btn btn-success btn-md md:btn-xl"
+                  onClick={() => openModal("buy")}
+                >
+                  Buy Now
+                </button>
+              </div>
+            </div>
+
+            {/* Right */}
+
+            {
+              single?.Category == "Trouser" ? <div className="order-1 md:order-2">
+                <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1774974146/SIZE-CHART_1750679663868_j0vgyl.webp" alt="" className="w-full h-auto" />
               </div> :
 
-                single?.Category == "Shirt" ? <div className="order-1 md:order-2">
-                  <img src="https://sunnahsquarebd.com/wp-content/uploads/2025/05/cuban-shirt-size-guide.jpg" alt="" className="w-full h-auto" />
+                single?.Category == "Polo" ? <div className="order-1 md:order-2">
+                  <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1774974146/SIZE-CHART_1771310383824_kcycpi.webp" alt="" className="w-full h-auto" />
                 </div> :
 
-                  single?.Category == "T-Shirt" ? <div className="order-1 md:order-2">
-                    <img src="https://sunnahsquarebd.com/wp-content/uploads/2025/04/T-shirt-Size-Chart-1.jpg" alt="" className="w-full h-auto" />
+                  single?.Category == "Shirt" ? <div className="order-1 md:order-2">
+                    <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1774884014/Size_suggestion_lcq4tx.jpg" alt="" className="w-full h-auto" />
                   </div> :
 
-                    single?.Category == "Panjabi" ? <div className="order-1 md:order-2">
-                      <img src="https://sunnahsquarebd.com/wp-content/uploads/2025/04/T-shirt-Size-Chart-1.jpg" alt="" className="w-full h-auto" />
-                    </div> : <div className="order-1 md:order-2">
-                      <img src="https://sunnahsquarebd.com/wp-content/uploads/2025/04/T-shirt-Size-Chart-1.jpg" alt="" className="w-full h-auto" />
-                    </div>
+                    single?.Category == "T-Shirt" ? <div className="order-1 md:order-2">
+                      <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1774884014/Size_suggestion_lcq4tx.jpg" alt="" className="w-full h-auto" />
+                    </div> :
+
+                      single?.Category == "Panjabi" ? <div className="order-1 md:order-2">
+                        <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1774974147/SIZE-CHART_1750747610370_pyloat.webp" alt="" className="w-full h-auto" />
+                      </div> : <div className="order-1 md:order-2">
+                        <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1774884014/Size_suggestion_lcq4tx.jpg" alt="" className="w-full h-auto" />
+                      </div>
 
 
-          }
+            }
 
-        </div>
+          </div>
 
-        {/* Description */}
-        <div className="mt-6">
-          <p className="text-lg font-bold mb-2">Description:</p>
-          <table className="table-auto border-collapse border border-gray-300 w-[60vw] text-sm md:text-base ">
-            <tbody>
-              <tr>
-                <th className="border px-2 py-1 text-left font-bold">Material:</th>
-                <td className="border px-2 py-1">{details?.description.Material}</td>
-              </tr>
-              <tr>
-                <th className="border px-2 py-1 text-left font-bold">GSM:</th>
-                <td className="border px-2 py-1">{details?.description.GSM}</td>
-              </tr>
-              <tr>
-                <th className="border px-2 py-1 text-left font-bold">Fit:</th>
-                <td className="border px-2 py-1">{details?.description.Fit}</td>
-              </tr>
-              <tr>
-                <th className="border px-2 py-1 text-left font-bold">Instruction:</th>
-                <td className="border px-2 py-1">{details?.description.Care_instructions}</td>
-              </tr>
-            </tbody>
-          </table>
 
         </div>
       </div>
 
+
+
+
+      {/* Description */}
+      <div className="mt-5 w-[90%] mx-auto md:ml-5">
+        <p className="text-lg font-bold mb-2">Description:</p>
+        <div className="bg-[rgba(255,208,208,0.7)] p-4 rounded-lg text-sm md:text-base whitespace-pre-line">
+          {details?.description ? (
+            <p>{details.description}</p>
+          ) : (
+            <p className="text-gray-500">No description available.</p>
+          )}
+        </div>
+      </div>
+
+
       {/* similer Products */}
-      <div className='w-[95%] mx-auto  min-h-fit'>
-        {similier.length > 0 ? <div><Section_Title Title={"Similer Products"} />
-          <CardSweper products={similier}></CardSweper>
+
+      <div className='w-[94%] mx-auto  min-h-fit'>
+        {similier.length > 0 ? <div><Section_Title Title={"New Arrival"} />
+          <CardSweper key={similier[0]._id} products={similier}></CardSweper>
         </div> : <></>}
 
 
       </div>
+
 
       {/* Modal */}
       {isModalOpen && (

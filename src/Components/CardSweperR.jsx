@@ -20,7 +20,8 @@ const CardSweperR = ({ products }) => {
             loop={true}
             breakpoints={{
                 0: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 5 },
             }}
             autoplay={{
                 delay: 2000,
@@ -32,7 +33,7 @@ const CardSweperR = ({ products }) => {
             {products.map((data) => (
                 <SwiperSlide
                     key={data.id}
-                    className="flex items-center justify-center h-[45vh] md:h-[45vh]"
+                    className="flex items-center justify-center h-[45vh] md:h-[50vh]"
                 >
                     <SlideCard product={data} />
                 </SwiperSlide>

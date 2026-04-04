@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import broken from "../../assets/Demo images/icons8-image-96.png";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import { triggerCartUpdate } from "../../Utils/cartHelper";
 import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../../AuthPorvider";
 
 const CartInfo = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -15,6 +16,7 @@ const CartInfo = () => {
   const [userInfo, setUserInfo] = useState({ name: "", mobile: "", address: "" });
   const [colorSize, setColorSize] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { loading: load, user } = useContext(AuthContext);
 
   const axiosSecure = UseAxiosSecure();
 
@@ -45,6 +47,12 @@ const CartInfo = () => {
     setUserInfo((prev) => ({ ...prev, [name]: value }));
   };
 
+  const generateOrderId = () => {
+    const timestamp = Date.now(); // current time in milliseconds
+    const randomNum = Math.floor(Math.random() * 1000); // random number 0-999
+    return `ORD-${timestamp}-${randomNum}`;
+  }
+
   // Checkout single item
   const confirmOrder = async (id) => {
     const { name, mobile, address } = userInfo;
@@ -54,9 +62,13 @@ const CartInfo = () => {
     }
 
     const orderData = {
+      orderId: generateOrderId(),
       username: name,
+      usermail: user?.email || '',
+      status:"pending",
       user_contact_number: mobile,
       user_address: address,
+      order_on:new Date().toISOString().split("T")[0],
       products: [
         {
           product_name: editItem.name,
@@ -74,6 +86,7 @@ const CartInfo = () => {
       const response = await axiosSecure.post("/send-order-email", orderData);
 
       if (response.data.success) {
+        const saveResponse = await axiosSecure.post("/SubmittedOrder", orderData);
         toast.success("Order placed successfully!");
         setCartItems((prev) => {
           const filtered = prev.filter((item) => item.id !== id);
@@ -102,9 +115,13 @@ const CartInfo = () => {
     }
 
     const orderData = {
+      orderId: generateOrderId(),
       username: name,
+      usermail: user?.email || '',
+      status:"pending",
       user_contact_number: mobile,
       user_address: address,
+      order_on:new Date().toISOString().split("T")[0],
       products: cartItems.map((item) => ({
         product_name: item.name,
         product_color: item.color,
@@ -119,6 +136,7 @@ const CartInfo = () => {
       setLoading(true);
       const response = await axiosSecure.post("/send-order-email", orderData);
       if (response.data.success) {
+        const saveResponse = await axiosSecure.post("/SubmittedOrder", orderData);
         toast.success("All items ordered successfully!");
         setCartItems([]);
         localStorage.removeItem("cartItems");
@@ -206,7 +224,7 @@ const CartInfo = () => {
               <tbody>
                 {cartItems.map((item, idx) => (
                   <tr key={`${item.id}-${idx}`}>
-                    <td><img src={item.img || broken} alt={item.name} className="w-16 h-16 object-cover rounded"/></td>
+                    <td><img src={item.img || broken} alt={item.name} className="w-16 h-16 object-cover rounded" /></td>
                     <td>{item.name}</td>
                     <td>{item.color}</td>
                     <td>{item.size}</td>
@@ -233,7 +251,7 @@ const CartInfo = () => {
           <div className="block md:hidden space-y-4">
             {cartItems.map((item, idx) => (
               <div key={idx} className="card card-side bg-gray-50 shadow-sm w-full">
-                <figure className="w-1/3"><img src={item.img || broken} className="w-full h-full object-cover"/></figure>
+                <figure className="w-1/3"><img src={item.img || broken} className="w-full h-full object-cover" /></figure>
                 <div className="card-body">
                   <h3 className="font-semibold">{item.name}</h3>
                   <p>Color: {item.color}</p>
@@ -263,7 +281,7 @@ const CartInfo = () => {
         <dialog className="modal modal-open">
           <form className="modal-box max-w-md" onSubmit={(e) => e.preventDefault()}>
             <h3 className="font-bold text-lg mb-4">Edit Item</h3>
-            <img src={editItem.img || broken} alt={editItem.name} className="w-32 h-32 object-cover mx-auto rounded mb-4"/>
+            <img src={editItem.img || broken} alt={editItem.name} className="w-32 h-32 object-cover mx-auto rounded mb-4" />
             <div className="space-y-3">
               <label className="block">Color</label>
               <select className="select select-bordered w-full" name="color" value={editItem.color} onChange={handleEditChange}>
@@ -276,7 +294,7 @@ const CartInfo = () => {
               <label className="block">Quantity</label>
               <div className="flex items-center gap-2">
                 <button type="button" className="btn btn-xs" onClick={() => setEditItem(prev => ({ ...prev, quantity: Math.max(prev.quantity - 1, 1) }))}>−</button>
-                <input type="number" min="1" name="quantity" value={editItem.quantity} onChange={handleEditChange} className="border rounded w-12 text-center"/>
+                <input type="number" min="1" name="quantity" value={editItem.quantity} onChange={handleEditChange} className="border rounded w-12 text-center" />
                 <button type="button" className="btn btn-xs" onClick={() => setEditItem(prev => ({ ...prev, quantity: prev.quantity + 1 }))}>+</button>
               </div>
             </div>
@@ -301,9 +319,9 @@ const CartInfo = () => {
                 <p><strong>Price:</strong> {editItem.price}৳</p>
               </>
             )}
-            <input type="text" name="name" placeholder="Your Name" value={userInfo.name} onChange={handleUserInfoChange} className="input input-bordered w-full my-2"/>
-            <input type="tel" name="mobile" placeholder="Mobile Number" value={userInfo.mobile} onChange={handleUserInfoChange} className="input input-bordered w-full my-2"/>
-            <textarea name="address" placeholder="Address" value={userInfo.address} onChange={handleUserInfoChange} className="textarea textarea-bordered w-full my-2"/>
+            <input type="text" name="name" placeholder="Your Name" value={userInfo.name} onChange={handleUserInfoChange} className="input input-bordered w-full my-2" />
+            <input type="tel" name="mobile" placeholder="Mobile Number" value={userInfo.mobile} onChange={handleUserInfoChange} className="input input-bordered w-full my-2" />
+            <textarea name="address" placeholder="Address" value={userInfo.address} onChange={handleUserInfoChange} className="textarea textarea-bordered w-full my-2" />
 
             <div className="modal-action">
               <button type="button" className="btn" onClick={() => setOrderModalOpen(false)} disabled={loading}>Cancel</button>

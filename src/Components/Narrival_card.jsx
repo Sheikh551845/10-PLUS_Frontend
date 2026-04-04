@@ -7,11 +7,11 @@ const Narrival_card = ({ product }) => {
 
     return (
         <div
-            className=" bg-transparent bg-opacity-60  w-full max-w-[320px] shadow-md transform hover:scale-102 transition-transform duration-300 overflow-hidden"
+            className=" bg-transparent bg-opacity-60 w-full max-w-[320px] shadow-md transform hover:scale-102 transition-transform duration-300 overflow-hidden"
             onClick={() => navigate(`/Product_details/${product?._id}`)}
         >
             {/* Image & Badges */}
-            <div className="h-[25vh] relative">
+            <div className="h-[30vh] md:h-[35vh] relative">
 
                 <div className="absolute top-3 right-3 flex gap-2 z-5">
                     {product?.New_arrival === "true" && (
@@ -37,12 +37,12 @@ const Narrival_card = ({ product }) => {
                 <img
                     src={`${product?.Show_photo}`}
                     alt={`${product?.Name} photo`}
-                    className="object-fill h-[25vh] w-full"
+                    className="object-fill h-[30vh] md:h-[35vh] w-full md:pt-2  md:pr-3  md:pl-3"
                 />
             </div>
 
             {/* Card Body */}
-            <div className="card-body border-1 p-3 flex flex-col justify-between ">
+            <div className="card-body  p-3 flex flex-col justify-between ">
                 {/* Product Info */}
                 <div
                     className="text-center text-sm md:text-base border-t border-b border-dashed w-full

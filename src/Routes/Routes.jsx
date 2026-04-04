@@ -31,6 +31,8 @@ import Edit_combo from "../pages/Admin/Edit_Combo/Edit_combo";
 import AllProduct from "../pages/Admin/All Product/AllProduct";
 import BannerManage from "../pages/Admin/BannerManage/BannerManage";
 import CartPage from "../pages/User/CartfPage/CartPage";
+import OrdersPage from "../pages/User/OrderPage/OrdersPage";
+import AdminOrdersPage from "../pages/Admin/AdminOrdersPage/AdminOrdersPage";
 
 export const router = createBrowserRouter([
   {
@@ -132,7 +134,7 @@ export const router = createBrowserRouter([
         element: <Edit_offer />,
         loader: async () => safeFetch("https://one0-plus-server.onrender.com/OfferProduct"),
       },
-     {
+      {
         path: "BannerManage",
         element: <BannerManage />,
         loader: async () => safeFetch("https://one0-plus-server.onrender.com/banner"),
@@ -146,6 +148,15 @@ export const router = createBrowserRouter([
 
       {
         path: "Cart", element: <CartPage />
+      },
+      {
+        path: "Order/:email", element: <OrdersPage />, loader: async ({ params }) =>
+          safeFetch(`https://one0-plus-server.onrender.com/UserOrder/${params.email}`),
+      },
+
+      {
+        path: "AllOrder", element: <AdminOrdersPage />, loader: async () =>
+          safeFetch(`https://one0-plus-server.onrender.com/AllOrder`),
       },
 
     ],
