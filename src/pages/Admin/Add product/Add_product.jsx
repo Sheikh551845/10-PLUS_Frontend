@@ -37,6 +37,7 @@ const Add_product = () => {
 
     const [form, setForm] = useState(initialForm);
     const [offerEnabled, setOfferEnabled] = useState(false);
+    const [offerMode, setOfferMode] = useState("percentage"); // "percentage" or "amount"
     const [comboEnabled, setComboEnabled] = useState(false);
     const [mainUploading, setMainUploading] = useState(false);
     const [detailUploading, setDetailUploading] = useState(false);
@@ -109,7 +110,23 @@ const Add_product = () => {
             details: {
                 ...form.details,
                 Offer_percentage: value + "%",
-                Offer_price: Math.round((parseFloat(form.Price) * value) / 100)
+                Offer_price: Math.round((parseFloat(form.Price) * (parseFloat(value) || 0)) / 100).toString()
+            }
+        });
+    };
+
+    const handleOfferAmountChange = (e) => {
+        const finalPrice = parseFloat(e.target.value) || 0;
+        const originalPrice = parseFloat(form.Price) || 0;
+        const discountAmount = originalPrice - finalPrice;
+        const percentage = originalPrice > 0 ? Math.round((discountAmount / originalPrice) * 100) : 0;
+
+        setForm({
+            ...form,
+            details: {
+                ...form.details,
+                Offer_percentage: percentage + "%",
+                Offer_price: discountAmount.toString()
             }
         });
     };
@@ -193,7 +210,6 @@ const Add_product = () => {
     const handleSubmit = () => {
         if (mainUploading || detailUploading) return toast.error("Please wait until image upload completes.");
         if (!form.pid || !form.Name || !form.Price || !form.Category || !form.Show_photo) return toast.error("Please fill all required fields!");
-        if (form.details.Details_photo.length < 4) return toast.error("Please upload 4 details photos.");
         if (offerEnabled && !form.details.Offer_percentage) return toast.error("Please provide offer percentage!");
         if (comboEnabled && (!form.combo_quantity || !form.details.combo_product)) return toast.error("Please provide combo info!");
 
@@ -284,7 +300,50 @@ const Add_product = () => {
                         <label className="flex items-center gap-2">
                             <input type="checkbox" checked={offerEnabled} onChange={e => { setOfferEnabled(e.target.checked); handleChange({ target: { name: "Offer", checked: e.target.checked } }); }} /> Offer
                         </label>
-                        {offerEnabled && <input type="number" placeholder="Offer %" value={parseInt(form.details.Offer_percentage)} onChange={handleOfferPercentageChange} className="input input-bordered w-full mt-2" />}
+                        {offerEnabled && (
+                            <div className="mt-2 space-y-2">
+                                <div className="flex gap-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => setOfferMode("percentage")}
+                                        className={`btn btn-xs ${offerMode === 'percentage' ? 'btn-primary' : 'btn-outline'}`}
+                                    >
+                                        Percentage (%)
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setOfferMode("amount")}
+                                        className={`btn btn-xs ${offerMode === 'amount' ? 'btn-primary' : 'btn-outline'}`}
+                                    >
+                                        Direct Price (৳)
+                                    </button>
+                                </div>
+                                {offerMode === "percentage" ? (
+                                    <input
+                                        type="number"
+                                        placeholder="Offer %"
+                                        value={parseInt(form.details.Offer_percentage) || ""}
+                                        onChange={handleOfferPercentageChange}
+                                        className="input input-bordered w-full mt-2"
+                                    />
+                                ) : (
+                                    <input
+                                        type="number"
+                                        placeholder="Final Offer Price"
+                                        value={parseFloat(form.Price) - parseFloat(form.details.Offer_price) || ""}
+                                        onChange={handleOfferAmountChange}
+                                        className="input input-bordered w-full mt-2"
+                                    />
+                                )}
+                                {form.details.Offer_percentage && (
+                                    <p className="text-xs text-blue-600">
+                                        Calculated: {offerMode === 'percentage'
+                                            ? `Final Price: ${parseFloat(form.Price) - parseFloat(form.details.Offer_price) || 0}৳`
+                                            : `Discount: ${form.details.Offer_percentage}`}
+                                    </p>
+                                )}
+                            </div>
+                        )}
                     </div>
 
                     <div>
@@ -362,7 +421,7 @@ const Add_product = () => {
 
                 {/* Details Photos */}
                 <div>
-                    <label className="font-semibold">Details Photos (1-4):</label>
+                    <label className="font-semibold">Details Photos (Optional, Max 4):</label>
                     <div className="flex gap-2 flex-wrap mt-2">
                         {form.details.Details_photo.map((url, i) => (
                             <div key={i} className="relative">

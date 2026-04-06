@@ -124,7 +124,14 @@ const Product_details = () => {
   };
 
   const handleUserInfoChange = (e) => {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "mobile") {
+      const val = value.replace(/[^0-9+]/g, "");
+      const maxLength = val.startsWith("+") ? 14 : 11;
+      setUserInfo({ ...userInfo, [name]: val.slice(0, maxLength) });
+    } else {
+      setUserInfo({ ...userInfo, [name]: value });
+    }
   };
 
   const generateOrderId = () => {
@@ -139,35 +146,47 @@ const Product_details = () => {
       return;
     }
 
-    const orderData = {
-      orderId: generateOrderId(),
-      username: userInfo.name,
-      usermail: user?.email || '',
-      status: "pending",
-      user_contact_number: userInfo.mobile,
-      user_address: userInfo.address,
-      order_on: new Date().toISOString().split("T")[0],
-      products: [
-        {
-          product_name: single.Name,
-          product_color: color,
-          product_size: size,
-          quantity,
-          pid: single.pid,
-          img: single.Show_photo,
-        },
-      ],
-    };
+    const bdPhoneRegex = /^(?:\+88)?01[3-9]\d{8}$/;
+    if (!bdPhoneRegex.test(userInfo.mobile)) {
+      toast.error("Please enter a valid Bangladeshi mobile number.");
+      return;
+    }
 
     try {
       setOderLoading(true);
+
+      // Fetch current SL
+      const slRes = await axiosSecure.get("/OrderSL");
+      const currentSl = slRes.data;
+      console.log(currentSl)
+
+      const orderData = {
+        sl: currentSl || "",
+        orderId: generateOrderId(),
+        username: userInfo.name,
+        usermail: user?.email || '',
+        status: "pending",
+        user_contact_number: userInfo.mobile,
+        user_address: userInfo.address,
+        order_on: new Date().toISOString().split("T")[0],
+        products: [
+          {
+            product_name: single.Name,
+            product_color: color,
+            product_size: size,
+            quantity,
+            pid: single.pid,
+            img: single.Show_photo,
+          },
+        ],
+      };
+
       const response = await axiosSecure.post("/send-order-email", orderData);
-      console.log(response)
       if (response.data.success) {
-
-        const saveResponse = await axiosSecure.post("/SubmittedOrder", orderData);
+        await axiosSecure.post("/SubmittedOrder", orderData);
+        // Update SL (increment)
+        await axiosSecure.patch("/OrderSL");
         toast.success("Order has been Placed");
-
       } else {
         toast.error("Failed to Place the order!");
         console.error(response.data.error);
@@ -301,7 +320,7 @@ const Product_details = () => {
                   </div> :
 
                     single?.Category == "T-Shirt" ? <div className="order-1 md:order-2">
-                      <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1774884014/Size_suggestion_lcq4tx.jpg" alt="" className="w-full h-auto" />
+                      <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1775487107/T-shirt_size_kfgzom.png" alt="" className="w-full h-auto" />
                     </div> :
 
                       single?.Category == "Panjabi" ? <div className="order-1 md:order-2">

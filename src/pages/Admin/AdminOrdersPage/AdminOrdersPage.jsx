@@ -5,11 +5,11 @@ import Swal from "sweetalert2";
 
 const AdminOrdersPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
-    const [sortField, setSortField] = useState("order_on");
+    const [sortField, setSortField] = useState("sl");
     const [sortOrder, setSortOrder] = useState("desc");
     const [currentPage, setCurrentPage] = useState(1);
-    const ordersPerPage = 5; // You can adjust
-  
+    const ordersPerPage = 20; // You can adjust
+
 
     // Fetch all orders
     const fetchOrders = async () => {
@@ -24,14 +24,6 @@ const AdminOrdersPage = () => {
 
     console.log(orders)
 
-    // Only last 1 month
-    const lastMonthOrders = useMemo(() => {
-        const now = new Date();
-        const oneMonthAgo = new Date(now);
-        oneMonthAgo.setMonth(now.getMonth() - 1);
-
-        return orders.filter((o) => new Date(o.order_on) >= oneMonthAgo);
-    }, [orders]);
 
     // Search suggestions
     const suggestions = useMemo(() => {
@@ -39,7 +31,7 @@ const AdminOrdersPage = () => {
         const lower = searchTerm.toLowerCase();
         const uniqueSuggestions = new Set();
 
-        lastMonthOrders.forEach((order) => {
+        orders.forEach((order) => {
             if (order.username?.toLowerCase().includes(lower)) uniqueSuggestions.add(order.username);
             if (order.usermail?.toLowerCase().includes(lower)) uniqueSuggestions.add(order.usermail);
             order.products.forEach((p) => {
@@ -48,11 +40,11 @@ const AdminOrdersPage = () => {
         });
 
         return Array.from(uniqueSuggestions).slice(0, 5);
-    }, [searchTerm, lastMonthOrders]);
+    }, [searchTerm, orders]);
 
     // Filter & sort
     const filteredOrders = useMemo(() => {
-        let filtered = lastMonthOrders.filter(
+        let filtered = orders.filter(
             (order) =>
                 order.username?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 order.usermail?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -70,11 +62,16 @@ const AdminOrdersPage = () => {
                     ? a.status.localeCompare(b.status)
                     : b.status.localeCompare(a.status);
             }
+            if (sortField === "sl") {
+                return sortOrder === "asc"
+                    ? (a.sl || 0) - (b.sl || 0)
+                    : (b.sl || 0) - (a.sl || 0);
+            }
             return 0;
         });
 
         return filtered;
-    }, [lastMonthOrders, searchTerm, sortField, sortOrder]);
+    }, [orders, searchTerm, sortField, sortOrder]);
 
     // Pagination logic
     const indexOfLastOrder = currentPage * ordersPerPage;
@@ -119,14 +116,14 @@ const AdminOrdersPage = () => {
         }
     };
     // Count pending & delivered
-    const pendingCount = lastMonthOrders.filter((o) => o.status === "pending").length;
-    const deliveredCount = lastMonthOrders.filter((o) => o.status === "delivered").length;
+    const pendingCount = orders.filter((o) => o.status === "pending").length;
+    const deliveredCount = orders.filter((o) => o.status === "delivered").length;
 
     if (isLoading) return <p>Loading orders...</p>;
 
     return (
         <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Admin Orders (Last 1 Month)</h1>
+            <h1 className="text-2xl font-bold mb-4">Admin Orders</h1>
 
             {/* Summary */}
             <div className="flex gap-6 mb-6">
@@ -165,6 +162,7 @@ const AdminOrdersPage = () => {
                     onChange={(e) => setSortField(e.target.value)}
                     className="border p-2 rounded"
                 >
+                    <option value="sl">SL (Serial)</option>
                     <option value="order_on">Order Date</option>
                     <option value="status">Status</option>
                 </select>
@@ -185,15 +183,18 @@ const AdminOrdersPage = () => {
                 <div className="flex flex-col gap-4">
                     {currentOrders.map((order) => (
                         <div key={order._id} className="p-4 border rounded-md shadow-sm bg-white">
-                            <p className="text-xs text-gray-400 text-center">Order ID: {order.orderId}</p>
+                            <div className="flex justify-between items-center px-4 mb-2">
+                                <p className="text-xs text-gray-500 font-semibold">SL: {order.sl}</p>
+                                <p className="text-xs text-black italic">Order ID: {order.orderId}</p>
+                            </div>
                             <div className="mb-2">
                                 <p className="">
                                     Order by: {order.username} ({order.usermail})
                                 </p>
-                                <p className="text-sm text-gray-500">
+                                <p className="text-sm text-black">
                                     {order.user_contact_number} - {order.user_address}
                                 </p>
-                                <p className="text-sm text-gray-400">Order Date: {order.order_on}</p>
+                                <p className="text-sm text-black">Order Date: {order.order_on}</p>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -206,7 +207,7 @@ const AdminOrdersPage = () => {
                                         />
                                         <div>
                                             <p className="font-medium">{p.product_name}</p>
-                                            <p className="text-sm text-gray-500">
+                                            <p className="text-sm text-black">
                                                 Qty: {p.quantity} | Size: {p.product_size}
                                             </p>
                                         </div>

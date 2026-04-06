@@ -44,7 +44,13 @@ const CartInfo = () => {
 
   const handleUserInfoChange = (e) => {
     const { name, value } = e.target;
-    setUserInfo((prev) => ({ ...prev, [name]: value }));
+    if (name === "mobile") {
+      const val = value.replace(/[^0-9+]/g, "");
+      const maxLength = val.startsWith("+") ? 14 : 11;
+      setUserInfo((prev) => ({ ...prev, [name]: val.slice(0, maxLength) }));
+    } else {
+      setUserInfo((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const generateOrderId = () => {
@@ -61,32 +67,46 @@ const CartInfo = () => {
       return;
     }
 
-    const orderData = {
-      orderId: generateOrderId(),
-      username: name,
-      usermail: user?.email || '',
-      status:"pending",
-      user_contact_number: mobile,
-      user_address: address,
-      order_on:new Date().toISOString().split("T")[0],
-      products: [
-        {
-          product_name: editItem.name,
-          product_color: editItem.color,
-          product_size: editItem.size,
-          quantity: editItem.quantity,
-          img: editItem.img,
-          pid: editItem.pid,
-        },
-      ],
-    };
+    const bdPhoneRegex = /^(?:\+88)?01[3-9]\d{8}$/;
+    if (!bdPhoneRegex.test(mobile)) {
+      toast.error("Please enter a valid Bangladeshi mobile number.");
+      return;
+    }
 
     try {
       setLoading(true);
+
+      // Fetch current SL
+      const slRes = await axiosSecure.get("/OrderSL");
+      const currentSl = slRes.data;
+
+      const orderData = {
+        sl: currentSl || "",
+        orderId: generateOrderId(),
+        username: name,
+        usermail: user?.email || '',
+        status: "pending",
+        user_contact_number: mobile,
+        user_address: address,
+        order_on: new Date().toISOString().split("T")[0],
+        products: [
+          {
+            product_name: editItem.name,
+            product_color: editItem.color,
+            product_size: editItem.size,
+            quantity: editItem.quantity,
+            img: editItem.img,
+            pid: editItem.pid,
+          },
+        ],
+      };
+
       const response = await axiosSecure.post("/send-order-email", orderData);
 
       if (response.data.success) {
-        const saveResponse = await axiosSecure.post("/SubmittedOrder", orderData);
+        await axiosSecure.post("/SubmittedOrder", orderData);
+        // Update SL (increment)
+        await axiosSecure.patch("/OrderSL");
         toast.success("Order placed successfully!");
         setCartItems((prev) => {
           const filtered = prev.filter((item) => item.id !== id);
@@ -114,29 +134,43 @@ const CartInfo = () => {
       return;
     }
 
-    const orderData = {
-      orderId: generateOrderId(),
-      username: name,
-      usermail: user?.email || '',
-      status:"pending",
-      user_contact_number: mobile,
-      user_address: address,
-      order_on:new Date().toISOString().split("T")[0],
-      products: cartItems.map((item) => ({
-        product_name: item.name,
-        product_color: item.color,
-        product_size: item.size,
-        quantity: item.quantity,
-        img: item.img,
-        pid: item.pid,
-      })),
-    };
+    const bdPhoneRegex = /^(?:\+88)?01[3-9]\d{8}$/;
+    if (!bdPhoneRegex.test(mobile)) {
+      toast.error("Please enter a valid Bangladeshi mobile number.");
+      return;
+    }
 
     try {
       setLoading(true);
+
+      // Fetch current SL
+      const slRes = await axiosSecure.get("/OrderSL");
+      const currentSl = slRes.data;
+
+      const orderData = {
+        sl: currentSl || "",
+        orderId: generateOrderId(),
+        username: name,
+        usermail: user?.email || '',
+        status: "pending",
+        user_contact_number: mobile,
+        user_address: address,
+        order_on: new Date().toISOString().split("T")[0],
+        products: cartItems.map((item) => ({
+          product_name: item.name,
+          product_color: item.color,
+          product_size: item.size,
+          quantity: item.quantity,
+          img: item.img,
+          pid: item.pid,
+        })),
+      };
+
       const response = await axiosSecure.post("/send-order-email", orderData);
       if (response.data.success) {
-        const saveResponse = await axiosSecure.post("/SubmittedOrder", orderData);
+        await axiosSecure.post("/SubmittedOrder", orderData);
+        // Update SL (increment)
+        await axiosSecure.patch("/OrderSL");
         toast.success("All items ordered successfully!");
         setCartItems([]);
         localStorage.removeItem("cartItems");

@@ -1,22 +1,34 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FadeLoader } from "react-spinners"; // Make sure you installed react-spinners
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 
-const NewOfferCombo = ( {products }) => {
- 
+const NewOfferCombo = ({ products }) => {
+
   const axiosSecure = UseAxiosSecure();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+
+  // ✅ Local state for filtering after mutation
+  const [localProducts, setLocalProducts] = useState(products || []);
+
+  // ✅ Sync localProducts with prop changes (important for search/sort in parent)
+  useEffect(() => {
+    setLocalProducts(products || []);
+  }, [products]);
+
   // ✅ Delete mutation
   const deleteMutation = useMutation({
     mutationFn: async (id) => {
       await axiosSecure.delete(`/Detele/${id}`);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries([`${products}`]);
+    onSuccess: (_, id) => {
+      // ✅ Update local state immediately
+      setLocalProducts((prev) => prev.filter((p) => p._id !== id));
+
+      queryClient.invalidateQueries(["products"]);
       Swal.fire("Deleted!", "Product has been deleted.", "success");
     },
     onError: () => {
@@ -27,11 +39,11 @@ const NewOfferCombo = ( {products }) => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState(1);
-  const perPage = 6;
+  const perPage = 20;
 
   // ✅ Filter + Sort + Search
   const filtered = useMemo(() => {
-    let data = [...(products || [])];
+    let data = [...(localProducts || [])];
 
     if (search) {
       data = data.filter(
@@ -72,7 +84,7 @@ const NewOfferCombo = ( {products }) => {
 
 
 
-  if (!products || products.length === 0)
+  if (!localProducts || localProducts.length === 0)
     return (
       <div className="flex justify-center items-center h-[80vh]">
         <p className="text-xl font-bold text-red-500">
@@ -129,7 +141,7 @@ const NewOfferCombo = ( {products }) => {
               <p className="text-sm">PID: {p.pid}</p>
               <p className="text-sm">Category: {p.Category}</p>
               <p className="font-semibold">{p.Price}৳</p>
-              {p?.details?.Offer_price && p?.details?.Offer_percentage?<p className="text-sm">Offer Price: {p?.details?.Offer_price}৳ | {p?.details?.Offer_percentage}</p>:<></>}
+              {p?.details?.Offer_price && p?.details?.Offer_percentage ? <p className="text-sm">Offer Price: {p?.details?.Offer_price}৳ | {p?.details?.Offer_percentage}</p> : <></>}
               <p className="text-xs text-gray-500">Uploaded: {p.Upload_on}</p>
               <p className="text-xs">
                 Colors: {p.details?.available_color_size?.map(c => c.color).join(", ")}
@@ -169,7 +181,7 @@ const NewOfferCombo = ( {products }) => {
               <th>Name</th>
               <th>Category</th>
               <th>Price</th>
-              {products[0]?.details?.Offer_price && products[0]?.details?.Offer_percentage?<th>Offer Price</th>:<></>}
+              {localProducts[0]?.details?.Offer_price && localProducts[0]?.details?.Offer_percentage ? <th>Offer Price</th> : <></>}
               <th>Colors</th>
               <th>Sizes</th>
               <th>Upload Date</th>
@@ -190,7 +202,7 @@ const NewOfferCombo = ( {products }) => {
                 <td>{p.Name}</td>
                 <td>{p.Category}</td>
                 <td>{p.Price}৳</td>
-                {p?.details?.Offer_price && p?.details?.Offer_percentage?<td>{p?.details?.Offer_price}৳ | {p?.details?.Offer_percentage}</td>:<></>}
+                {p?.details?.Offer_price && p?.details?.Offer_percentage ? <td>{p?.details?.Offer_price}৳ | {p?.details?.Offer_percentage}</td> : <></>}
                 <td>
                   {p.details?.available_color_size
                     ?.map(c => c.color)

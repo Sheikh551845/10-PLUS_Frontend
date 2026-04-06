@@ -32,7 +32,7 @@ const NewArrivalList = ({ products }) => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState(1);
-  const perPage = 6;
+  const perPage = 20;
 
   // ✅ Filter + Sort + Search (applied on localProducts instead of props)
   const filtered = useMemo(() => {

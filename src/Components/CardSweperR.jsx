@@ -10,10 +10,6 @@ import SlideCard from './SlideCard';
 const CardSweperR = ({ products }) => {
     if (!products || products.length === 0) return null;
 
-    if (products.length === 1) {
-        return <Narrival_card key={products[0].id} product={products[0]} />;
-    }
-
     return (
         <Swiper
             spaceBetween={20}
