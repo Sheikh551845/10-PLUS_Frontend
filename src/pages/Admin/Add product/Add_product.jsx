@@ -152,10 +152,6 @@ const Add_product = () => {
         const files = Array.from(e.target.files);
         if (!files.length) return;
 
-        if (form.details.Details_photo.length + files.length > 4) {
-            toast.error("Maximum 4 details photos allowed!");
-            return;
-        }
 
         setDetailUploading(true);
 

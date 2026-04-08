@@ -320,7 +320,7 @@ const Product_details = () => {
                   </div> :
 
                     single?.Category == "T-Shirt" ? <div className="order-1 md:order-2">
-                      <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1775487107/T-shirt_size_kfgzom.png" alt="" className="w-full h-auto" />
+                      <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1775499233/Gemini_Generated_Image_asip0uasip0uasip_xpoies.png" alt="" className="w-full h-auto" />
                     </div> :
 
                       single?.Category == "Panjabi" ? <div className="order-1 md:order-2">

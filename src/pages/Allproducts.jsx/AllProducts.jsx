@@ -6,9 +6,9 @@ const AllProducts = ({ data }) => {
     const [products, setProducts] = useState(data);
     const [sortOption, setSortOption] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(6);
+    const [itemsPerPage, setItemsPerPage] = useState(20);
 
-    
+
 
     // Sorting logic
     useEffect(() => {
@@ -50,8 +50,8 @@ const AllProducts = ({ data }) => {
 
     return (
         <div className="w-[98%] md:w-[95%] mx-auto py-8">
-            {products[0]?.combo=='true'? <h1 className="text-2xl font-bold mb-6">All Combo</h1>:<h1 className="text-2xl font-bold mb-6">All {products[0]?.Category}</h1>}
-           
+            {products[0]?.combo == 'true' ? <h1 className="text-2xl font-bold mb-6">All Combo</h1> : <h1 className="text-2xl font-bold mb-6">All {products[0]?.Category}</h1>}
+
 
             {/* Sorting & Items per page */}
             <div className="flex flex-row-reverse justify-between items-center mb-6 gap-4">
@@ -76,16 +76,16 @@ const AllProducts = ({ data }) => {
                         value={itemsPerPage}
                         onChange={(e) => setItemsPerPage(Number(e.target.value))}
                     >
-                        <option value={3}>3</option>
-                        <option value={6}>6</option>
-                        <option value={9}>9</option>
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                        <option value={30}>30</option>
                     </select>
                 </div>
             </div>
 
             {/* Products Grid */}
             <motion.div
-                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5 lg:gap-6 w-[98%] md:w-[95%] mx-auto justify-items-center"
+                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-2 lg:gap-3 w-[98%] md:w-[95%] mx-auto justify-items-center"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
