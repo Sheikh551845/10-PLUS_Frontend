@@ -12,7 +12,8 @@ const Populer = () => {
     { name: 'Shirt', path: '/Cuban-Shirt', img: 'https://res.cloudinary.com/djbjwoyza/image/upload/v1755611969/t8rjrnoslixvksw5egxn.png' },
     { name: 'Polo', path: '/Polo', img: 'https://res.cloudinary.com/djbjwoyza/image/upload/v1755611967/zycjlvrtoxidfhhwyor0.png' },
     { name: 'T Shirt', path: '/T-Shirt', img: 'https://res.cloudinary.com/djbjwoyza/image/upload/v1755611987/na7x5l7x6edgbvgjdq3i.png' },
-    { name: 'Combo', path: '/Combo', img: 'https://res.cloudinary.com/djbjwoyza/image/upload/v1755611918/jhcpzz1hhvibg0j1jyuz.png' }
+    { name: 'Combo', path: '/Combo', img: 'https://res.cloudinary.com/djbjwoyza/image/upload/v1755611918/jhcpzz1hhvibg0j1jyuz.png' },
+    { name: 'Jersey', path: '/Jersey', img: 'https://res.cloudinary.com/djbjwoyza/image/upload/v1775746193/Gemini_Generated_Image_54aate54aate54aa-Picsart-BackgroundRemover_mdbver.png' }
   ];
 
   return (
@@ -23,7 +24,7 @@ const Populer = () => {
           <div
             key={cat.name}
             onClick={() => navigate(cat.path)}
-            style={{ backgroundImage:`url('https://i.ibb.co.com/bRJw1SPy/footer-bg.jpg')`}}
+            style={{ backgroundImage: `url('https://i.ibb.co.com/bRJw1SPy/footer-bg.jpg')` }}
             className="flex flex-row justify-between items-center w-42 md:w-50 h-28 md:h-30 text-center hover:cursor-pointer z-4 card shadow-md transform hover:scale-105 transition-transform duration-300 bg-gray-50"
           >
             <div className="w-[40%] h-full">

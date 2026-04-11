@@ -85,7 +85,7 @@ const AllProducts = ({ data }) => {
 
             {/* Products Grid */}
             <motion.div
-                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-2 lg:gap-3 w-[98%] md:w-[95%] mx-auto justify-items-center"
+                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-1 gap-y-3 md:gap-5 lg:gap-6 w-[98%] md:w-[95%] mx-auto justify-items-center"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
@@ -94,7 +94,7 @@ const AllProducts = ({ data }) => {
                     <motion.div
                         key={item._id}
                         variants={cardVariants}
-                        className="w-full max-w-[320px] h-[60vh] " // Make sure it matches your card size
+                        className="w-full max-w-[320px] h-[55vh] md:h-[60vh] " // Make sure it matches your card size
                     >
                         <Narrival_card product={item} />
                     </motion.div>

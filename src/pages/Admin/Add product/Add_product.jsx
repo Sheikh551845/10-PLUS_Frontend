@@ -10,9 +10,9 @@ const Add_product = () => {
     const queryClient = useQueryClient();
 
     // Predefined dropdowns
-    const colorOptions = ["BLACK", "WHITE", "RED", "BLUE", "NAVY", "GREEN", "YELLOW", "ORANGE", "PURPLE", "GRAY", "BROWN", "PINK", "MAROON", "BEIGE", "CYAN"];
+    const [colorOptions, setColorOptions] = useState(["BLACK", "WHITE", "RED", "BLUE", "NAVY", "GREEN", "YELLOW", "ORANGE", "PURPLE", "GRAY", "BROWN", "PINK", "MAROON", "BEIGE", "CYAN"]);
     const sizeOptions = ["XS", "SM", "M", "L", "XL", "XXL", "XXXL"];
-    const categoryOptions = ["Shirt", "Panjabi", "Trouser", "T-Shirt", "Polo"];
+    const categoryOptions = ["Shirt", "Panjabi", "Trouser", "T-Shirt", "Polo", "Jersey"];
 
     const initialForm = {
         pid: "",
@@ -56,7 +56,7 @@ const Add_product = () => {
             toast.error("This color already exists!");
             return;
         }
-        colorOptions.push(newColor);
+        setColorOptions(prev => [...prev, newColor]);
         toast.success(`${newColor} added!`);
         setCustomColor("");
     };

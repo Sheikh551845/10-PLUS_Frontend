@@ -15,6 +15,7 @@ const Product_details = () => {
   const details = single ? single.details : null;
   const color_size = details?.available_color_size || [];
 
+
   const axiosSecure = UseAxiosSecure();
 
 
@@ -85,8 +86,8 @@ const Product_details = () => {
   const handleSizeSelect = (selectedSize) => setSize(selectedSize);
 
   const openModal = (type) => {
-    if (!color || !size) {
-      toast.error("Please select color and size.");
+    if (!size) {
+      toast.error("Please select size.");
       return;
     }
     setModalType(type);
@@ -242,7 +243,7 @@ const Product_details = () => {
             {/* Left */}
             <div className="order-2 md:order-1">
               <p className="text-base md:text-xl font-bold mb-2">
-                Available color & size:
+                {color_size[0].color ? "Available color & size:" : "Available size:"}
               </p>
 
               {color_size.map(({ color: c, size: sizes }) => (
@@ -325,9 +326,13 @@ const Product_details = () => {
 
                       single?.Category == "Panjabi" ? <div className="order-1 md:order-2">
                         <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1774974147/SIZE-CHART_1750747610370_pyloat.webp" alt="" className="w-full h-auto" />
-                      </div> : <div className="order-1 md:order-2">
-                        <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1774884014/Size_suggestion_lcq4tx.jpg" alt="" className="w-full h-auto" />
-                      </div>
+                      </div> :
+
+                        single?.Category == "Jersey" ? <div className="order-1 md:order-2">
+                          <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1775499233/Gemini_Generated_Image_asip0uasip0uasip_xpoies.png" alt="" className="w-full h-auto" />
+                        </div> : <div className="order-1 md:order-2">
+                          <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1775499233/Gemini_Generated_Image_asip0uasip0uasip_xpoies.png" alt="" className="w-full h-auto" />
+                        </div>
 
 
             }
@@ -386,20 +391,22 @@ const Product_details = () => {
 
             <div className="space-y-3">
               {/* Color */}
-              <label className="flex flex-col">
-                <span className="font-semibold">Color:</span>
-                <select
-                  value={color}
-                  onChange={(e) => setColor(e.target.value)}
-                  className="select select-bordered w-full"
-                >
-                  {color_size.map(({ color: c }) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </select>
-              </label>
+              {color_size[0].color && (
+                <label className="flex flex-col">
+                  <span className="font-semibold">Color:</span>
+                  <select
+                    value={color}
+                    onChange={(e) => setColor(e.target.value)}
+                    className="select select-bordered w-full"
+                  >
+                    {color_size.map(({ color: c }) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )}
 
               {/* Size */}
               <label className="flex flex-col">

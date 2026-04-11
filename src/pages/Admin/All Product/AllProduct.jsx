@@ -4,6 +4,7 @@ import AdminPolo from '../Product_view/Polo/adminPolo';
 import AdminPanjabi from '../Product_view/Panjabi/adminPanjabi';
 import AdminTrouser from '../Product_view/Trouser/adminTrouser';
 import AdminShirt from '../Product_view/shirt/adminShirt';
+import AdminJersey from '../Product_view/Jersey/AdminJersey';
 
 const AllProduct = () => {
   const [activeTab, setActiveTab] = useState('T-shirt');
@@ -14,11 +15,12 @@ const AllProduct = () => {
     { label: 'Panjabi', component: <AdminPanjabi /> },
     { label: 'Trouser', component: <AdminTrouser /> },
     { label: 'Shirt', component: <AdminShirt /> },
+    { label: 'Jersey', component: <AdminJersey /> },
   ];
 
   return (
     <div className="w-full">
-      
+
       {/* Tab Menu */}
       <div className="flex overflow-x-auto md:overflow-x-visible md:space-x-3  border-b border-gray-300">
         {tabs.map((tab) => (

@@ -99,6 +99,7 @@ const Navbar = () => {
             <li><NavLink to="/T-Shirt">T-Shirt</NavLink></li>
             <li><NavLink to="/Panjabi">Panjabi</NavLink></li>
             <li><NavLink to="/Trouser">Trouser</NavLink></li>
+            <li><NavLink to="/Jersey">Jersey</NavLink></li>
             <li><NavLink to="/Cuban-Shirt">Shirt</NavLink></li>
             <li><NavLink to="/Polo">Polo</NavLink></li>
             <li><NavLink to="/Combo">Combo</NavLink></li>
@@ -134,7 +135,7 @@ const Navbar = () => {
                   }`}
               >
                 <p className="text-white mb-4 max-w-fit md:text-sm mx-auto">
-                 
+
                 </p>
 
                 <button
@@ -183,7 +184,7 @@ const Navbar = () => {
           )}
         </button>
 
-{/*                 
+        {/*                 
         <button
               onClick={toggleTheme}
               className="btn btn-circle btn-ghost text-xl btn-xs md:btn-md"

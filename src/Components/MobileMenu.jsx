@@ -59,6 +59,7 @@ export default function MobileMenu() {
           { name: "T-Shirt", path: "/T-Shirt" },
           { name: "Panjabi", path: "/Panjabi" },
           { name: "Trouser", path: "/Trouser" },
+          { name: "Jersey", path: "/Jersey" },
           { name: "Shirt", path: "/Cuban-Shirt" },
           { name: "Polo", path: "/Polo" },
           { name: "Combo", path: "/Combo" },

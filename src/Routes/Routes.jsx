@@ -18,12 +18,14 @@ import Product_details from "../pages/Poduct_details/Product_details";
 import CartInfo from "../pages/CartInfo/CartInfo";
 import Panjabi from "../pages/Panjabi/Panjabi";
 import Trouser from "../pages/Trouser/Trouser";
+import Jersey from "../pages/Jersey/Jersey";
 import Cuban_shirt from "../pages/Cuban Shirt/Cuban_shirt";
 import Combo from "../pages/Combo/Combo";
 import T_shirt_user from "../pages/T-Shirt/T_shirt";
 import AdminT_shirt from "../pages/Admin/Product_view/T-shirt/AdminT-shirt";
 import AdminPolo from "../pages/Admin/Product_view/Polo/AdminPolo";
 import AdminTrouser from "../pages/Admin/Product_view/Trouser/AdminTrouser";
+import AdminJersey from "../pages/Admin/Product_view/Jersey/AdminJersey";
 import AdminShirt from "../pages/Admin/Product_view/shirt/AdminShirt";
 import AdminPanjabi from "../pages/Admin/Product_view/Panjabi/AdminPanjabi";
 import EditNew from "../pages/Admin/EditNew/EditNew";
@@ -63,6 +65,11 @@ export const router = createBrowserRouter([
         path: "Trouser",
         element: <Trouser />,
         loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Trouser"),
+      },
+      {
+        path: "Jersey",
+        element: <Jersey />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Jersey"),
       },
       {
         path: "Cuban-Shirt",
@@ -111,6 +118,11 @@ export const router = createBrowserRouter([
         path: "Trouser",
         element: <AdminTrouser />,
         loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Trouser"),
+      },
+      {
+        path: "Jersey",
+        element: <AdminJersey />,
+        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Jersey"),
       },
       {
         path: "Shirt",
