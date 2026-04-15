@@ -13,7 +13,7 @@ const AdminOrdersPage = () => {
 
     // Fetch all orders
     const fetchOrders = async () => {
-        const res = await axios.get("https://one0-plus-server.onrender.com/AllOrder");
+        const res = await axios.get("https://api.10plusfashion.shop/AllOrder");
         return res.data;
     };
 
@@ -81,7 +81,7 @@ const AdminOrdersPage = () => {
 
     const handleSetDelivered = async (id) => {
         try {
-            const res = await fetch(`https://one0-plus-server.onrender.com/orders/${id}`, {
+            const res = await fetch(`https://api.10plusfashion.shop/orders/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ status: "delivered" }),
@@ -182,7 +182,7 @@ const AdminOrdersPage = () => {
             ) : (
                 <div className="flex flex-col gap-4">
                     {currentOrders.map((order) => (
-                        <div key={order._id} className="p-4 border rounded-md shadow-sm bg-white">
+                        <div key={order._id} className="p-4 border rounded-md shadow-sm bg-white text-black">
                             <div className="flex justify-between items-center px-4 mb-2">
                                 <p className="text-xs text-gray-500 font-semibold">SL: {order.sl}</p>
                                 <p className="text-xs text-black italic">Order ID: {order.orderId}</p>

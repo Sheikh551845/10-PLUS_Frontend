@@ -9,7 +9,7 @@ const BannerManage = () => {
 
   // Load existing banners
   useEffect(() => {
-    axios.get("https://one0-plus-server.onrender.com/banner")
+    axios.get("https://api.10plusfashion.shop/banner")
       .then(res => setBannerPhotos(res.data))
       .catch(() => toast.error("Failed to load banners"));
   }, []);
@@ -54,7 +54,7 @@ const BannerManage = () => {
       }
 
       // Send to backend
-      const res = await axios.post("https://one0-plus-server.onrender.com/bannerUp", {
+      const res = await axios.post("https://api.10plusfashion.shop/bannerUp", {
         banners: uploaded,
       });
 
@@ -69,7 +69,7 @@ const BannerManage = () => {
   // Remove old banner photo
   const handleRemoveOld = async (id) => {
     try {
-      await axios.delete(`https://one0-plus-server.onrender.com/bannerDetele/${id}`);
+      await axios.delete(`https://api.10plusfashion.shop/bannerDetele/${id}`);
       setBannerPhotos(prev => prev.filter(photo => photo._id !== id));
       toast.success("Banner removed");
     } catch {

@@ -11,7 +11,7 @@ const AllProducts = ({ apiPath }) => {
     const [sortOption, setSortOption] = useState("");
     const [itemsPerPage, setItemsPerPage] = useState(20);
     const [currentPage, setCurrentPage] = useState(() => {
-        const saved = sessionStorage.getItem("allProducts_currentPage");
+        const saved = sessionStorage.getItem(`page_${apiPath}`);
         return saved ? Number(saved) : 1;
     });
 
@@ -46,21 +46,21 @@ const AllProducts = ({ apiPath }) => {
 
     // Persist page & scroll to top on page change
     useEffect(() => {
-        sessionStorage.setItem("allProducts_currentPage", currentPage);
+        sessionStorage.setItem(`page_${apiPath}`, currentPage);
         window.scrollTo({ top: 0, behavior: "smooth" });
-    }, [currentPage]);
+    }, [currentPage, apiPath]);
 
     // Reset to page 1 when sort or limit changes
     const handleSortChange = (val) => {
         setSortOption(val);
         setCurrentPage(1);
-        sessionStorage.setItem("allProducts_currentPage", 1);
+        sessionStorage.setItem(`page_${apiPath}`, 1);
     };
 
     const handleLimitChange = (val) => {
         setItemsPerPage(Number(val));
         setCurrentPage(1);
-        sessionStorage.setItem("allProducts_currentPage", 1);
+        sessionStorage.setItem(`page_${apiPath}`, 1);
     };
 
     // Framer Motion variants

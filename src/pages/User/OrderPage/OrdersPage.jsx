@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router-dom";
 
 const OrdersPage = () => {
   const orders = useLoaderData(); // array of orders
- 
+
 
   return (
     <div className="p-6 md:p-12">
@@ -19,13 +19,12 @@ const OrdersPage = () => {
               className="p-4 border rounded-md shadow-sm"
             >
               <p
-                className={`font-bold mb-4 ${
-                  order.status.toLowerCase() === "delivered"
+                className={`font-bold mb-4 ${order.status.toLowerCase() === "delivered"
                     ? "text-green-600"
                     : order.status.toLowerCase() === "pending"
-                    ? "text-yellow-500"
-                    : "text-red-500"
-                }`}
+                      ? "text-yellow-500"
+                      : "text-red-500"
+                  }`}
               >
                 Status: {order.status}
               </p>
@@ -34,7 +33,7 @@ const OrdersPage = () => {
                 {order.products.map((product) => (
                   <div
                     key={product.orderId}
-                    className="flex items-center gap-4 p-2 border rounded-md"
+                    className="flex items-center gap-4 p-2 border rounded-md text-black"
                   >
                     <img
                       src={product.img}
