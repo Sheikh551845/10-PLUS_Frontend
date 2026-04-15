@@ -14,8 +14,14 @@ const TabProduct = ({ Category }) => {
   const { data: products = [], isLoading, isFetching, error } = useQuery({
     queryKey: [`${Category}`],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/Category/${Category}`);
-      return res.data;
+      // Pass a high limit so the backend returns all products for the admin panel
+      const res = await axiosSecure.get(`/Category/${Category}`, {
+        params: { limit: 1000 }
+      });
+      // console.log(res.data.products);
+      // The backend may return { products: [...], total: N } due to our recent pagination updates,
+      // or it might still return a direct array [...] for some endpoints.
+      return res.data.products ?? res.data;
     },
   });
 
@@ -82,9 +88,9 @@ const TabProduct = ({ Category }) => {
   // ✅ Loader or empty state
   if (isLoading || isFetching)
     return (
-                  <div className="flex justify-center items-center h-[80vh] w-[80vw]">
-                    <FadeLoader color="rgba(185,28,28,0.7)" size={15} />
-                  </div>
+      <div className="flex justify-center items-center h-[80vh] w-[80vw]">
+        <FadeLoader color="rgba(185,28,28,0.7)" size={15} />
+      </div>
     );
 
   if (!products || products.length === 0)
@@ -126,7 +132,7 @@ const TabProduct = ({ Category }) => {
       </div>
 
       {/* Cards (MOBILE ONLY) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:hidden">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:hidden text-black">
         {paginated.map((p) => (
           <div
             key={p._id}
@@ -174,10 +180,10 @@ const TabProduct = ({ Category }) => {
       </div>
 
       {/* Table (DESKTOP ONLY) */}
-      <div className="overflow-x-auto hidden lg:block mt-8 w-[85vw]">
+      <div className="overflow-x-auto hidden lg:block mt-8 w-[85vw] text-black">
         <table className="table w-[80vw] border mx-auto">
           <thead>
-            <tr className="bg-gray-100">
+            <tr className="bg-gray-100 text-black">
               <th>Photo</th>
               <th>PID</th>
               <th>Name</th>
@@ -235,7 +241,7 @@ const TabProduct = ({ Category }) => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center mt-6 gap-2 w-fit mx-auto">
+      <div className="flex justify-center mt-6 gap-2 w-fit mx-auto text-black">
         <button
           className="btn btn-sm"
           disabled={page === 1}

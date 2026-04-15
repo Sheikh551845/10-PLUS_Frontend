@@ -131,12 +131,19 @@ const Navbar = () => {
 
               {/* Animated dropdown */}
               <div
-                className={`absolute top-10 right-5 bg-[rgba(185,28,28,0.7)] bg-opacity-70 text-white p-2 rounded max-w-max h-[100px] md:h-[130px] transform transition-transform duration-300 ease-in-out ${isClicked ? "translate-x-0 opacity-100" : "translate-x-20 opacity-0 pointer-events-none"
+                className={`absolute top-10 right-5 bg-[rgba(185,28,28,0.7)] bg-opacity-70 text-white p-2 rounded w-max h-auto transform transition-transform duration-300 ease-in-out ${isClicked ? "translate-x-0 opacity-100" : "translate-x-20 opacity-0 pointer-events-none"
                   }`}
               >
-                <p className="text-white mb-4 max-w-fit md:text-sm mx-auto">
-
-                </p>
+                <div className="flex justify-center mb-1">
+                  <button
+                    onClick={toggleTheme}
+                    className="text-[rgba(185,28,28,0.7)] p-1 w-full md:h-10 md:p-3 bg-white rounded-lg text-xs lg:text-[rgba(185,28,28,0.7)] flex items-center justify-center gap-2"
+                  >
+                    {theme === "light" && <><HiSun className="text-lg" /> Theme</>}
+                    {theme === "dark" && <><HiMoon className="text-lg" /> Theme</>}
+                    {theme === "cupcake" && <><FaBirthdayCake className="text-lg" /> Theme</>}
+                  </button>
+                </div>
 
                 <button
                   className="text-[rgba(185,28,28,0.7)] p-1 w-full md:h-10 md:p-3 bg-white rounded-lg text-xs lg:text-[rgba(185,28,28,0.7)] mb-1"
@@ -155,9 +162,17 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <div className="flex justify-center items-center gap-4 mr-1 md:mr-2 ">
+          <div className="flex justify-center items-center gap-2 mr-1 md:mr-2 ">
+            <button
+              onClick={toggleTheme}
+              className="btn btn-circle btn-ghost text-lg min-h-0 h-6 w-6 md:h-8 md:w-8 md:text-xl p-0"
+            >
+              {theme === "light" && <HiSun />}
+              {theme === "dark" && <HiMoon />}
+              {theme === "cupcake" && <FaBirthdayCake />}
+            </button>
             <NavLink to="/Login" className="">
-              <button className="text-black w-[30px] md:w-[40px] h-6  bg-white border-white rounded text-[8px] md:text-xs hover:cursor-pointer">
+              <button className="text-black w-[40px] md:w-[50px] h-6 bg-white border-white rounded text-[8px] md:text-xs font-semibold hover:cursor-pointer">
                 Log In
               </button>
             </NavLink>

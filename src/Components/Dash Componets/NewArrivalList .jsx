@@ -168,7 +168,7 @@ const NewArrivalList = ({ products }) => {
       <div className="overflow-x-auto hidden lg:block mt-8 w-[85vw]">
         <table className="table w-[85vw] border mx-auto">
           <thead>
-            <tr className="bg-gray-100">
+            <tr className="bg-gray-100 text-black">
               <th>Photo</th>
               <th>PID</th>
               <th>Name</th>
