@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { safeFetch } from "../Utils/safeFetch";
+import { axiosSecure } from "../Hooks/UseAxiosSecure";
 
 import Main from "../Main/Main";
 import Home from "../pages/Home/Home";
@@ -46,47 +46,20 @@ export const router = createBrowserRouter([
       { path: "Login", element: <Login /> },
       { path: "Registration", element: <Registration /> },
 
-      {
-        path: "T-Shirt",
-        element: <T_shirt_user />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/T-Shirt"),
-      },
-      {
-        path: "Polo",
-        element: <Polo />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Polo"),
-      },
-      {
-        path: "Panjabi",
-        element: <Panjabi />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Panjabi"),
-      },
-      {
-        path: "Trouser",
-        element: <Trouser />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Trouser"),
-      },
-      {
-        path: "Jersey",
-        element: <Jersey />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Jersey"),
-      },
-      {
-        path: "Cuban-Shirt",
-        element: <Cuban_shirt />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Shirt"),
-      },
-      {
-        path: "Combo",
-        element: <Combo />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Combo"),
-      },
+      { path: "T-Shirt", element: <T_shirt_user /> },
+      { path: "Polo", element: <Polo /> },
+      { path: "Panjabi", element: <Panjabi /> },
+      { path: "Trouser", element: <Trouser /> },
+      { path: "Jersey", element: <Jersey /> },
+      { path: "Cuban-Shirt", element: <Cuban_shirt /> },
+      { path: "Combo", element: <Combo /> },
+
       { path: "About Us", element: <About_us /> },
       {
         path: "Product_details/:id",
         element: <Product_details />,
         loader: async ({ params }) =>
-          safeFetch(`https://one0-plus-server.onrender.com/Product/${params.id}`),
+          axiosSecure.get(`/Product/${params.id}`).then(r => r.data),
       },
       { path: "CartInfo", element: <CartInfo /> },
     ],
@@ -102,75 +75,68 @@ export const router = createBrowserRouter([
       {
         path: "T-Shirt",
         element: <AdminT_shirt></AdminT_shirt>,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/T-Shirt"),
+        loader: async () => axiosSecure.get("/Category/T-Shirt").then(r => r.data),
       },
       {
         path: "Polo",
         element: <AdminPolo></AdminPolo>,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Polo"),
+        loader: async () => axiosSecure.get("/Category/Polo").then(r => r.data),
       },
       {
         path: "Panjabi",
         element: <AdminPanjabi />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Panjabi"),
+        loader: async () => axiosSecure.get("/Category/Panjabi").then(r => r.data),
       },
       {
         path: "Trouser",
         element: <AdminTrouser />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Trouser"),
+        loader: async () => axiosSecure.get("/Category/Trouser").then(r => r.data),
       },
       {
         path: "Jersey",
         element: <AdminJersey />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Jersey"),
+        loader: async () => axiosSecure.get("/Category/Jersey").then(r => r.data),
       },
       {
         path: "Shirt",
         element: <AdminShirt />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Category/Shirt"),
+        loader: async () => axiosSecure.get("/Category/Shirt").then(r => r.data),
       },
       {
         path: "Edit_Combo",
         element: <Edit_combo />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/Combo"),
+        loader: async () => axiosSecure.get("/Combo").then(r => r.data),
       },
-
       {
         path: "Edit_New",
         element: <EditNew />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/NewArrival"),
+        loader: async () => axiosSecure.get("/NewArrival").then(r => r.data),
       },
-
       {
         path: "Edit_Offer",
         element: <Edit_offer />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/OfferProduct"),
+        loader: async () => axiosSecure.get("/OfferProduct").then(r => r.data),
       },
       {
         path: "BannerManage",
         element: <BannerManage />,
-        loader: async () => safeFetch("https://one0-plus-server.onrender.com/banner"),
+        loader: async () => axiosSecure.get("/banner").then(r => r.data),
       },
       { path: "Add_Product", element: <Add_product /> },
       {
         path: "Edit_Product/:id", element: <Edit_product />, loader: async ({ params }) =>
-          safeFetch(`https://one0-plus-server.onrender.com/Product/${params.id}`),
+          axiosSecure.get(`/Product/${params.id}`).then(r => r.data),
       },
       { path: "All_Product", element: <AllProduct /> },
-
-      {
-        path: "Cart", element: <CartPage />
-      },
+      { path: "Cart", element: <CartPage /> },
       {
         path: "Order/:email", element: <OrdersPage />, loader: async ({ params }) =>
-          safeFetch(`https://one0-plus-server.onrender.com/UserOrder/${params.email}`),
+          axiosSecure.get(`/UserOrder/${params.email}`).then(r => r.data),
       },
-
       {
         path: "AllOrder", element: <AdminOrdersPage />, loader: async () =>
-          safeFetch(`https://one0-plus-server.onrender.com/AllOrder`),
+          axiosSecure.get(`/AllOrder`).then(r => r.data),
       },
-
     ],
   },
 ]);

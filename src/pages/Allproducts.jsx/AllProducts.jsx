@@ -1,57 +1,102 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Narrival_card from "../../Components/Narrival_card";
 import { motion } from "framer-motion";
+import { axiosSecure } from "../../Hooks/UseAxiosSecure";
+import { FadeLoader } from "react-spinners";
 
-const AllProducts = ({ data }) => {
-    const [products, setProducts] = useState(data);
+const AllProducts = ({ apiPath }) => {
+    const [products, setProducts] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [isFetching, setIsFetching] = useState(true);
     const [sortOption, setSortOption] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(20);
+    const [currentPage, setCurrentPage] = useState(() => {
+        const saved = sessionStorage.getItem("allProducts_currentPage");
+        return saved ? Number(saved) : 1;
+    });
 
+    const totalPages = Math.ceil(total / itemsPerPage);
 
-
-    // Sorting logic
-    useEffect(() => {
-        let sortedProducts = [...data];
-
-        if (sortOption === "priceLowHigh") {
-            sortedProducts.sort((a, b) => Number(a.Price) - Number(b.Price));
-        } else if (sortOption === "priceHighLow") {
-            sortedProducts.sort((a, b) => Number(b.Price) - Number(a.Price));
-        } else if (sortOption === "newArrival") {
-            sortedProducts.sort(
-                (a, b) => new Date(b.Upload_on) - new Date(a.Upload_on)
-            );
-        } else if (sortOption === "offer") {
-            sortedProducts.sort((a, b) => (b.Offer === "true") - (a.Offer === "true"));
+    // Fetch products from server whenever page / limit / sort changes
+    const fetchProducts = useCallback(async () => {
+        setIsFetching(true);
+        try {
+            const res = await axiosSecure.get(apiPath, {
+                params: {
+                    page: currentPage,
+                    limit: itemsPerPage,
+                    sort: sortOption || undefined,
+                },
+            });
+            // API returns { products, total }
+            setProducts(res.data.products ?? res.data);
+            setTotal(res.data.total ?? res.data.length);
+        } catch (err) {
+            console.error(err);
+            setProducts([]);
+            setTotal(0);
+        } finally {
+            setIsFetching(false);
         }
+    }, [apiPath, currentPage, itemsPerPage, sortOption]);
 
-        setProducts(sortedProducts);
+    useEffect(() => {
+        fetchProducts();
+    }, [fetchProducts]);
+
+    // Persist page & scroll to top on page change
+    useEffect(() => {
+        sessionStorage.setItem("allProducts_currentPage", currentPage);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [currentPage]);
+
+    // Reset to page 1 when sort or limit changes
+    const handleSortChange = (val) => {
+        setSortOption(val);
         setCurrentPage(1);
-    }, [sortOption, data]);
+        sessionStorage.setItem("allProducts_currentPage", 1);
+    };
 
-    // Pagination logic
-    const totalPages = Math.ceil(products?.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentProducts = products?.slice(startIndex, startIndex + itemsPerPage);
+    const handleLimitChange = (val) => {
+        setItemsPerPage(Number(val));
+        setCurrentPage(1);
+        sessionStorage.setItem("allProducts_currentPage", 1);
+    };
 
     // Framer Motion variants
     const containerVariants = {
         hidden: {},
-        visible: {
-            transition: { staggerChildren: 0.1 },
-        },
+        visible: { transition: { staggerChildren: 0.07 } },
     };
-
     const cardVariants = {
         hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
     };
+
+    if (isFetching) {
+        return (
+            <div className="flex justify-center items-center h-[80vh]">
+                <FadeLoader color="rgba(185,28,28,0.7)" />
+            </div>
+        );
+    }
+
+    if (!isFetching && products.length === 0) {
+        return (
+            <div className="flex justify-center items-center h-[80vh]">
+                <p className="text-xl font-bold text-red-500">
+                    The Product Will Available Soon!
+                </p>
+            </div>
+        );
+    }
 
     return (
         <div className="w-[98%] md:w-[95%] mx-auto py-8">
-            {products[0]?.combo == 'true' ? <h1 className="text-2xl font-bold mb-6">All Combo</h1> : <h1 className="text-2xl font-bold mb-6">All {products[0]?.Category}</h1>}
-
+            {products[0]?.combo === "true"
+                ? <h1 className="text-2xl font-bold mb-6">All Combo</h1>
+                : <h1 className="text-2xl font-bold mb-6">All {products[0]?.Category}</h1>
+            }
 
             {/* Sorting & Items per page */}
             <div className="flex flex-row-reverse justify-between items-center mb-6 gap-4">
@@ -59,7 +104,7 @@ const AllProducts = ({ data }) => {
                     <select
                         className="select select-bordered md:w-[50%]"
                         value={sortOption}
-                        onChange={(e) => setSortOption(e.target.value)}
+                        onChange={(e) => handleSortChange(e.target.value)}
                     >
                         <option value="">Sort By</option>
                         <option value="priceLowHigh">Price: Low to High</option>
@@ -74,7 +119,7 @@ const AllProducts = ({ data }) => {
                     <select
                         className="select select-bordered w-24"
                         value={itemsPerPage}
-                        onChange={(e) => setItemsPerPage(Number(e.target.value))}
+                        onChange={(e) => handleLimitChange(e.target.value)}
                     >
                         <option value={10}>10</option>
                         <option value={20}>20</option>
@@ -89,47 +134,49 @@ const AllProducts = ({ data }) => {
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
+                key={`${currentPage}-${sortOption}`}
             >
-                {currentProducts?.map((item) => (
+                {products.map((item) => (
                     <motion.div
                         key={item._id}
                         variants={cardVariants}
-                        className="w-full max-w-[320px] h-[55vh] md:h-[60vh] " // Make sure it matches your card size
+                        className="w-full max-w-[320px] h-[55vh] md:h-[60vh]"
                     >
                         <Narrival_card product={item} />
                     </motion.div>
-
                 ))}
             </motion.div>
 
             {/* Pagination */}
-            <div className="flex justify-center mt-10">
-                <div className="btn-group">
-                    <button
-                        className="btn btn-outline"
-                        disabled={currentPage === 1}
-                        onClick={() => setCurrentPage((prev) => prev - 1)}
-                    >
-                        «
-                    </button>
-                    {Array.from({ length: totalPages }, (_, i) => (
+            {totalPages > 1 && (
+                <div className="flex justify-center mt-10">
+                    <div className="btn-group">
                         <button
-                            key={i}
-                            className={`btn ${currentPage === i + 1 ? "btn-active" : ""}`}
-                            onClick={() => setCurrentPage(i + 1)}
+                            className="btn btn-outline"
+                            disabled={currentPage === 1}
+                            onClick={() => setCurrentPage((p) => p - 1)}
                         >
-                            {i + 1}
+                            «
                         </button>
-                    ))}
-                    <button
-                        className="btn btn-outline"
-                        disabled={currentPage === totalPages}
-                        onClick={() => setCurrentPage((prev) => prev + 1)}
-                    >
-                        »
-                    </button>
+                        {Array.from({ length: totalPages }, (_, i) => (
+                            <button
+                                key={i}
+                                className={`btn ${currentPage === i + 1 ? "btn-active" : ""}`}
+                                onClick={() => setCurrentPage(i + 1)}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
+                        <button
+                            className="btn btn-outline"
+                            disabled={currentPage === totalPages}
+                            onClick={() => setCurrentPage((p) => p + 1)}
+                        >
+                            »
+                        </button>
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };

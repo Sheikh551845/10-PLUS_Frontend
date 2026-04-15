@@ -5,6 +5,7 @@ const FALLBACK_URL = 'https://one0-plus-server.onrender.com';
 
 export const axiosSecure = axios.create({
     baseURL: PRIMARY_URL,
+    timeout: 20000, // fail within 20s instead of waiting 30s+
 });
 
 // If the primary URL fails, automatically retry once using the fallback URL
