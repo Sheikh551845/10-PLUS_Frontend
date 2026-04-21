@@ -194,6 +194,11 @@ const AdminOrdersPage = () => {
                                 <p className="text-sm text-black">
                                     {order.user_contact_number} - {order.user_address}
                                 </p>
+                                {order.location && (
+                                    <p className="text-sm font-semibold text-blue-700 mt-1" style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>
+                                        📍 {order.location}
+                                    </p>
+                                )}
                                 <p className="text-sm text-black">Order Date: {order.order_on}</p>
                             </div>
 
@@ -215,13 +220,27 @@ const AdminOrdersPage = () => {
                                 ))}
                             </div>
 
-                            <div className="mt-3 flex justify-between items-center">
-                                <p
-                                    className={`font-bold ${order.status === "delivered" ? "text-green-600" : "text-yellow-600"
-                                        }`}
-                                >
-                                    {order.status}
-                                </p>
+                            <div className="mt-3 flex justify-between items-center flex-wrap gap-2">
+                                <div>
+                                    <p
+                                        className={`font-bold ${order.status === "delivered" ? "text-green-600" : "text-yellow-600"}`}
+                                    >
+                                        {order.status}
+                                    </p>
+                                    {(order.subtotal !== undefined || order.total !== undefined) && (
+                                        <div className="text-xs text-gray-600 mt-1 space-y-0.5">
+                                            {order.subtotal !== undefined && (
+                                                <p>Subtotal: <span className="font-medium">{order.subtotal}৳</span></p>
+                                            )}
+                                            {order.delivery_charge !== undefined && (
+                                                <p>Delivery: <span className="font-medium">{order.delivery_charge}৳</span></p>
+                                            )}
+                                            {order.total !== undefined && (
+                                                <p className="font-bold text-red-600 text-sm">Total: {order.total}৳</p>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
                                 {order.status !== "delivered" && (
                                     <button
                                         onClick={() => handleSetDelivered(order._id)}

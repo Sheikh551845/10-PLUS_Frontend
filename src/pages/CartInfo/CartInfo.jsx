@@ -18,6 +18,13 @@ const CartInfo = () => {
   const [loading, setLoading] = useState(false);
   const { loading: load, user } = useContext(AuthContext);
 
+  const deliveryOptions = [
+    { label: "ঢাকা সিটির ভিতরে", charge: 40 },
+    { label: "ঢাকা সিটির বাহিরে", charge: 100 },
+    { label: "ঢাকা জেলার বাহিরে", charge: 130 },
+  ];
+  const [selectedLocation, setSelectedLocation] = useState(deliveryOptions[0]);
+
   const axiosSecure = UseAxiosSecure();
 
   useEffect(() => {
@@ -39,6 +46,7 @@ const CartInfo = () => {
     setEditItem({ ...item, quantity: Number(item.quantity) });
     setModalType("order");
     setUserInfo({ name: "", mobile: "", address: "" });
+    setSelectedLocation(deliveryOptions[0]);
     setOrderModalOpen(true);
   };
 
@@ -80,6 +88,9 @@ const CartInfo = () => {
       const slRes = await axiosSecure.get("/OrderSL");
       const currentSl = slRes.data;
 
+      const subtotal = Number(editItem.price) * editItem.quantity;
+      const total = subtotal + selectedLocation.charge;
+
       const orderData = {
         sl: currentSl || "",
         orderId: generateOrderId(),
@@ -89,6 +100,10 @@ const CartInfo = () => {
         user_contact_number: mobile,
         user_address: address,
         order_on: new Date().toISOString().split("T")[0],
+        location: selectedLocation.label,
+        delivery_charge: selectedLocation.charge,
+        subtotal,
+        total,
         products: [
           {
             product_name: editItem.name,
@@ -147,6 +162,9 @@ const CartInfo = () => {
       const slRes = await axiosSecure.get("/OrderSL");
       const currentSl = slRes.data;
 
+      const subtotal = cartItems.reduce((acc, item) => acc + Number(item.price) * item.quantity, 0);
+      const total = subtotal + selectedLocation.charge;
+
       const orderData = {
         sl: currentSl || "",
         orderId: generateOrderId(),
@@ -156,6 +174,10 @@ const CartInfo = () => {
         user_contact_number: mobile,
         user_address: address,
         order_on: new Date().toISOString().split("T")[0],
+        location: selectedLocation.label,
+        delivery_charge: selectedLocation.charge,
+        subtotal,
+        total,
         products: cartItems.map((item) => ({
           product_name: item.name,
           product_color: item.color,
@@ -356,6 +378,51 @@ const CartInfo = () => {
             <input type="text" name="name" placeholder="Your Name" value={userInfo.name} onChange={handleUserInfoChange} className="input input-bordered w-full my-2" />
             <input type="tel" name="mobile" placeholder="Mobile Number" value={userInfo.mobile} onChange={handleUserInfoChange} className="input input-bordered w-full my-2" />
             <textarea name="address" placeholder="Address" value={userInfo.address} onChange={handleUserInfoChange} className="textarea textarea-bordered w-full my-2" />
+
+            {/* Delivery Location */}
+            <div className="my-3">
+              <span className="font-semibold block mb-2" style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>ডেলিভারি লোকেশন:</span>
+              <div className="space-y-2">
+                {deliveryOptions.map((opt) => (
+                  <label key={opt.label} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="location"
+                      className="radio radio-error"
+                      checked={selectedLocation.label === opt.label}
+                      onChange={() => setSelectedLocation(opt)}
+                    />
+                    <span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>
+                      {opt.label} - {opt.charge}৳
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Order Summary */}
+            <div className="bg-base-200 rounded-lg p-3 text-sm space-y-1 mb-3">
+              <div className="flex justify-between">
+                <span>Subtotal:</span>
+                <span>
+                  {modalType === "order" && editItem
+                    ? Number(editItem.price) * editItem.quantity
+                    : totalPrice}৳
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>ডেলিভারি চার্জ:</span>
+                <span>{selectedLocation.charge}৳</span>
+              </div>
+              <div className="flex justify-between font-bold border-t pt-1">
+                <span>Total:</span>
+                <span className="text-red-600">
+                  {(modalType === "order" && editItem
+                    ? Number(editItem.price) * editItem.quantity
+                    : totalPrice) + selectedLocation.charge}৳
+                </span>
+              </div>
+            </div>
 
             <div className="modal-action">
               <button type="button" className="btn" onClick={() => setOrderModalOpen(false)} disabled={loading}>Cancel</button>

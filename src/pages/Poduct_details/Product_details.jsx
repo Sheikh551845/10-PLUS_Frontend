@@ -27,6 +27,13 @@ const Product_details = () => {
   const [loading, setLoading] = useState(false); // spinner state
   const [orderLoading, setOderLoading] = useState(false); // spinner state
 
+  const deliveryOptions = [
+    { label: "ঢাকা সিটির ভিতরে", charge: 40 },
+    { label: "ঢাকা সিটির বাহিরে", charge: 100 },
+    { label: "ঢাকা জেলার বাহিরে", charge: 130 },
+  ];
+  const [selectedLocation, setSelectedLocation] = useState(deliveryOptions[0]);
+
   const { loading: load, user } = useContext(AuthContext);
   const [data, setData] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
@@ -161,6 +168,10 @@ const Product_details = () => {
       const currentSl = slRes.data;
       console.log(currentSl)
 
+      const unitPrice = single.Offer === "true" ? Number(details.Offer_price) : Number(single.Price);
+      const subtotal = unitPrice * quantity;
+      const total = subtotal + selectedLocation.charge;
+
       const orderData = {
         sl: currentSl || "",
         orderId: generateOrderId(),
@@ -170,6 +181,10 @@ const Product_details = () => {
         user_contact_number: userInfo.mobile,
         user_address: userInfo.address,
         order_on: new Date().toISOString().split("T")[0],
+        location: selectedLocation.label,
+        delivery_charge: selectedLocation.charge,
+        subtotal,
+        total,
         products: [
           {
             product_name: single.Name,
@@ -489,6 +504,45 @@ const Product_details = () => {
                       rows={3}
                     />
                   </label>
+
+                  {/* Delivery Location */}
+                  <div>
+                    <span className="font-semibold block mb-1" style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>ডেলিভারি লোকেশন:</span>
+                    <div className="space-y-2">
+                      {deliveryOptions.map((opt) => (
+                        <label key={opt.label} className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="location"
+                            className="radio radio-error"
+                            checked={selectedLocation.label === opt.label}
+                            onChange={() => setSelectedLocation(opt)}
+                          />
+                          <span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>
+                            {opt.label} - {opt.charge}৳
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Order Summary */}
+                  <div className="bg-base-200 rounded-lg p-3 text-sm space-y-1">
+                    <div className="flex justify-between">
+                      <span>Subtotal ({quantity} item{quantity > 1 ? 's' : ''}):</span>
+                      <span>{(single.Offer === "true" ? Number(details.Offer_price) : Number(single.Price)) * quantity}৳</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>ডেলিভারি চার্জ:</span>
+                      <span>{selectedLocation.charge}৳</span>
+                    </div>
+                    <div className="flex justify-between font-bold border-t pt-1">
+                      <span>Total:</span>
+                      <span className="text-red-600">
+                        {(single.Offer === "true" ? Number(details.Offer_price) : Number(single.Price)) * quantity + selectedLocation.charge}৳
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </>
             )}

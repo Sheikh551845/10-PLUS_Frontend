@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const PRIMARY_URL = 'https://api.10plusfashion.shop';
-const FALLBACK_URL = 'https://api.10plusfashion.shop';
+const FALLBACK_URL = 'https://one0-plus-server.onrender.com';
 
 export const axiosSecure = axios.create({
     baseURL: PRIMARY_URL,
