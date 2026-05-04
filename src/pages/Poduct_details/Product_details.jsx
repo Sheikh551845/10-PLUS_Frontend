@@ -3,12 +3,14 @@ import { useLoaderData } from "react-router-dom";
 import ProductBanner from "./product_banner";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
-import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
+import UseAxiosSecure, { axiosSecure } from "../../Hooks/UseAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Section_Title from "../../Components/Section_Title";
 import CardSweper from "../../Components/CardSweper";
 import { AuthContext } from "../../AuthPorvider";
 import { FadeLoader } from "react-spinners";
+
+const BASE_URL = axiosSecure.defaults.baseURL;
 
 const Product_details = () => {
   const single = useLoaderData();
@@ -28,9 +30,9 @@ const Product_details = () => {
   const [orderLoading, setOderLoading] = useState(false); // spinner state
 
   const deliveryOptions = [
-    { label: "ঢাকা সিটির ভিতরে", charge: 40 },
-    { label: "ঢাকা সিটির বাহিরে", charge: 100 },
-    { label: "ঢাকা জেলার বাহিরে", charge: 130 },
+    { label: "ঢাকা মেট্রো সিটি", charge: 60 },
+    { label: "ঢাকা জেলা", charge: 80 },
+    { label: "ঢাকা জেলার বাইরে", charge: 110 },
   ];
   const [selectedLocation, setSelectedLocation] = useState(deliveryOptions[0]);
 
@@ -78,10 +80,11 @@ const Product_details = () => {
 
 
 
+  const savedUserInfo = JSON.parse(localStorage.getItem("orderUserInfo")) || {};
   const [userInfo, setUserInfo] = useState({
-    name: "",
-    mobile: "",
-    address: "",
+    name: savedUserInfo.name || "",
+    mobile: savedUserInfo.mobile || "",
+    address: savedUserInfo.address || "",
   });
 
   const handleQuantity = (type) => {
@@ -202,6 +205,8 @@ const Product_details = () => {
         await axiosSecure.post("/SubmittedOrder", orderData);
         // Update SL (increment)
         await axiosSecure.patch("/OrderSL");
+        // Save user info for next time
+        localStorage.setItem("orderUserInfo", JSON.stringify(userInfo));
         toast.success("Order has been Placed");
       } else {
         toast.error("Failed to Place the order!");
@@ -324,29 +329,29 @@ const Product_details = () => {
 
             {
               single?.Category == "Trouser" ? <div className="order-1 md:order-2">
-                <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1774974146/SIZE-CHART_1750679663868_j0vgyl.webp" alt="" className="w-full h-auto" />
+                <img src={`${BASE_URL}/images/touser_size.webp`} alt="" className="w-full h-auto" />
               </div> :
 
                 single?.Category == "Polo" ? <div className="order-1 md:order-2">
-                  <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1774974146/SIZE-CHART_1771310383824_kcycpi.webp" alt="" className="w-full h-auto" />
+                  <img src={`${BASE_URL}/images/old_money_size.webp`} alt="" className="w-full h-auto" />
                 </div> :
 
                   single?.Category == "Shirt" ? <div className="order-1 md:order-2">
-                    <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1774884014/Size_suggestion_lcq4tx.jpg" alt="" className="w-full h-auto" />
+                    <img src={`${BASE_URL}/images/old_money_size.webp`} alt="" className="w-full h-auto" />
                   </div> :
 
                     single?.Category == "T-Shirt" ? <div className="order-1 md:order-2">
-                      <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1775499233/Gemini_Generated_Image_asip0uasip0uasip_xpoies.png" alt="" className="w-full h-auto" />
+                      <img src={`${BASE_URL}/images/t-shirt_size.jpg`} alt="" className="w-full h-auto" />
                     </div> :
 
                       single?.Category == "Panjabi" ? <div className="order-1 md:order-2">
-                        <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1774974147/SIZE-CHART_1750747610370_pyloat.webp" alt="" className="w-full h-auto" />
+                        <img src={`${BASE_URL}/images/panjabi_size.webp`} alt="" className="w-full h-auto" />
                       </div> :
 
                         single?.Category == "Jersey" ? <div className="order-1 md:order-2">
-                          <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1775499233/Gemini_Generated_Image_asip0uasip0uasip_xpoies.png" alt="" className="w-full h-auto" />
+                          <img src={`${BASE_URL}/images/t-shirt_size.jpg`} alt="" className="w-full h-auto" />
                         </div> : <div className="order-1 md:order-2">
-                          <img src="https://res.cloudinary.com/djbjwoyza/image/upload/v1775499233/Gemini_Generated_Image_asip0uasip0uasip_xpoies.png" alt="" className="w-full h-auto" />
+                          <img src={`${BASE_URL}/images/t-shirt_size.jpg`} alt="" className="w-full h-auto" />
                         </div>
 
 
@@ -479,6 +484,7 @@ const Product_details = () => {
                     <input
                       type="text"
                       name="name"
+                      autoComplete="name"
                       value={userInfo.name}
                       onChange={handleUserInfoChange}
                       className="input input-bordered w-full"
@@ -489,6 +495,7 @@ const Product_details = () => {
                     <input
                       type="tel"
                       name="mobile"
+                      autoComplete="tel"
                       value={userInfo.mobile}
                       onChange={handleUserInfoChange}
                       className="input input-bordered w-full"
@@ -498,6 +505,7 @@ const Product_details = () => {
                     <span className="font-semibold">Address:</span>
                     <textarea
                       name="address"
+                      autoComplete="street-address"
                       value={userInfo.address}
                       onChange={handleUserInfoChange}
                       className="textarea textarea-bordered w-full"

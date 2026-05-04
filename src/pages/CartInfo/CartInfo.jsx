@@ -13,15 +13,18 @@ const CartInfo = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [orderModalOpen, setOrderModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null); // "edit" or "order"
-  const [userInfo, setUserInfo] = useState({ name: "", mobile: "", address: "" });
+  const [userInfo, setUserInfo] = useState(() => {
+    const saved = JSON.parse(localStorage.getItem("orderUserInfo")) || {};
+    return { name: saved.name || "", mobile: saved.mobile || "", address: saved.address || "" };
+  });
   const [colorSize, setColorSize] = useState([]);
   const [loading, setLoading] = useState(false);
   const { loading: load, user } = useContext(AuthContext);
 
   const deliveryOptions = [
-    { label: "ঢাকা সিটির ভিতরে", charge: 40 },
-    { label: "ঢাকা সিটির বাহিরে", charge: 100 },
-    { label: "ঢাকা জেলার বাহিরে", charge: 130 },
+    { label: "ঢাকা মেট্রো সিটি", charge: 60 },
+    { label: "ঢাকা জেলা", charge: 80 },
+    { label: "ঢাকা জেলার বাইরে", charge: 110 },
   ];
   const [selectedLocation, setSelectedLocation] = useState(deliveryOptions[0]);
 
@@ -45,7 +48,8 @@ const CartInfo = () => {
   const openOrderModal = (item) => {
     setEditItem({ ...item, quantity: Number(item.quantity) });
     setModalType("order");
-    setUserInfo({ name: "", mobile: "", address: "" });
+    const saved = JSON.parse(localStorage.getItem("orderUserInfo")) || {};
+    setUserInfo({ name: saved.name || "", mobile: saved.mobile || "", address: saved.address || "" });
     setSelectedLocation(deliveryOptions[0]);
     setOrderModalOpen(true);
   };
@@ -122,6 +126,8 @@ const CartInfo = () => {
         await axiosSecure.post("/SubmittedOrder", orderData);
         // Update SL (increment)
         await axiosSecure.patch("/OrderSL");
+        // Save user info for next time
+        localStorage.setItem("orderUserInfo", JSON.stringify({ name, mobile, address }));
         toast.success("Order placed successfully!");
         setCartItems((prev) => {
           const filtered = prev.filter((item) => item.id !== id);
@@ -193,6 +199,8 @@ const CartInfo = () => {
         await axiosSecure.post("/SubmittedOrder", orderData);
         // Update SL (increment)
         await axiosSecure.patch("/OrderSL");
+        // Save user info for next time
+        localStorage.setItem("orderUserInfo", JSON.stringify({ name, mobile, address }));
         toast.success("All items ordered successfully!");
         setCartItems([]);
         localStorage.removeItem("cartItems");
@@ -375,9 +383,9 @@ const CartInfo = () => {
                 <p><strong>Price:</strong> {editItem.price}৳</p>
               </>
             )}
-            <input type="text" name="name" placeholder="Your Name" value={userInfo.name} onChange={handleUserInfoChange} className="input input-bordered w-full my-2" />
-            <input type="tel" name="mobile" placeholder="Mobile Number" value={userInfo.mobile} onChange={handleUserInfoChange} className="input input-bordered w-full my-2" />
-            <textarea name="address" placeholder="Address" value={userInfo.address} onChange={handleUserInfoChange} className="textarea textarea-bordered w-full my-2" />
+            <input type="text" name="name" autoComplete="name" placeholder="Your Name" value={userInfo.name} onChange={handleUserInfoChange} className="input input-bordered w-full my-2" />
+            <input type="tel" name="mobile" autoComplete="tel" placeholder="Mobile Number" value={userInfo.mobile} onChange={handleUserInfoChange} className="input input-bordered w-full my-2" />
+            <textarea name="address" autoComplete="street-address" placeholder="Address" value={userInfo.address} onChange={handleUserInfoChange} className="textarea textarea-bordered w-full my-2" />
 
             {/* Delivery Location */}
             <div className="my-3">

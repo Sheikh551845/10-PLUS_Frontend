@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { axiosSecure } from "../../../Hooks/UseAxiosSecure";
 import toast from "react-hot-toast";
 import { FadeLoader } from "react-spinners";
 
@@ -9,30 +9,21 @@ const BannerManage = () => {
 
   // Load existing banners
   useEffect(() => {
-    axios.get("https://api.10plusfashion.shop/banner")
+    axiosSecure.get("/Banner")
       .then(res => setBannerPhotos(res.data))
       .catch(() => toast.error("Failed to load banners"));
   }, []);
 
-  // Upload to imgbb
-
-
-  const uploadToCloudinary = async (file) => {
-    const cloudName = "djbjwoyza"; // your Cloudinary cloud name
-    const unsignedPreset = "10_plus_fashion"; // your unsigned preset name
-
+  // Upload image to server via multer
+  const uploadToServer = async (file) => {
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", unsignedPreset);
-
+    formData.append("image", file);
     try {
-      const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-        formData
-      );
-      return res.data.secure_url; // Cloudinary returns secure_url for the uploaded image
+      const res = await axiosSecure.post("/upload-image", formData);
+      if (res.data.success && res.data.url) return res.data.url;
+      return null;
     } catch (err) {
-      console.error("Cloudinary upload error:", err);
+      console.error("Image upload error:", err);
       return null;
     }
   };
@@ -49,12 +40,12 @@ const BannerManage = () => {
     try {
       const uploaded = [];
       for (const file of files) {
-        const url = await uploadToCloudinary(file);
+        const url = await uploadToServer(file);
         uploaded.push({ img: url });
       }
 
       // Send to backend
-      const res = await axios.post("https://api.10plusfashion.shop/bannerUp", {
+      const res = await axiosSecure.post("/bannerUp", {
         banners: uploaded,
       });
 
@@ -69,7 +60,7 @@ const BannerManage = () => {
   // Remove old banner photo
   const handleRemoveOld = async (id) => {
     try {
-      await axios.delete(`https://api.10plusfashion.shop/bannerDetele/${id}`);
+      await axiosSecure.delete(`/bannerDetele/${id}`);
       setBannerPhotos(prev => prev.filter(photo => photo._id !== id));
       toast.success("Banner removed");
     } catch {

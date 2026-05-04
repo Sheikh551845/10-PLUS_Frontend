@@ -61,24 +61,13 @@ const Add_product = () => {
         setCustomColor("");
     };
 
-    // Upload image helper
-    const uploadImageToCloudinary = async (file) => {
-        const cloudName = "djbjwoyza";
-        const unsignedPreset = "10_plus_fashion";
-
+    // Upload image to server via multer
+    const uploadImageToServer = async (file) => {
         const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", unsignedPreset);
-
+        formData.append("image", file);
         try {
-            const res = await fetch(
-                `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-                { method: "POST", body: formData }
-            );
-
-            const data = await res.json();
-            if (data.secure_url) return data.secure_url;
-
+            const res = await axiosSecure.post("/upload-image", formData);
+            if (res.data.success && res.data.url) return res.data.url;
             toast.error("Image upload failed!");
             return null;
         } catch (err) {
@@ -156,7 +145,7 @@ const Add_product = () => {
         setDetailUploading(true);
 
         try {
-            const uploadPromises = files.map(file => uploadImageToCloudinary(file));
+            const uploadPromises = files.map(file => uploadImageToServer(file));
             const urls = await Promise.all(uploadPromises);
             const validUrls = urls.filter(url => url !== null);
 
@@ -182,7 +171,7 @@ const Add_product = () => {
         const file = e.target.files[0];
         if (!file) return;
         setMainUploading(true);
-        const url = await uploadImageToCloudinary(file);
+        const url = await uploadImageToServer(file);
         setMainUploading(false);
         if (url) setForm({ ...form, Show_photo: url });
     };

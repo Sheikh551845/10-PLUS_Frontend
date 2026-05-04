@@ -33,19 +33,13 @@ const Edit_product = () => {
         setCustomColor("");
     };
 
-    // Image upload helper
-    const uploadImageToCloudinary = async (file) => {
+    // Upload image to server via multer
+    const uploadImageToServer = async (file) => {
         const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", "10_plus_fashion");
-
+        formData.append("image", file);
         try {
-            const res = await fetch("https://api.cloudinary.com/v1_1/djbjwoyza/image/upload", {
-                method: "POST",
-                body: formData
-            });
-            const data = await res.json();
-            if (data.secure_url) return data.secure_url;
+            const res = await axiosSecure.post("/upload-image", formData);
+            if (res.data.success && res.data.url) return res.data.url;
             toast.error("Image upload failed!");
             return null;
         } catch (err) {
@@ -125,7 +119,7 @@ const Edit_product = () => {
         const file = e.target.files[0];
         if (!file) return;
         setMainUploading(true);
-        const url = await uploadImageToCloudinary(file);
+        const url = await uploadImageToServer(file);
         setMainUploading(false);
         if (url) setForm({ ...form, Show_photo: url });
     };
@@ -134,7 +128,7 @@ const Edit_product = () => {
         const file = e.target.files[0];
         if (!file) return;
         setDetailUploading(true);
-        const url = await uploadImageToCloudinary(file);
+        const url = await uploadImageToServer(file);
         setDetailUploading(false);
         if (url) handleDetailPhotoAdd(url);
     };

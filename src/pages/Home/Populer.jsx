@@ -1,19 +1,22 @@
 import React from 'react';
 import Section_Title from '../../Components/Section_Title';
 import { useNavigate } from 'react-router-dom';
+import { axiosSecure } from '../../Hooks/UseAxiosSecure';
+
+const BASE_URL = axiosSecure.defaults.baseURL;
 
 
 const Populer = () => {
   const navigate = useNavigate();
 
   const categories = [
-    { name: 'Panjabi', path: '/Panjabi', img: 'https://res.cloudinary.com/djbjwoyza/image/upload/v1756822564/nyhhbwjwlzliiagxicwg.png' },
-    { name: 'Trouser', path: '/Trouser', img: 'https://res.cloudinary.com/djbjwoyza/image/upload/v1755611969/i35nnfs7a1xucjf2zupe.png' },
-    { name: 'Shirt', path: '/Cuban-Shirt', img: 'https://res.cloudinary.com/djbjwoyza/image/upload/v1755611969/t8rjrnoslixvksw5egxn.png' },
-    { name: 'Polo', path: '/Polo', img: 'https://res.cloudinary.com/djbjwoyza/image/upload/v1755611967/zycjlvrtoxidfhhwyor0.png' },
-    { name: 'T Shirt', path: '/T-Shirt', img: 'https://res.cloudinary.com/djbjwoyza/image/upload/v1755611987/na7x5l7x6edgbvgjdq3i.png' },
-    { name: 'Combo', path: '/Combo', img: 'https://res.cloudinary.com/djbjwoyza/image/upload/v1755611918/jhcpzz1hhvibg0j1jyuz.png' },
-    { name: 'Jersey', path: '/Jersey', img: 'https://res.cloudinary.com/djbjwoyza/image/upload/v1775746193/Gemini_Generated_Image_54aate54aate54aa-Picsart-BackgroundRemover_mdbver.png' }
+    { name: 'Panjabi', path: '/Panjabi', img: `${BASE_URL}/images/panjabi_logo.png` },
+    { name: 'Trouser', path: '/Trouser', img: `${BASE_URL}/images/pant_logo.png` },
+    { name: 'Shirt', path: '/Cuban-Shirt', img: `${BASE_URL}/images/shirt_logo.png` },
+    { name: 'Polo', path: '/Polo', img: `${BASE_URL}/images/polo_logo.png` },
+    { name: 'T Shirt', path: '/T-Shirt', img: `${BASE_URL}/images/t-shirt_logo.png` },
+    { name: 'Combo', path: '/Combo', img: `${BASE_URL}/images/combo_logo.png` },
+    { name: 'Jersey', path: '/Jersey', img: `${BASE_URL}/images/jursey.png` }
   ];
 
   return (
