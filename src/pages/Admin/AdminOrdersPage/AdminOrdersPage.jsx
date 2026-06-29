@@ -7,9 +7,9 @@ const AdminOrdersPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [sortField, setSortField] = useState("sl");
     const [sortOrder, setSortOrder] = useState("desc");
+    const [statusFilter, setStatusFilter] = useState("all"); // "all" | "pending" | "delivered"
     const [currentPage, setCurrentPage] = useState(1);
-    const ordersPerPage = 20; // You can adjust
-
+    const ordersPerPage = 20;
 
     // Fetch all orders
     const fetchOrders = async () => {
@@ -22,8 +22,7 @@ const AdminOrdersPage = () => {
         queryFn: fetchOrders,
     });
 
-    console.log(orders)
-
+    console.log(orders);
 
     // Search suggestions
     const suggestions = useMemo(() => {
@@ -51,18 +50,23 @@ const AdminOrdersPage = () => {
                 order.products.some((p) => p.orderId?.toLowerCase().includes(searchTerm.toLowerCase()))
         );
 
+        // Apply status filter
+        if (statusFilter === "pending") {
+            filtered = filtered.filter((order) => order.status === "pending");
+        } else if (statusFilter === "delivered") {
+            filtered = filtered.filter((order) => order.status === "delivered");
+        }
+
         filtered.sort((a, b) => {
-            if (sortField === "order_on") {
+            // When a status filter is active, always sort by date
+            const activeSortField = statusFilter !== "all" ? "order_on" : sortField;
+
+            if (activeSortField === "order_on") {
                 return sortOrder === "asc"
                     ? new Date(a.order_on) - new Date(b.order_on)
                     : new Date(b.order_on) - new Date(a.order_on);
             }
-            if (sortField === "status") {
-                return sortOrder === "asc"
-                    ? a.status.localeCompare(b.status)
-                    : b.status.localeCompare(a.status);
-            }
-            if (sortField === "sl") {
+            if (activeSortField === "sl") {
                 return sortOrder === "asc"
                     ? (a.sl || 0) - (b.sl || 0)
                     : (b.sl || 0) - (a.sl || 0);
@@ -71,7 +75,22 @@ const AdminOrdersPage = () => {
         });
 
         return filtered;
-    }, [orders, searchTerm, sortField, sortOrder]);
+    }, [orders, searchTerm, sortField, sortOrder, statusFilter]);
+
+    // Reset to page 1 when filters change
+    const handleSortFieldChange = (value) => {
+        setSortField(value);
+        setCurrentPage(1);
+    };
+
+    const handleStatusFilterChange = (value) => {
+        setStatusFilter(value);
+        setCurrentPage(1);
+        // When switching to a status filter, default sort to order date
+        if (value !== "all") {
+            setSortField("order_on");
+        }
+    };
 
     // Pagination logic
     const indexOfLastOrder = currentPage * ordersPerPage;
@@ -88,7 +107,6 @@ const AdminOrdersPage = () => {
             });
 
             if (res.ok) {
-                // ✅ SweetAlert2 success message
                 Swal.fire({
                     icon: "success",
                     title: "Order Delivered!",
@@ -96,8 +114,6 @@ const AdminOrdersPage = () => {
                     timer: 2000,
                     showConfirmButton: false,
                 });
-
-                // Refetch orders to update UI
                 refetch();
             } else {
                 Swal.fire({
@@ -115,6 +131,7 @@ const AdminOrdersPage = () => {
             });
         }
     };
+
     // Count pending & delivered
     const pendingCount = orders.filter((o) => o.status === "pending").length;
     const deliveredCount = orders.filter((o) => o.status === "delivered").length;
@@ -137,7 +154,10 @@ const AdminOrdersPage = () => {
                     type="text"
                     placeholder="Search by username, email, or orderId"
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                        setCurrentPage(1);
+                    }}
                     className="border p-2 rounded w-full"
                 />
                 {suggestions.length > 0 && (
@@ -155,20 +175,33 @@ const AdminOrdersPage = () => {
                 )}
             </div>
 
-            {/* Sort */}
-            <div className="flex gap-2 mb-6">
+            {/* Sort & Filter Controls */}
+            <div className="flex gap-2 mb-6 flex-wrap">
                 <select
-                    value={sortField}
-                    onChange={(e) => setSortField(e.target.value)}
+                    value={statusFilter !== "all" ? statusFilter : sortField}
+                    onChange={(e) => {
+                        const val = e.target.value;
+                        if (val === "pending" || val === "delivered") {
+                            handleStatusFilterChange(val);
+                        } else {
+                            handleSortFieldChange(val);
+                            setStatusFilter("all");
+                        }
+                    }}
                     className="border p-2 rounded"
                 >
                     <option value="sl">SL (Serial)</option>
                     <option value="order_on">Order Date</option>
-                    <option value="status">Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="delivered">Delivered</option>
                 </select>
+
                 <select
                     value={sortOrder}
-                    onChange={(e) => setSortOrder(e.target.value)}
+                    onChange={(e) => {
+                        setSortOrder(e.target.value);
+                        setCurrentPage(1);
+                    }}
                     className="border p-2 rounded"
                 >
                     <option value="desc">Descending</option>
@@ -188,9 +221,7 @@ const AdminOrdersPage = () => {
                                 <p className="text-xs text-black italic">Order ID: {order.orderId}</p>
                             </div>
                             <div className="mb-2">
-                                <p className="">
-                                    Order by: {order.username} ({order.usermail})
-                                </p>
+                                <p>Order by: {order.username} ({order.usermail})</p>
                                 <p className="text-sm text-black">
                                     {order.user_contact_number} - {order.user_address}
                                 </p>
@@ -222,9 +253,7 @@ const AdminOrdersPage = () => {
 
                             <div className="mt-3 flex justify-between items-center flex-wrap gap-2">
                                 <div>
-                                    <p
-                                        className={`font-bold ${order.status === "delivered" ? "text-green-600" : "text-yellow-600"}`}
-                                    >
+                                    <p className={`font-bold ${order.status === "delivered" ? "text-green-600" : "text-yellow-600"}`}>
                                         {order.status}
                                     </p>
                                     {(order.subtotal !== undefined || order.total !== undefined) && (
@@ -256,7 +285,7 @@ const AdminOrdersPage = () => {
             )}
 
             {/* Pagination */}
-            <div className="flex justify-center gap-2 mt-6">
+            <div className="flex justify-center gap-2 mt-6 flex-wrap">
                 {Array.from({ length: totalPages }, (_, i) => (
                     <button
                         key={i}

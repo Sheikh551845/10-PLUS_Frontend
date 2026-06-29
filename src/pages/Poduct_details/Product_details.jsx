@@ -13,21 +13,23 @@ import { FadeLoader } from "react-spinners";
 const BASE_URL = axiosSecure.defaults.baseURL;
 
 const Product_details = () => {
+
   const single = useLoaderData();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [single?._id]);
   const details = single ? single.details : null;
   const color_size = details?.available_color_size || [];
 
-
   const axiosSecure = UseAxiosSecure();
-
 
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null); // 'cart' or 'buy'
-  const [loading, setLoading] = useState(false); // spinner state
-  const [orderLoading, setOderLoading] = useState(false); // spinner state
+  const [loading, setLoading] = useState(false);
+  const [orderLoading, setOderLoading] = useState(false);
 
   const deliveryOptions = [
     { label: "ঢাকা মেট্রো সিটি", charge: 60 },
@@ -40,33 +42,34 @@ const Product_details = () => {
   const [data, setData] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
 
+  // Scroll to top whenever the product changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [single?._id]);
 
   useEffect(() => {
     if (single) {
       setData(single);
       setIsFetching(false);
     } else {
-      // Server down or safeFetch returned null
       setData([]);
       setIsFetching(false);
     }
   }, [single]);
 
-  //similier product
+  // Similar products
   const { data: similier = [] } = useQuery({
     queryKey: ['similier'],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/Category/${single.Category}`);
+      const res = await axiosSecure.get(`/Similar/${single.Category}`);
       const same = res.data;
 
-      // Filter items with Price greater than single.Price
       const filtered = same?.filter(item => {
         const itemPrice = parseInt(item.Price);
         const singlePrice = parseInt(single.Price);
         return !isNaN(itemPrice) && !isNaN(singlePrice) && itemPrice > singlePrice;
       }) || [];
 
-      // Return top 10 or fallback to original data
       if (filtered.length > 10) {
         return filtered.slice(0, 10);
       } else if (filtered.length === 0) {
@@ -74,11 +77,8 @@ const Product_details = () => {
       } else {
         return filtered;
       }
-
     }
   });
-
-
 
   const savedUserInfo = JSON.parse(localStorage.getItem("orderUserInfo")) || {};
   const [userInfo, setUserInfo] = useState({
@@ -146,10 +146,10 @@ const Product_details = () => {
   };
 
   const generateOrderId = () => {
-    const timestamp = Date.now(); // current time in milliseconds
-    const randomNum = Math.floor(Math.random() * 1000); // random number 0-999
+    const timestamp = Date.now();
+    const randomNum = Math.floor(Math.random() * 1000);
     return `ORD-${timestamp}-${randomNum}`;
-  }
+  };
 
   const buyNowConfirm = async () => {
     if (!userInfo.name || !userInfo.mobile || !userInfo.address) {
@@ -166,10 +166,8 @@ const Product_details = () => {
     try {
       setOderLoading(true);
 
-      // Fetch current SL
       const slRes = await axiosSecure.get("/OrderSL");
       const currentSl = slRes.data;
-      console.log(currentSl)
 
       const unitPrice = single.Offer === "true" ? Number(details.Offer_price) : Number(single.Price);
       const subtotal = unitPrice * quantity;
@@ -203,9 +201,7 @@ const Product_details = () => {
       const response = await axiosSecure.post("/send-order-email", orderData);
       if (response.data.success) {
         await axiosSecure.post("/SubmittedOrder", orderData);
-        // Update SL (increment)
         await axiosSecure.patch("/OrderSL");
-        // Save user info for next time
         localStorage.setItem("orderUserInfo", JSON.stringify(userInfo));
         toast.success("Order has been Placed");
       } else {
@@ -217,14 +213,16 @@ const Product_details = () => {
       console.error(error);
     } finally {
       setOderLoading(false);
-      setIsModalOpen(false)
+      setIsModalOpen(false);
     }
   };
 
-  if (loading || isFetching) {
-    return <div className="flex justify-center items-center h-[80vh]">
-      <FadeLoader color="rgba(185,28,28,0.7)" size={15} />
-    </div>
+  if (load || isFetching) {
+    return (
+      <div className="flex justify-center items-center h-[80vh]">
+        <FadeLoader color="rgba(185,28,28,0.7)" size={15} />
+      </div>
+    );
   }
 
   return (
@@ -233,7 +231,7 @@ const Product_details = () => {
         <title>10 PLUS | Product Details</title>
       </Helmet>
 
-      <div className=" grid grid-cols-1 md:grid-cols-2 min-h-[95vh] md:ml-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 min-h-[95vh] md:ml-5">
         <div>
           <ProductBanner product={single} />
         </div>
@@ -247,13 +245,20 @@ const Product_details = () => {
               <p>
                 {single.Offer === "true" ? (
                   <>
-                    <span className="line-through ">{single.Price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></span>{" "}
+                    <span className="line-through">
+                      {single.Price}
+                      <span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span>
+                    </span>{" "}
                     <span className="ml-2 text-green-400 text-lg md:text-2xl">
-                      {details.Offer_price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span>
+                      {details.Offer_price}
+                      <span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span>
                     </span>
                   </>
                 ) : (
-                  <span className="text-base md:text-xl">{single.Price}<span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span></span>
+                  <span className="text-base md:text-xl">
+                    {single.Price}
+                    <span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>৳</span>
+                  </span>
                 )}
               </p>
             </div>
@@ -288,10 +293,7 @@ const Product_details = () => {
               {/* Quantity */}
               <div className="mt-4 flex items-center gap-2">
                 <p className="font-bold mr-2">Quantity:</p>
-                <button
-                  className="btn btn-xs  md:btn-md"
-                  onClick={() => handleQuantity("minus")}
-                >
+                <button className="btn btn-xs md:btn-md" onClick={() => handleQuantity("minus")}>
                   -
                 </button>
                 <input
@@ -300,10 +302,7 @@ const Product_details = () => {
                   value={quantity}
                   readOnly
                 />
-                <button
-                  className="btn btn-xs md:btn-md"
-                  onClick={() => handleQuantity("plus")}
-                >
+                <button className="btn btn-xs md:btn-md" onClick={() => handleQuantity("plus")}>
                   +
                 </button>
               </div>
@@ -325,46 +324,31 @@ const Product_details = () => {
               </div>
             </div>
 
-            {/* Right */}
-
-            {
-              single?.Category == "Trouser" ? <div className="order-1 md:order-2">
+            {/* Size Chart */}
+            {single?.Category === "Trouser" ? (
+              <div className="order-1 md:order-2">
                 <img src={`${BASE_URL}/images/touser_size.webp`} alt="" className="w-full h-auto" />
-              </div> :
-
-                single?.Category == "Polo" ? <div className="order-1 md:order-2">
-                  <img src={`${BASE_URL}/images/old_money_size.webp`} alt="" className="w-full h-auto" />
-                </div> :
-
-                  single?.Category == "Shirt" ? <div className="order-1 md:order-2">
-                    <img src={`${BASE_URL}/images/old_money_size.webp`} alt="" className="w-full h-auto" />
-                  </div> :
-
-                    single?.Category == "T-Shirt" ? <div className="order-1 md:order-2">
-                      <img src={`${BASE_URL}/images/t-shirt_size.jpg`} alt="" className="w-full h-auto" />
-                    </div> :
-
-                      single?.Category == "Panjabi" ? <div className="order-1 md:order-2">
-                        <img src={`${BASE_URL}/images/panjabi_size.webp`} alt="" className="w-full h-auto" />
-                      </div> :
-
-                        single?.Category == "Jersey" ? <div className="order-1 md:order-2">
-                          <img src={`${BASE_URL}/images/t-shirt_size.jpg`} alt="" className="w-full h-auto" />
-                        </div> : <div className="order-1 md:order-2">
-                          <img src={`${BASE_URL}/images/t-shirt_size.jpg`} alt="" className="w-full h-auto" />
-                        </div>
-
-
-            }
-
+              </div>
+            ) : single?.Category === "Polo" ? (
+              <div className="order-1 md:order-2">
+                <img src={`${BASE_URL}/images/old_money_size.webp`} alt="" className="w-full h-auto" />
+              </div>
+            ) : single?.Category === "Shirt" ? (
+              <div className="order-1 md:order-2">
+                <img src={`${BASE_URL}/images/old_money_size.webp`} alt="" className="w-full h-auto" />
+              </div>
+            ) : single?.Category === "Panjabi" ? (
+              <div className="order-1 md:order-2">
+                <img src={`${BASE_URL}/images/panjabi_size.webp`} alt="" className="w-full h-auto" />
+              </div>
+            ) : (
+              <div className="order-1 md:order-2">
+                <img src={`${BASE_URL}/images/t-shirt_size.jpg`} alt="" className="w-full h-auto" />
+              </div>
+            )}
           </div>
-
-
         </div>
       </div>
-
-
-
 
       {/* Description */}
       <div className="mt-5 w-[90%] mx-auto md:ml-5">
@@ -378,17 +362,15 @@ const Product_details = () => {
         </div>
       </div>
 
-
-      {/* similer Products */}
-
-      <div className='w-[94%] mx-auto  min-h-fit'>
-        {similier.length > 0 ? <div><Section_Title Title={"New Arrival"} />
-          <CardSweper key={similier[0]._id} products={similier}></CardSweper>
-        </div> : <></>}
-
-
+      {/* Similar Products */}
+      <div className="w-[94%] mx-auto min-h-fit">
+        {similier.length > 0 && (
+          <div>
+            <Section_Title Title={"New Arrival"} />
+            <CardSweper key={similier[0]._id} products={similier} />
+          </div>
+        )}
       </div>
-
 
       {/* Modal */}
       {isModalOpen && (
@@ -450,11 +432,7 @@ const Product_details = () => {
               <label className="flex flex-col">
                 <span className="font-semibold mb-1">Quantity:</span>
                 <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    className="btn btn-xs"
-                    onClick={() => handleQuantity("minus")}
-                  >
+                  <button type="button" className="btn btn-xs" onClick={() => handleQuantity("minus")}>
                     -
                   </button>
                   <input
@@ -464,11 +442,7 @@ const Product_details = () => {
                     value={quantity}
                     readOnly
                   />
-                  <button
-                    type="button"
-                    className="btn btn-xs"
-                    onClick={() => handleQuantity("plus")}
-                  >
+                  <button type="button" className="btn btn-xs" onClick={() => handleQuantity("plus")}>
                     +
                   </button>
                 </div>
@@ -515,7 +489,12 @@ const Product_details = () => {
 
                   {/* Delivery Location */}
                   <div>
-                    <span className="font-semibold block mb-1" style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>ডেলিভারি লোকেশন:</span>
+                    <span
+                      className="font-semibold block mb-1"
+                      style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}
+                    >
+                      ডেলিভারি লোকেশন:
+                    </span>
                     <div className="space-y-2">
                       {deliveryOptions.map((opt) => (
                         <label key={opt.label} className="flex items-center gap-2 cursor-pointer">
@@ -537,8 +516,10 @@ const Product_details = () => {
                   {/* Order Summary */}
                   <div className="bg-base-200 rounded-lg p-3 text-sm space-y-1">
                     <div className="flex justify-between">
-                      <span>Subtotal ({quantity} item{quantity > 1 ? 's' : ''}):</span>
-                      <span>{(single.Offer === "true" ? Number(details.Offer_price) : Number(single.Price)) * quantity}৳</span>
+                      <span>Subtotal ({quantity} item{quantity > 1 ? "s" : ""}):</span>
+                      <span>
+                        {(single.Offer === "true" ? Number(details.Offer_price) : Number(single.Price)) * quantity}৳
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span style={{ fontFamily: "'Noto Sans Bengali', sans-serif" }}>ডেলিভারি চার্জ:</span>
